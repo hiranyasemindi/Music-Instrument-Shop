@@ -13,16 +13,29 @@
 
 <body>
 
-    <?php include "App/includes/header.php"; ?>
 
-    <div class="container-fluid mb-5">
-        <div class="row">
+    <div class="container-fluid mb-5 vh-100 flex items-center ">
+        <div class="row  justify-center">
 
-            <div class="col-12 bg-cover mt-3 mt-lg-0 bg-center bg-no-repeat h-[35rem] items-center flex" style="background-image: url('assets/img/acoustic-guitar-snare-drum-black-background-isolated');">
+            <div class="col-10 items-center flex border ">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-6 items-center flex  bg-black">
+                        <div class="row justify-center">
+                            <img src="assets/img/acoustic-guitar-snare-drum-black-background-isolated.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-6 flex items-center ">
                         <div class="row">
-                            sd
+                            <div class="col-10 offset-1 py-5">
+                                <div class="row">
+                                    <p class="text-3xl text-center font-semibold">Sign In</p>
+                                    <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Email">
+                                    <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none" id="" placeholder="Password">
+                                    <p class="text-end pt-1 text-[#AD1212]">Forgot Password?</p>
+                                    <p class="text-center pt-3">Don't have an account? <a class="text-blue-500">Register</a></p>
+                                    <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Log In</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -33,7 +46,6 @@
     </div>
     </div>
 
-    <?php include "App/includes/footer.php"; ?>
     <script src="assets/js/script.js"></script>
 </body>
 
