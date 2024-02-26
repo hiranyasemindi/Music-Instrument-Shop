@@ -17,7 +17,7 @@
 
             <div class="col-10">
                 <div class="row">
-                    <div class="col-6 h-[550px] bg-black">
+                    <div class="col-lg-6 col-12 lg:h-[550px] sm:h-[150px] bg-black">
                         <div class="row ">
                             <div class="col-10 offset-1">
                                 <div class="row">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 flex items-center bg-white ">
+                    <div class="col-lg-6 col-12 flex items-center bg-white ">
                         <div class="row">
 
                             <!-- signinbox -->
@@ -36,12 +36,12 @@
                                     <p class="text-3xl text-center font-semibold">Sign In</p>
                                     <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Email">
                                     <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none" id="" placeholder="Password">
-                                    <p class="text-end pt-1 text-[#AD1212]">Forgot Password?</p>
-                                    <div class="flex items-center">
+                                    <p class="text-end pt-1 text-[#AD1212] mt-3 mt-lg-0">Forgot Password?</p>
+                                    <div class="flex items-center mt-3 mt-lg-0">
                                         <input class="cyberpunk-checkbox" type="checkbox" name="" id="">
-                                        <span class="ms-2">Remember Me</span>
+                                        <span class="ms-2  ">Remember Me</span>
                                     </div>
-                                    <p class="text-center pt-3">Don't have an account? <span class="text-blue-500 hover:cursor-pointer" onclick="changeView();">Register</span></p>
+                                    <p class="text-center pt-3 mt-3 mt-lg-0">Don't have an account? <span class="text-blue-500 hover:cursor-pointer" onclick="changeView();">Register</span></p>
                                     <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Log In</button>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                     <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none" id="" placeholder="Email">
                                     <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none" id="" placeholder="Password">
                                     <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none" id="" placeholder="Confirm Password">
-                                    <p class="text-center pt-3">Already registered? <span class="text-blue-500 hover:cursor-pointer" onclick="changeView();">Log In</span></p>
+                                    <p class="text-center pt-3 mt-3 mt-lg-0">Already registered? <span class="text-blue-500 hover:cursor-pointer" onclick="changeView();">Log In</span></p>
                                     <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Register</button>
                                 </div>
                             </div>
