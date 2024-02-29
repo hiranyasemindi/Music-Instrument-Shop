@@ -14,10 +14,10 @@
             <div class="row">
                 <ul class="d-lg-inline-flex d-none">
 
-                    <li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212]">Home</li>
-                    <li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">About Us</li>
-                    <li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">About Us</li>
-                    <li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">Our Collection</li>
+                    <a href="index.php" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212]">Home</li></a>
+                    <a href="products.php" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">Our Collection</li></a>
+                    <a href="promotions.php" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">Promotions</li></a>
+                    <a href="aboutUs.php" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">About Us</li></a>
 
                 </ul>
             </div>
@@ -31,9 +31,9 @@
                     <input type="text" placeholder="What you want to search.." class="border col-8 h-[40%] p-3 focus:outline-none">
                 </div>
                 <div class="col-lg-2 col-6 flex justify-center items-center">
-                    <i class="bi bi-heart font-semibold mx-2 px-2  text-[24px]"></i>
-                    <i class="bi bi-cart font-semibold mx-2 px-2 text-[24px]"></i>
-                    <i class="bi bi-person font-semibold mx-2 px-2 text-[26px]"></i>
+                    <a href="wishlist.php" class="text-decoration-none text-dark"><i class="bi bi-heart font-semibold mx-2 px-2  text-[24px]"></i></a>
+                    <a href="cart.php" class="text-decoration-none text-dark"><i class="bi bi-cart font-semibold mx-2 px-2 text-[24px]"></i></a>
+                    <a href="profile.php" class="text-decoration-none text-dark"><i class="bi bi-person font-semibold mx-2 px-2 text-[26px]"></i></a>
                 </div>
                 <div class="col-12 mt-1 d-flex d-lg-none justify-content-center align-items-center">
                     <input type="text" placeholder="What you want to search.." class="border col-10  p-3 focus:outline-none">
