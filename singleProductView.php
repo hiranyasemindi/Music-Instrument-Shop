@@ -30,6 +30,8 @@
                     <div class="col-lg-8 text-center text-lg-start mt-3 mt-lg-0 col-12 items-center justify-center flex">
                         <div class="row">
                             <h1 class="text-3xl font-semibold">Golden bracelet with Silver color Diamond 22KT</h1>
+                            <span class="text-lg mt-4  me-4">Brand: Sony</span>
+
                             <span class="text-3xl font-medium mt-4 text-[#AD1212]">LKR 50,000.00</span>
                             <div class="d-inline-flex items-center justify-center lg:justify-start lg:items-start text-lg-start ">
                                 <span class="text-lg mt-4 text-[#AD1212] me-4">4.9</span>
@@ -48,7 +50,7 @@
                                 <span class="fw-semibold text-lg me-1">Availability : </span>
                                 <span class="fw-semibold text-lg text-[#1CAA19]"> 5 in stock</span>
                             </div>
-                            <div class="flex mt-4">
+                            <div class="flex mt-5">
 
                                 <input type="number" class="text-center outline outline-[0.5px] outline-[#CACACA] me-4" placeholder="0" />
 
@@ -60,7 +62,14 @@
                                 </div>
 
                             </div>
-                            <div class="col-12 offset-0  my-5 pe-3" id="descriptionArea">
+                           
+                        </div>
+                    </div>
+
+
+                    <p class="text-xl text-center font-semibold mt-4 ps-5 ms-5 text-[#AD1212]">Additional Information</p>
+                    <div class="col-lg-10 col-12 offset-0 offset-lg-1 mb-5 text-center" id="additionalInfoArea">
+                    <div class="col-12 offset-0  my-5 pe-3" id="descriptionArea">
                                 <p class="text-[#908E8E]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                                     et dolore magna aliqua. Vulputate dignissim suspendisse in est ante in nibh. Scelerisque purus semper
                                     eget duis at. Habitant morbi tristique senectus et netus. Vel pharetra vel turpis nunc eget.
@@ -73,44 +82,6 @@
 
                                 </p>
                             </div>
-                        </div>
-                    </div>
-
-
-                    <p class="text-xl text-center font-semibold mt-2 ps-5 ms-5 text-[#AD1212]">Additional Information</p>
-                    <div class="col-lg-10 col-12 offset-0 offset-lg-1 my-5 text-center" id="additionalInfoArea">
-                        <table class="table table-bordered mt-2">
-                            <thead>
-                                <tr>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Gold Standard</th>
-                                    <td class="text-[#908E8E]">Otto</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Weight</th>
-                                    <td class="text-[#908E8E] ">Thornton</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Stone Type</th>
-                                    <td class="text-[#908E8E]" colspan="2">Larry the Bird</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Stone Weight</th>
-                                    <td class="text-[#908E8E]" colspan="2">Larry the Bird</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Size</th>
-                                    <td class="text-[#908E8E]" colspan="2">Larry the Bird</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Size</th>
-                                    <td class="text-[#908E8E]" colspan="2">Larry the Bird</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
 
                     <div class="p-4 mt-5">
