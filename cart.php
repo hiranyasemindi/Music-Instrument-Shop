@@ -21,12 +21,11 @@
             <div class="col-12">
                 <div class="row">
 
-                    <div class="p-4 mt-4 pt-5">
+                    <div class="p-4 mt-4 pt-lg--5">
                         <h2 class="text-3xl ps-4 font-bold">Cart</h2>
                         <div class="bg-[#AD1212] my-3 h-1 w-[10%] d-none d-lg-block ml-[2%] rounded"></div>
                         <div class="bg-[#AD1212] my-2 h-[2px] w-[60%] d-block d-lg-none ml-[2%] rounded"></div>
                     </div>
-
 
                     <div class="col-12  ">
                         <div class="row">
@@ -35,7 +34,8 @@
                                     <?php
                                     for ($x = 0; $x < 5; $x++) {
                                     ?>
-                                        <div class="col-12 mt-4">
+                                        <!-- lg screen -->
+                                        <div class="col-12 mt-4 d-none d-lg-block">
                                             <div class="row ">
                                                 <div class="flex items-center justify-end w-[5%] mt-3 mt-lg-0 ">
                                                     <input class="cyberpunk-checkbox" type="checkbox" name="" id="">
@@ -53,8 +53,8 @@
                                                 </div>
                                                 <div class="w-[30%]">
                                                     <div class="flex items-end justify-end">
-                                                        <i class="bi bi-heart font-semibold mx-2 text-[22px]"></i>
-                                                        <i class="bi bi-trash3 font-semibold mx-2 text-[22px] text-[#ed2835]"></i>
+                                                        <i class="bi bi-heart hover:cursor-pointer font-semibold mx-2 text-[22px]"></i>
+                                                        <i class="bi bi-trash3 hover:cursor-pointer font-semibold mx-2 text-[22px] text-[#ed2835]"></i>
                                                     </div>
                                                     <div class="flex justify-end mt-4 ">
                                                         <i class="bi bi-dash font-semibold bg-[#e6e9eb] rounded-circle px-1 me-3 text-[22px]"></i>
@@ -64,14 +64,50 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- lg screen -->
+
+                                        <!--sm screen  -->
+                                        <div class="col-12 d-block d-lg-none">
+                                            <div class="row">
+                                                <div class="w-[5%] mt-4 ">
+                                                    <input class="cyberpunk-checkbox" type="checkbox" name="" id="">
+                                                </div>
+                                                <div class=" w-[20%] ml-3 mb-4 pb-5 flex items-center">
+                                                    <div class="card row">
+                                                        <img src="assets/img/drum.jpg" class="px-1 " width="150px" height="150px" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="w-[65%] flex items-start px-4 mt-3">
+                                                    <div class="row">
+                                                        <p class="fw-semibold text-xl">Drum Dolgi Drum Dolgi Drum Dolgi</p><br>
+                                                        <p class="text-[#AD1212] mt-2 text-lg">Rs 20, 000.00</p>
+                                                        <div class="my-2">
+                                                            <div class="flex items-start justify-start ">
+
+                                                                <div class="flex justify-end ">
+                                                                    <i class="bi bi-dash font-semibold bg-[#e6e9eb] rounded-circle px-1 me-3 text-[22px]"></i>
+                                                                    <span class="flex items-center">1</span>
+                                                                    <i class="bi bi-plus font-semibold mx-2 bg-[#e6e9eb] rounded-circle px-1 ms-3 text-[22px]"></i>
+                                                                </div>
+                                                                <i class="bi bi-heart hover:cursor-pointer font-semibold me-2 ms-5 text-[22px]"></i>
+                                                                <i class="bi bi-trash3 hover:cursor-pointer font-semibold mx-2 text-[22px] text-[#ed2835]"></i>
+                                                            </div>
+
+                                                        </div>
+                                                        <p class="text-[#999b9e] mt-1">Condition: BrandNew</p>
+                                                        <p class="mt-1">Delivery Fee: Rs 300.00</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--sm screen  -->
                                         <hr class="mt-4">
                                     <?php
                                     }
                                     ?>
-
                                 </div>
                             </div>
-                            <div class="w-[500px] ml-[20px] border h-[320px] p-4">
+                            <div class="w-[500px] lg:ml-[20px] mt-2 mt-lg-0 border h-[320px] p-4">
                                 <div class="row">
                                     <div class="col-6 ">
                                         <div class="row">
