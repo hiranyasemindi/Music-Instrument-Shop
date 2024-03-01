@@ -43,15 +43,25 @@
                                             <span class="font-medium">Warning!</span> Change a few things up and try submitting again.
                                         </div>
                                     </div>
-                                    <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Email">
-                                    <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none" id="" placeholder="Password">
-                                    <p class="text-end pt-1 text-[#AD1212] mt-3 mt-lg-0">Forgot Password?</p>
+                                    <?php
+                                    $email = "";
+                                    $password = "";
+                                    if (isset($_COOKIE["email"])) {
+                                        $email = $_COOKIE["email"];
+                                    }
+                                    if (isset($_COOKIE["password"])) {
+                                        $password = $_COOKIE["password"];
+                                    }
+                                    ?>
+                                    <input type="email" class="border h-[40%] p-3 mt-3 focus:outline-none mt-3" id="loginEmail" placeholder="Email" value="<?php echo $email; ?>">
+                                    <input type="password" class="border h-[40%] p-3 mt-3 focus:outline-none" id="loginPassword" placeholder="Password" value="<?php echo $password; ?>">
+                                    <p class=" text-end pt-1 text-[#AD1212] mt-3 mt-lg-0">Forgot Password?</p>
                                     <div class="flex items-center mt-3 mt-lg-0">
-                                        <input class="cyberpunk-checkbox" type="checkbox" name="" id="">
+                                        <input class="cyberpunk-checkbox" type="checkbox" name="" id="rememberMe">
                                         <span class="ms-2  ">Remember Me</span>
                                     </div>
                                     <p class="text-center pt-3 mt-3 mt-lg-0">Don't have an account? <span class="text-blue-500 hover:cursor-pointer" onclick="changeView();">Register</span></p>
-                                    <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Log In</button>
+                                    <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold" onclick="logIn();">Log In</button>
                                 </div>
                             </div>
                             <!-- signinbox -->
@@ -80,11 +90,11 @@
                                         </div>
                                     </div>
                                     <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none" id="email" placeholder="Email">
-                                    <input oninput="validatePassword();" type="text" class="border h-[40%] p-3 mt-3 focus:outline-none" id="password" placeholder="Password">
+                                    <input oninput="validatePassword();" type="password" class="border h-[40%] p-3 mt-3 focus:outline-none" id="password" placeholder="Password">
                                     <input type="password" class="border h-[40%] p-3 mt-3 focus:outline-none" id="confirmPassword" placeholder="Confirm Password">
                                     <div class="w-[49%] me-[2%]">
                                         <div class="row ">
-                                            <input type="password" class="border h-[40%] p-3 mt-3 focus:outline-none mt-3" id="mobile" placeholder="Mobile">
+                                            <input type="text" class="border h-[40%] p-3 mt-3 focus:outline-none mt-3" id="mobile" placeholder="Mobile">
                                         </div>
                                     </div>
                                     <div class="w-[49%]">
