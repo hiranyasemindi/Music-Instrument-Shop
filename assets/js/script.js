@@ -1,31 +1,7 @@
-// Sign In change view start
 function changeView() {
-  var signUpBox = document.getElementById("signUpBox");
-  var signInBox = document.getElementById("signInBox");
-
-  signUpBox.classList.toggle("d-none");
-  signInBox.classList.toggle("d-none");
+  $("#signUpBox").toggleClass("d-none");
+  $("#signInBox").toggleClass("d-none");
 }
-// Sign In change view end
-
-//single prodct view toggle
-function toggle() {
-  var descriptionArea = document.getElementById("descriptionArea");
-  var additionalInfoArea = document.getElementById("additionalInfoArea");
-
-  descriptionArea.classList.toggle("d-none");
-  additionalInfoArea.classList.toggle("d-none");
-
-  if (descriptionArea.classList.contains("d-none")) {
-    document.getElementById("descriptionBtn").style.backgroundColor = "#F0DCAC";
-    document.getElementById("additionalinfonBtn").style.backgroundColor = ""; // Reset background color
-  } else {
-    document.getElementById("descriptionBtn").style.backgroundColor = "";
-    document.getElementById("additionalinfonBtn").style.backgroundColor =
-      "#F0DCAC";
-  }
-}
-//single prodct view toggle
 
 function visibility() {
   var pw = document.getElementById("password");
@@ -43,60 +19,54 @@ function visibility() {
 }
 
 function signUp() {
-  var fname = document.getElementById("fname").value;
-  var lname = document.getElementById("lname").value;
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-  var confirmPassword = document.getElementById("confirmPassword").value;
-  var mobile = document.getElementById("mobile").value;
-  var gender = document.getElementById("gender").value;
+  var fname = $("#fname").val();
+  var lname = $("#lname").val();
+  var email = $("#email").val();
+  var password = $("#password").val();
+  var confirmPassword = $("#confirmPassword").val();
+  var mobile = $("#mobile").val();
+  var gender = $("#gender").val();
 
   var emailRegex =
     /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   var mobileRegex = /^07[1245678]{1}[0-9]{7}$/;
 
+  var registerAlertBox = $("#register_alertBox");
+  var registerAlert = $("#register_alert");
+
   if (fname == "") {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Please Enter Your First Name.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Please Enter Your First Name.");
   } else if (lname == "") {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Please Enter Your Last Name.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Please Enter Your Last Name.");
   } else if (email == "") {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Please Enter Your Email Address.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Please Enter Your Email Address.");
   } else if (!email.match(emailRegex)) {
-    document.getElementById("register_alertBox").classList.remove("d-none");
+    registerAlertBox.removeClass("d-none");
     document.getElementById("register_alert").innerHTML =
       "Please Enter a Valid Email Address.";
   } else if (password == "") {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Please Enter Your Password.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Please Enter Your Password.");
   } else if (confirmPassword == "") {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Please Re-Type Your Password.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Please Re-Type Your Password.");
   } else if (password !== confirmPassword) {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Password Doesn't Match.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Password Doesn't Match.");
   } else if (mobile == "") {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Please Enter Your Mobile.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Please Enter Your Mobile.");
   } else if (!mobile.match(mobileRegex)) {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Please Enter a Valid Mobile Number.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Please Enter a Valid Mobile Number.");
   } else if (gender == 0) {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Please Select Your Gender.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Please Select Your Gender.");
   } else {
-    document.getElementById("register_alertBox").classList.add("d-none");
+    registerAlertBox.addClass("d-none");
     fetch("api/signUpProcess.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -114,11 +84,8 @@ function signUp() {
         var res = JSON.parse(data);
         if (res.done == "Successfully Regitered.") {
           alert(res.done);
-          var signUpBox = document.getElementById("signUpBox");
-          var signInBox = document.getElementById("signInBox");
-
-          signUpBox.classList.toggle("d-none");
-          signInBox.classList.toggle("d-none");
+          $("#signUpBox").toggleClass("d-none");
+          $("#signInBox").toggleClass("d-none");
         } else {
           alert(res.error);
         }
@@ -127,53 +94,53 @@ function signUp() {
 }
 
 function validatePassword() {
-  var password = document.getElementById("password").value;
+  var password = $("#password").val();
   var pattern1 = /[a-z]/;
   var pattern2 = /[A-Z]/;
   var pattern3 = /[0-9]/;
   var pattern4 = /.{8,}/;
+
+  var registerAlertBox = $("#register_alertBox");
+  var registerAlert = $("#register_alert");
+
   if (!password.match(pattern1)) {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Password Must Contain Lowercase Letters.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Password Must Contain Lowercase Letters.");
   } else if (!password.match(pattern2)) {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Password Must Contain Uppercase Letters.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Password Must Contain Uppercase Letters.");
   } else if (!password.match(pattern3)) {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Password Must Contain Digits.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Password Must Contain Digits.");
   } else if (!password.match(pattern4)) {
-    document.getElementById("register_alertBox").classList.remove("d-none");
-    document.getElementById("register_alert").innerHTML =
-      "Password Must Contain Minimum 8 Charactors.";
+    registerAlertBox.removeClass("d-none");
+    registerAlert.text("Password Must Contain Minimum 8 Charactors.");
   } else {
-    document.getElementById("register_alertBox").classList.add("d-none");
+    registerAlertBox.addClass("d-none");
   }
 }
 
 function logIn() {
-  var email = document.getElementById("loginEmail").value;
-  var password = document.getElementById("loginPassword").value;
-  var rememberMe = document.getElementById("rememberMe").checked;
+  var email = $("#loginEmail").val();
+  var password = $("#loginPassword").val();
+  var rememberMe = $("#rememberMe").prop("checked");
 
   var emailRegex =
     /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  var loginAlertBox = $("#login_alertBox");
+  var loginAlert = $("#login_alert");
+
   if (email == "") {
-    document.getElementById("login_alertBox").classList.remove("d-none");
-    document.getElementById("login_alert").innerHTML =
-      "Please Enter Your Email Address.";
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter Your Email Address.");
   } else if (!email.match(emailRegex)) {
-    document.getElementById("login_alertBox").classList.remove("d-none");
-    document.getElementById("login_alert").innerHTML =
-      "Please Enter a Valid Email Address.";
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter a Valid Email Address.");
   } else if (password == "") {
-    document.getElementById("login_alertBox").classList.remove("d-none");
-    document.getElementById("login_alert").innerHTML =
-      "Please Enter Your Password.";
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter Your Password.");
   } else {
-    document.getElementById("login_alertBox").classList.add("d-none");
+    loginAlertBox.addClass("d-none");
     fetch("api/signInProcess.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -187,96 +154,103 @@ function logIn() {
       .then((data) => {
         var res = JSON.parse(data);
         if (res.done == "SignIn Success.") {
-          alert(res.done);
+          loginAlertBox.addClass("d-none");
+          // alert(res.done);
           window.location = "index.php";
         } else {
-          alert(res.error);
+          loginAlertBox.removeClass("d-none");
+          loginAlert.text(res.error);
         }
       });
   }
 }
 
 function loginVisibility() {
-  var pw = document.getElementById("loginPassword");
-  var iv = document.getElementById("icon-visibility");
+  var pw = $("#loginPassword");
+  var iv = $("#icon-visibility");
 
-  if (pw.type == "password") {
-    pw.type = "text";
-    iv.className =
-      "bi bi-eye-fill hover:cursor-pointer text-xl  text-[#A9A9AF] ";
+  if (pw.attr("type") == "password") {
+    pw.attr("type", "text");
+    iv.attr(
+      "class",
+      "bi bi-eye-fill hover:cursor-pointer text-xl  text-[#A9A9AF] "
+    );
   } else {
-    pw.type = "password";
-    iv.className =
-      "bi bi-eye-slash-fill hover:cursor-pointer text-xl   text-[#A9A9AF] ";
+    pw.attr("type", "password");
+    iv.attr(
+      "class",
+      "bi bi-eye-slash-fill hover:cursor-pointer text-xl   text-[#A9A9AF] "
+    );
   }
 }
 
 function registerVisibility() {
-  var pw = document.getElementById("password");
-  var iv = document.getElementById("icon-visibility2");
+  var pw = $("#password");
+  var iv = $("#icon-visibility2");
 
-  if (pw.type == "password") {
-    pw.type = "text";
-    iv.className =
-      "bi bi-eye-fill hover:cursor-pointer text-xl  text-[#A9A9AF] ";
+  if (pw.attr("type") == "password") {
+    pw.attr("type", "text");
+    iv.attr(
+      "class",
+      "bi bi-eye-fill hover:cursor-pointer text-xl  text-[#A9A9AF] "
+    );
   } else {
-    pw.type = "password";
-    iv.className =
-      "bi bi-eye-slash-fill hover:cursor-pointer text-xl   text-[#A9A9AF] ";
+    pw.attr("type", "password");
+    iv.attr(
+      "class",
+      "bi bi-eye-slash-fill hover:cursor-pointer text-xl  text-[#A9A9AF] "
+    );
   }
 }
 
 function registerConfirmVisibility() {
-  var cpw = document.getElementById("confirmPassword");
-  var iv = document.getElementById("icon-visibility3");
+  var cpw = $("#confirmPassword");
+  var iv = $("#icon-visibility3");
 
-  if (cpw.type == "password") {
-    cpw.type = "text";
-    iv.className =
-      "bi bi-eye-fill hover:cursor-pointer text-xl  text-[#A9A9AF] ";
+  if (cpw.attr("type") == "password") {
+    cpw.attr("type", "text");
+    iv.attr(
+      "class",
+      "bi bi-eye-fill hover:cursor-pointer text-xl  text-[#A9A9AF] "
+    );
   } else {
-    cpw.type = "password";
-    iv.className =
-      "bi bi-eye-slash-fill hover:cursor-pointer text-xl   text-[#A9A9AF] ";
+    cpw.attr("type", "password");
+    iv.attr(
+      "class",
+      "bi bi-eye-slash-fill hover:cursor-pointer text-xl  text-[#A9A9AF] "
+    );
   }
 }
 
 var model;
 function forgotPassowrd() {
-  var email = document.getElementById("loginEmail").value;
+  var email = $("#loginEmail").val();
 
   var emailRegex =
     /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  var loginAlertBox = $("#login_alertBox");
+  var loginAlert = $("#login_alert");
+
   if (email == "") {
-    document.getElementById("login_alertBox").classList.remove("d-none");
-    document.getElementById("login_alert").innerHTML =
-      "Please Enter Your Email Address.";
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter Your Email Address.");
   } else if (!email.match(emailRegex)) {
-    document.getElementById("login_alertBox").classList.remove("d-none");
-    document.getElementById("login_alert").innerHTML =
-      "Please Enter a Valid Email Address.";
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter a Valid Email Address.");
   } else {
-    document.getElementById("login_alertBox").classList.add("d-none");
+    loginAlertBox.addClass("d-none");
     fetch("api/forgetPasswordProcess.php?function=openModel&email=" + email, {
       method: "GET",
     })
       .then((response) => response.text())
       .then((data) => {
-        // alert(data);
         var res = JSON.parse(data);
         if (res.msg == "openModel") {
-          model = document.getElementById("fp-modal");
-
-          model.classList.remove("hidden");
-          model.setAttribute("aria-hidden", "false");
-          model.focus();
-
-          var closeButton = document.querySelector(
-            '[data-modal-hide="fp-modal"]'
-          );
-          closeButton.addEventListener("click", function () {
-            model.classList.add("hidden");
-            model.setAttribute("aria-hidden", "true");
+          model = $("#fp-modal");
+          model.removeClass("hidden").attr("aria-hidden", "false").focus();
+          $('[data-modal-hide="fp-modal"]').on("click", function () {
+            model.addClass("hidden").attr("aria-hidden", "true");
           });
         } else {
           alert(res.error);
@@ -286,24 +260,25 @@ function forgotPassowrd() {
 }
 
 function resetPassword() {
-  var vcode = document.getElementById("vcode").value;
-  var npw = document.getElementById("new_password").value;
-  var cpw = document.getElementById("confirm_password").value;
-  var email = document.getElementById("loginEmail").value;
+  var vcode = $("#vcode").val();
+  var npw = $("#new_password").val();
+  var cpw = $("#confirm_password").val();
+  var email = $("#loginEmail").val();
+
+  var fpAlertBox = $("#fp_alertBox");
+  var fpAlert = $("#fp_alert");
 
   if (npw == "") {
-    document.getElementById("fp_alertBox").classList.remove("d-none");
-    document.getElementById("fp_alert").innerHTML =
-      "Please fill the new password field.";
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Please fill the new password field.");
   } else if (cpw == "") {
-    document.getElementById("fp_alertBox").classList.remove("d-none");
-    document.getElementById("fp_alert").innerHTML =
-      "Please re-type your password.";
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Please re-type your password.");
   } else if (npw !== cpw) {
-    document.getElementById("fp_alertBox").classList.remove("d-none");
-    document.getElementById("fp_alert").innerHTML = "Password doesn't match.";
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password doesn't match.");
   } else {
-    document.getElementById("fp_alertBox").classList.add("d-none");
+    fpAlertBox.addClass("d-none");
     fetch("api/forgetPasswordProcess.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -317,9 +292,13 @@ function resetPassword() {
       .then((response) => response.text())
       .then((data) => {
         var res = JSON.parse(data);
-        if ((res.msg = "Resetted Success.")) {
+        if ((res.msg = "Reset Success.")) {
           alert(res.msg);
-          model.classList.add("hidden");
+          model.addClass("hidden");
+          $("#vcode").val("");
+          $("#new_password").val("");
+          $("#confirm_password").val("");
+          $("#loginEmail").val("");
         } else {
           alert(res.error);
         }
@@ -328,28 +307,28 @@ function resetPassword() {
 }
 
 function validateNewPassword() {
-  var password = document.getElementById("new_password").value;
+  var password = $("#new_password").val();
   var pattern1 = /[a-z]/;
   var pattern2 = /[A-Z]/;
   var pattern3 = /[0-9]/;
   var pattern4 = /.{8,}/;
+
+  var fpAlertBox = $("#fp_alertBox");
+  var fpAlert = $("#fp_alert");
+
   if (!password.match(pattern1)) {
-    document.getElementById("fp_alertBox").classList.remove("d-none");
-    document.getElementById("fp_alert").innerHTML =
-      "Password Must Contain Lowercase Letters.";
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password Must Contain Lowercase Letters.");
   } else if (!password.match(pattern2)) {
-    document.getElementById("fp_alertBox").classList.remove("d-none");
-    document.getElementById("fp_alert").innerHTML =
-      "Password Must Contain Uppercase Letters.";
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password Must Contain Uppercase Letters.");
   } else if (!password.match(pattern3)) {
-    document.getElementById("fp_alertBox").classList.remove("d-none");
-    document.getElementById("fp_alert").innerHTML =
-      "Password Must Contain Digits.";
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password Must Contain Digits.");
   } else if (!password.match(pattern4)) {
-    document.getElementById("fp_alertBox").classList.remove("d-none");
-    document.getElementById("fp_alert").innerHTML =
-      "Password Must Contain Minimum 8 Charactors.";
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password Must Contain Minimum 8 Characters.");
   } else {
-    document.getElementById("fp_alertBox").classList.add("d-none");
+    fpAlertBox.addClass("d-none");
   }
 }
