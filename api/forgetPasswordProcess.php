@@ -71,7 +71,7 @@ class Process
             if ($user_data['verification_code'] == $GLOBALS['vcode']) {
                 $hashed_password = password_hash($GLOBALS['npw'], PASSWORD_DEFAULT);
                 Database::iud("UPDATE `user` SET `password` ='" .  $hashed_password . "' WHERE `email`='" . $GLOBALS["email"] . "' AND `verification_code`='" . $GLOBALS["vcode"] . "'");
-                $GLOBALS["responseObj"]->msg = "Resetted Success.";
+                $GLOBALS["responseObj"]->msg = "Reset Success.";
             } else {
                 $GLOBALS["responseObj"]->error = "Your Verification Code is Invalid.";
             }
