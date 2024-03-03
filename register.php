@@ -163,7 +163,7 @@
                                     </div>
                                     <div class="col-12   ">
                                         <div class="row  ">
-                                            <input oninput="validatePassword();" type="password" class="border-y border-l w-[85%]  h-[40%]  py-3 ps-3 focus:outline-none mt-3" id="confirmPassword" placeholder="Confirm Password">
+                                            <input  type="password" class="border-y border-l w-[85%]  h-[40%]  py-3 ps-3 focus:outline-none mt-3" id="confirmPassword" placeholder="Confirm Password">
                                             <div class="w-[15%] border-y border-r flex items-center justify-end  mt-3">
                                                 <i class="bi bi-eye-slash-fill hover:cursor-pointer text-xl  text-[#A9A9AF] " id="icon-visibility3" onclick="registerConfirmVisibility();"></i>
                                             </div>
@@ -212,6 +212,7 @@
 
     <script src="assets/js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
 
 </html>
