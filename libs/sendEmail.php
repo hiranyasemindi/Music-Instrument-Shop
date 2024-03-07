@@ -1,4 +1,6 @@
 <?php
+require "../libs/SMTP.php";
+require "../libs/Exception.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 
