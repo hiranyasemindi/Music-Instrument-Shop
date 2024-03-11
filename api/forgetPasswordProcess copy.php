@@ -94,6 +94,13 @@ class Process
         $vcode = $decoded['vcode'];
         $email = $decoded['email'];
         $user = $this->getUserByEmailAndVerificationCode($vcode, $email);
+        if ($user) {
+            $hashed_password = password_hash($npw, PASSWORD_DEFAULT);
+            $this->updatePassword($hashed_password, $email);
+            $this->responseObj->msg = "Reset Success";
+        } else {
+            $this->responseObj->error = "Verification Code is Invalid";
+        }
     }
 
     private function searchUserByEmail($e)
@@ -111,5 +118,10 @@ class Process
     {
         $result =  $this->search("SELECT * FROM `user` WHERE `email`='" . $email . "' AND `verification_code`='" . $vcode . "'");
         return $result->num_rows > 0 ? $result->fetch_assoc() : null;
+    }
+
+    private function updatePassword($hashed_password, $email)
+    {
+        $this->iud("UPDATE `user` SET `password`='" . $hashed_password . "' WHERE `email`='" . $email . "' ");
     }
 }
