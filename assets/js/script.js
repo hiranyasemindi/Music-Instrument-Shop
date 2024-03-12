@@ -240,7 +240,7 @@ function forgotPassowrd() {
     loginAlert.text("Please Enter a Valid Email Address.");
   } else {
     loginAlertBox.addClass("d-none");
-    fetch("api/forgetPasswordProcess.php?function=openModel&email=" + email, {
+    fetch("api/forgotPasswordProcess.php?email=" + email, {
       method: "GET",
     })
       .then((response) => response.text())
@@ -279,13 +279,12 @@ function resetPassword() {
     fpAlert.text("Password doesn't match.");
   } else {
     fpAlertBox.addClass("d-none");
-    fetch("api/forgetPasswordProcess.php", {
+    fetch("api/forgotPasswordProcess.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         vcode: vcode,
         npw: npw,
-        function: "reset",
         email: email,
       }),
     })
