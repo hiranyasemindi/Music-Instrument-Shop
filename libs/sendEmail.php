@@ -26,11 +26,6 @@ class Email
         $bodyContent = $body;
         $mail->Body    = $bodyContent;
 
-
-        if (!$mail->send()) {
-            return 'Verification code sending failed';
-        } else {
-            return "Success";
-        }
+        return $mail->send() ? "Success" : null;
     }
 }
