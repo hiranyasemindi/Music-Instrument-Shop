@@ -43,6 +43,7 @@
                                         </div>
                                     </div>
                                     <?php
+                                    session_start();
                                     $email = "";
                                     $password = "";
                                     if (isset($_COOKIE["email"])) {
