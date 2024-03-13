@@ -1,6 +1,9 @@
 <?php
 require_once "../libs/connection.php";
 
+$process = new Process();
+$process->handleRequest();
+
 class Process
 {
 
@@ -38,12 +41,6 @@ class Process
         }
     }
 
-    private function sendResponse($statusCode = 200)
-    {
-        http_response_code($statusCode);
-        echo json_encode($this->responseObj);
-    }
-
     private function login($decoded)
     {
         $email = $decoded->email;
@@ -61,8 +58,8 @@ class Process
                     setcookie("email", "", -1);
                     setcookie("password", "", -1);
                 }
-                $this->responseObj = "SignIn Success.";
-                $this->sendReponse();
+                $this->responseObj->msg = "SignIn Success.";
+                $this->sendResponse();
             } else {
                 $this->responseObj->error = "Password is Incorrect";
                 $this->sendResponse(400);
@@ -82,5 +79,11 @@ class Process
     private function search($q)
     {
         return Database::search($q);
+    }
+
+    private function sendResponse($statusCode = 200)
+    {
+        http_response_code($statusCode);
+        echo json_encode($this->responseObj);
     }
 }
