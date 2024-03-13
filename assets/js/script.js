@@ -297,7 +297,7 @@ function resetPassword() {
           $("#vcode").val("");
           $("#new_password").val("");
           $("#confirm_password").val("");
-          $("#loginEmail").val("");
+          // $("#loginEmail").val("");
         } else {
           alert(res.error);
         }
