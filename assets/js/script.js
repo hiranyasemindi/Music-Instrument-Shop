@@ -83,7 +83,7 @@ function signUp() {
       .then((data) => {
         var res = JSON.parse(data);
         if (res.done == "Successfully Regitered.") {
-          alert(res.done);
+          alert(res.msg);
           $("#signUpBox").toggleClass("d-none");
           $("#signInBox").toggleClass("d-none");
         } else {
@@ -153,7 +153,7 @@ function logIn() {
       .then((response) => response.text())
       .then((data) => {
         var res = JSON.parse(data);
-        if (res.done == "SignIn Success.") {
+        if (res.msg == "SignIn Success.") {
           loginAlertBox.addClass("d-none");
           // alert(res.done);
           window.location = "index.php";
