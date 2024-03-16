@@ -331,3 +331,63 @@ function validateNewPassword() {
     fpAlertBox.addClass("d-none");
   }
 }
+
+function editProfile() {
+  $("#profileimg").removeAttr("disabled");
+  $("#fname").removeAttr("disabled");
+  $("#lname").removeAttr("disabled");
+  $("#line1").removeAttr("disabled");
+  $("#line2").removeAttr("disabled");
+  $("#city").removeAttr("disabled");
+  $("#district").removeAttr("disabled");
+  $("#province").removeAttr("disabled");
+  $("#postalCode").removeAttr("disabled");
+  $("#editBtn").toggleClass("d-none");
+  $("#updateBtn").toggleClass("d-none");
+  alert("Now You Can Edit Your Profile Details");
+}
+
+function updateProfile() {
+  var fname = $("#fname").val();
+  var lname = $("#lname").val();
+  var line1 = $("#line1").val();
+  var line2 = $("#line2").val();
+  var city = $("#city").val();
+  var postalCode = $("#postalCode").val();
+  console.log(fname, lname, line1, line2, city, district, province, postalCode);
+  fetch("api/updateProfile.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      fname: fname,
+      lname: lname,
+      line1: line1,
+      line2: line2,
+      city: city,
+      postalCode: postalCode,
+    }),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (
+        response.msg == "Update Success." ||
+        response.msg == "Insert Success."
+      ) {
+        alert("Succesfully Updated.");
+        window.location.reload();
+      } else {
+        alert(response.error);
+      }
+    });
+}
+
+function updateProfileImage() {
+  var img = $("#userImg");
+  var file = $("#profileimg");
+  file.onchange = function () {
+    var file1 = this.files[0];
+    var url = window.URL.createObjectURL(file1);
+    img.src = url;
+  };
+}
