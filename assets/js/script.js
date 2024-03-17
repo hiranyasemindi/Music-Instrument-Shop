@@ -384,10 +384,25 @@ function updateProfile() {
 
 function updateProfileImage() {
   var img = $("#userImg");
-  var file = $("#profileimg");
-  file.onchange = function () {
-    var file1 = this.files[0];
-    var url = window.URL.createObjectURL(file1);
-    img.src = url;
-  };
+
+  var fileInput = $("#profileimg");
+  var file = fileInput[0].files[0];
+
+  var form = new FormData();
+  form.append("img", file);
+  console.log(form.get("img"));
+  fetch("api/updateProfileImage.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.msg == "Successfully Updated") {
+        alert("Succesfully Updated.");
+        window.location.reload();
+      } else {
+        alert(response.error);
+      }
+    });
 }
