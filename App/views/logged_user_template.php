@@ -28,7 +28,7 @@
                             <!-- profile img -->
                             <div class="d-none d-lg-block position-absolute mt-5 ms-[38%] overflow-hidden">
                                 <div class="rounded-circle w-[120px] h-[120px] bg-cover border border-white border-5" id="userImg" style="background-image: url('<?php echo $user["profile_img"] == null ? "assets/img/round_profil_picture_before_.png" :  $user["profile_img"]; ?>');"></div>
-                                <input onchange="updateProfileImage();"  type="file" class="d-none" id="profileimg" name="profileimg" accept="image/*" />
+                                <input onchange="updateProfileImage();" disabled type="file" class="d-none" id="profileimg" name="profileimg" accept="image/*" />
                                 <label for="profileimg"><i class="bi bi-camera-fill hover:cursor-pointer text-3xl text-dark ml-[5.3rem] absolute mt-[-3.7rem]"></i></label>
                             </div>
                             <div class="d-block d-lg-none position-absolute mt-5 ms-[30%] overflow-hidden">
@@ -70,7 +70,7 @@
                                 <input type="text" disabled class="border h-[40%] p-3 mt-3 focus:outline-none" id="line1" value="<?php echo $address ? $address["line1"] : ""; ?>" placeholder="Address Line 01">
                                 <input type="text" disabled class="border h-[40%] p-3 mt-3 focus:outline-none" id="line2" value="<?php echo $address ? $address["line2"] : ""; ?>" placeholder="Address Line 02">
                                 <!-- city, district, province -->
-                                <select disabled class="lg:w-[32%] me-[2%] disabled border h-[40%]  focus:outline-none p-3 mt-3" id="city">
+                                <select disabled onchange="selectDistrictProvince();" class="lg:w-[32%] me-[2%] disabled border h-[40%]  focus:outline-none p-3 mt-3" id="city">
                                     <option value="0">Select City</option>
                                     <?php
                                     if ($cities) {
