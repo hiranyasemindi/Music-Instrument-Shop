@@ -89,6 +89,9 @@ function signUp() {
         } else {
           alert(res.error);
         }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
       });
   }
 }
@@ -255,6 +258,9 @@ function forgotPassowrd() {
         } else {
           alert(res.error);
         }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
       });
   }
 }
@@ -301,6 +307,9 @@ function resetPassword() {
         } else {
           alert(res.error);
         }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
       });
   }
 }
@@ -379,6 +388,9 @@ function updateProfile() {
       } else {
         alert(response.error);
       }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
     });
 }
 
@@ -404,5 +416,52 @@ function updateProfileImage() {
       } else {
         alert(response.error);
       }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
+    });
+}
+
+function selectDistrictProvince() {
+  var cityId = $("#city").val();
+  fetch("api/getDistrictsandProvinces.php?id=" + cityId, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.msg == "Success") {
+        var district_id = response.district_id;
+        var district_name = response.district_name;
+        var province_id = response.province_id;
+        var province_name = response.province_name;
+        var districtSelect = $("#district");
+        districtSelect.empty();
+        districtSelect.append(
+          $("<option>").text("Select District").attr("value", "0")
+        );
+        districtSelect.append(
+          $("<option>")
+            .text(district_name)
+            .attr("value", district_id)
+            .attr("selected", true)
+        );
+        var provinceSelect = $("#province");
+        provinceSelect.empty();
+        provinceSelect.append(
+          $("<option>").text("Select Province").attr("value", "0")
+        );
+        provinceSelect.append(
+          $("<option>")
+            .text(province_name)
+            .attr("value", province_id)
+            .attr("selected", true)
+        );
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
     });
 }
