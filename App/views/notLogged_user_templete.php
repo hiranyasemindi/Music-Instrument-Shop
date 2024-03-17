@@ -14,7 +14,17 @@
 <body>
     <?php
     include "App/includes/header.php"; ?>
-    <span>Please login first</span>
+    <div class="flex items-center justify-center">
+        <img src="assets/img/undraw_secure_login_pdn4.svg" alt="loginImg" width="500px" height="500px">
+    </div>
+    <div class="flex items-center justify-center mt-4">
+        <span class="fw-semibold text-3xl">Please Login To Your Account First</span>
+    </div>
+    <div class="flex items-center justify-center mt-4">
+        <button onclick="window.location.href = 'register.php'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Login</button>
+    </div>
+
+
     <?php include "App/includes/footer.php"; ?>
 
     <script src="assets/js/script.js"></script>
