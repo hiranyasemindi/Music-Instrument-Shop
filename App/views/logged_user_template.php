@@ -28,7 +28,7 @@
                             <!-- profile img -->
                             <div class="d-none d-lg-block position-absolute mt-5 ms-[38%] overflow-hidden">
                                 <div class="rounded-circle w-[120px] h-[120px] bg-cover border border-white border-5" id="userImg" style="background-image: url('<?php echo $user["profile_img"] == null ? "assets/img/round_profil_picture_before_.png" :  $user["profile_img"]; ?>');"></div>
-                                <input onclick="updateProfileImage();" disabled type="file" class="d-none" id="profileimg" accept="image/*" />
+                                <input onchange="updateProfileImage();"  type="file" class="d-none" id="profileimg" name="profileimg" accept="image/*" />
                                 <label for="profileimg"><i class="bi bi-camera-fill hover:cursor-pointer text-3xl text-dark ml-[5.3rem] absolute mt-[-3.7rem]"></i></label>
                             </div>
                             <div class="d-block d-lg-none position-absolute mt-5 ms-[30%] overflow-hidden">
