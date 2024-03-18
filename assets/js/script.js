@@ -82,7 +82,7 @@ function signUp() {
       .then((response) => response.text())
       .then((data) => {
         var res = JSON.parse(data);
-        if (res.done == "Successfully Regitered.") {
+        if (res.msg == "Successfully Regitered.") {
           alert(res.msg);
           $("#signUpBox").toggleClass("d-none");
           $("#signInBox").toggleClass("d-none");
