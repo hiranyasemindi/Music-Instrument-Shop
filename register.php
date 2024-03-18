@@ -178,7 +178,7 @@
                                                     for ($i = 0; $i < $gender_rs->num_rows; $i++) {
                                                         $gender_data = $gender_rs->fetch_assoc();
                                                 ?>
-                                                        <option value="<?php echo $gender_data["id"]; ?>"><?php echo $gender_data["name"]; ?></option>
+                                                        <option value="<?php echo $gender_data["id"]; ?>"><?php echo $gender_data["gender_name"]; ?></option>
                                                 <?php
                                                     }
                                                 } else {
