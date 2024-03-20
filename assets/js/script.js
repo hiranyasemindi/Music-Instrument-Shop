@@ -465,3 +465,31 @@ function selectDistrictProvince() {
       console.log("error: " + error);
     });
 }
+
+function addToWishlist(id) {
+  alert(id);
+  fetch("api/addToCartAndWishlist.php?function=wishlist&id=" + id, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      alert(data);
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function addToCart(id) {
+  alert(id);
+  fetch("api/addToCartAndWishlist.php?function=cart&id=" + id, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      alert(data);
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
