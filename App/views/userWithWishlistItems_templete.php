@@ -51,20 +51,17 @@
                                                             <div class="row">
                                                                 <p class="fw-semibold text-2xl"><?php echo $product["title"]; ?></p><br>
                                                                 <p class="text-[#AD1212] mt-4 text-xl">Rs <?php echo $product["price"]; ?>.00</p>
-                                                                <p class="text-[#999b9e] mt-2">Condition: BrandNew</p>
-                                                                <p class="mt-2">Delivery Fee: Rs 300.00</p>
+                                                                <p class="text-[#999b9e] mt-2">Condition: <?php echo $product["condition"]; ?></p>
+                                                                <p class="mt-2">Delivery Fee: Rs <?php echo $product["delivery_fee_colombo"]; ?>.00</p>
                                                                 <button class="bg-[#AD1212] col-5 ms-2 rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
-
                                                             </div>
                                                         </div>
                                                         <div class="w-[30%]">
                                                             <div class="flex items-end justify-end">
-                                                                <i class="bi bi-cart font-semibold mx-2 hover:cursor-pointer text-[22px]"></i>
-                                                                <i class="bi bi-trash3 font-semibold mx-2 text-[22px] hover:cursor-pointer text-[#ed2835]"></i>
+                                                                <i onclick="addToCart(<?php echo $product['product_id']; ?>);" class="bi bi-cart font-semibold mx-2 hover:cursor-pointer text-[22px]"></i>
+                                                                <i onclick="deleteFromWishlist(<?php echo $product['product_id']; ?>);" class="bi bi-trash3 font-semibold mx-2 text-[22px] hover:cursor-pointer text-[#ed2835]"></i>
                                                             </div>
-
                                                         </div>
-
                                                     </div>
                                                 </div>
                                                 <!-- lg screen -->
@@ -80,21 +77,21 @@
                                                         </div>
                                                         <div class="w-[75%] flex items-start px-4 mt-3">
                                                             <div class="row">
-                                                                <p class="fw-semibold text-xl">Drum Dolgi Drum Dolgi Drum Dolgi</p><br>
+                                                                <p class="fw-semibold text-xl"><?php echo $product["title"]; ?></p><br>
 
                                                                 <div class="my-2">
 
                                                                     <div class="flex items-center justify-center ">
-                                                                        <span class="text-[#AD1212] mt-2 text-lg me-5">Rs 20, 000.00</span>
-                                                                        <i class="bi bi-heart hover:cursor-pointer font-semibold me-2 text-[20px]"></i>
-                                                                        <i class="bi bi-trash3 hover:cursor-pointer font-semibold mx-2 text-[20px] text-[#ed2835]"></i>
+                                                                        <span class="text-[#AD1212] mt-2 text-lg me-5">Rs <?php echo $product["price"]; ?>.00</span>
+                                                                        <i onclick="addToCart(<?php echo $product['product_id']; ?>);" class="bi bi-cart hover:cursor-pointer font-semibold me-2 text-[20px]"></i>
+                                                                        <i onclick="deleteFromWishlist(<?php echo $product['product_id']; ?>);" class="bi bi-trash3 hover:cursor-pointer font-semibold mx-2 text-[20px] text-[#ed2835]"></i>
                                                                     </div>
 
                                                                 </div>
-                                                                <p class="text-[#999b9e] mt-1">Condition: BrandNew</p>
-                                                                <p class="mt-1">Delivery Fee: Rs 300.00</p>
+                                                                <p class="text-[#999b9e] mt-1">Condition: <?php echo $product["condition"]; ?></p>
+                                                                <p class="mt-1">Delivery Fee: Rs <?php echo $product["delivery_fee_colombo"]; ?>.00</p>
 
-                                                                <button class="bg-[#AD1212]   rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
+                                                                <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
 
                                                             </div>
                                                         </div>
@@ -120,13 +117,29 @@
 
             </div>
             </div>
+            <?php include "App/includes/footer.php"; ?>
+
+        <?php
+        }
+
+        public static function emptyWishlist()
+        {
+        ?>
+            <div class="flex items-center justify-center">
+                <img src="assets/img/undraw_no_data_re_kwbl.svg" alt="emptyWishlist_img" width="500px" height="500px">
+            </div>
+            <div class="flex items-center justify-center mt-4">
+                <span class="fw-semibold text-3xl">Your Wishlist is Empty</span>
+            </div>
+            <div class="flex items-center justify-center mt-4">
+                <button onclick="window.location.href = 'index.php'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Shopping</button>
+            </div>
     <?php
         }
     }
     ?>
 
 
-    <?php include "App/includes/footer.php"; ?>
     <script src="assets/js/script.js"></script>
 </body>
 
