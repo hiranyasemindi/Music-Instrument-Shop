@@ -467,13 +467,14 @@ function selectDistrictProvince() {
 }
 
 function addToWishlist(id) {
-  alert(id);
   fetch("api/addToCartAndWishlist.php?function=wishlist&id=" + id, {
     method: "GET",
   })
     .then((response) => response.text())
     .then((data) => {
-      alert(data);
+      var response = JSON.parse(data);
+      response.msg ? alert(response.msg) : alert(response.error);
+      window.location.reload();
     })
     .catch((error) => {
       console.log("Error: " + error);
@@ -481,13 +482,44 @@ function addToWishlist(id) {
 }
 
 function addToCart(id) {
-  alert(id);
   fetch("api/addToCartAndWishlist.php?function=cart&id=" + id, {
     method: "GET",
   })
     .then((response) => response.text())
     .then((data) => {
-      alert(data);
+      var response = JSON.parse(data);
+      response.msg ? alert(response.msg) : alert(response.error);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function deleteFromWishlist(id) {
+  fetch("api/deleteFromCartAndWishlist.php?function=wishlist&id=" + id, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      response.msg ? alert(response.msg) : alert(response.error);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function deleteFromCart(id) {
+  fetch("api/deleteFromCartAndWishlist.php?function=cart&id=" + id, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      response.msg ? alert(response.msg) : alert(response.error);
+      window.location.reload();
     })
     .catch((error) => {
       console.log("Error: " + error);
