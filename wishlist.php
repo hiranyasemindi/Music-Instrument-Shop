@@ -27,11 +27,17 @@ class Process
                 include "App/views/userWithWishlistItems_templete.php";
                 wishListTemplete::generate($wishlistItems);
             } else {
-                //no items available
+                include "App/views/userWithWishlistItems_templete.php";
+                wishListTemplete::emptyWishlist();
             }
         } else {
             echo "Not valid user.";
         }
+    }
+
+    private function notLoggedUser()
+    {
+        include "App/views/notLogged_user_templete.php";
     }
 
     private function getUserByEmail($email)
@@ -42,7 +48,7 @@ class Process
 
     private function getProductsFromWishlist($email)
     {
-        $result = $this->search("SELECT * FROM `wishlist` INNER JOIN `product` ON `product`.`id`=`wishlist`.`product_id` WHERE `email`='" . $email . "'");
+        $result = $this->search("SELECT * FROM `wishlist` INNER JOIN `product` ON `product`.`id`=`wishlist`.`product_id` INNER JOIN `condition` ON `condition`.`id`=`product`.`condition_id` WHERE `user_email`='" . $email . "'");
         return $result->num_rows > 0 ? $result : null;
     }
 
