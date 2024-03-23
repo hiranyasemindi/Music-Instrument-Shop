@@ -23,15 +23,16 @@ class Process
         $user = $this->getUserByEmail($email);
         if ($user) {
             $wishlistItems = $this->getProductsFromWishlist($email);
+            $address = $this->getUserAddress($email);
             if ($wishlistItems) {
                 include "App/views/userWithWishlistItems_templete.php";
-                wishListTemplete::generate($wishlistItems);
+                wishListTemplete::generate($wishlistItems,$address["district_name"]);
             } else {
                 include "App/views/userWithWishlistItems_templete.php";
                 wishListTemplete::emptyWishlist();
             }
         } else {
-            echo "Not valid user.";
+            include "App/views/404.php";
         }
     }
 
@@ -43,6 +44,13 @@ class Process
     private function getUserByEmail($email)
     {
         $result = $this->search("SELECT * FROM `user` WHERE `email`='" . $email . "'");
+        return $result->num_rows > 0 ? $result->fetch_assoc() : null;
+    }
+
+    private function getUserAddress($email)
+    {
+        $result = $this->search("SELECT `district_name` FROM `user_has_address` INNER JOIN `city` ON `city`.`id`=`user_has_address`.`city_id` 
+        INNER JOIN `district` ON `district`.`id`=`city`.`district_id` WHERE `user_email`='" . $email . "'");
         return $result->num_rows > 0 ? $result->fetch_assoc() : null;
     }
 
