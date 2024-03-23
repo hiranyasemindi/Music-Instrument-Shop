@@ -41,9 +41,7 @@ class Process
                 } else if ($_GET["function"] == "cart") {
                     $product = $this->getProductFromCart($product_id);
                     if ($product) {
-                        $qty = $product["qty"] + 1;
-                        $this->updateCart($email, $product_id, $qty);
-                        $this->responseObj->msg = "Successfuly updated the cart.";
+                        $this->responseObj->msg = "Already added this product to the cart.";
                         $this->sendResponse();
                     } else {
                         $this->addToCart($email, $product_id);
@@ -90,11 +88,6 @@ class Process
     private function addToCart($email, $product_id)
     {
         $this->iud("INSERT INTO `cart` (`user_email`,`product_id`,`qty`) VALUES('" . $email . "','" . $product_id . "', '1')");
-    }
-
-    private function updateCart($email, $product_id, $qty)
-    {
-        $this->iud("UPDATE `cart` SET `qty`='" . $qty . "' WHERE `user_email`='" . $email . "' AND `product_id`='" . $product_id . "'");
     }
 
     private function search($q)
