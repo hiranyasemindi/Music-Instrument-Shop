@@ -16,7 +16,7 @@
     <?php include "App/includes/header.php";
     class wishListTemplete
     {
-        public static function generate($wishlistItems)
+        public static function generate($wishlistItems, $district)
         {
     ?>
 
@@ -45,14 +45,14 @@
                                                     <div class="row px-5">
 
                                                         <div class=" w-[30%] card flex items-center">
-                                                            <img src="assets/img/drum.jpg" class="px-1 " width="150px" height="150px" alt="">
+                                                            <img src="<?php echo $product["image_path"]; ?>" class="px-1 " width="150px" height="150px" alt="">
                                                         </div>
                                                         <div class="w-[40%] flex items-start px-4">
                                                             <div class="row">
                                                                 <p class="fw-semibold text-2xl"><?php echo $product["title"]; ?></p><br>
                                                                 <p class="text-[#AD1212] mt-4 text-xl">Rs <?php echo $product["price"]; ?>.00</p>
                                                                 <p class="text-[#999b9e] mt-2">Condition: <?php echo $product["condition"]; ?></p>
-                                                                <p class="mt-2">Delivery Fee: Rs <?php echo $product["delivery_fee_colombo"]; ?>.00</p>
+                                                                <p class="mt-2">Delivery Fee: Rs <?php echo $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?>.00</p>
                                                                 <button class="bg-[#AD1212] col-5 ms-2 rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
                                                             </div>
                                                         </div>
@@ -72,7 +72,7 @@
 
                                                         <div class=" w-[20%] ml-3 mb-[90px] pb-5 flex items-center">
                                                             <div class="card row">
-                                                                <img src="assets/img/drum.jpg" class="px-1 " width="150px" height="150px" alt="">
+                                                                <img src="<?php echo $product["image_path"]; ?>" class="px-1 " width="150px" height="150px" alt="">
                                                             </div>
                                                         </div>
                                                         <div class="w-[75%] flex items-start px-4 mt-3">
@@ -89,7 +89,7 @@
 
                                                                 </div>
                                                                 <p class="text-[#999b9e] mt-1">Condition: <?php echo $product["condition"]; ?></p>
-                                                                <p class="mt-1">Delivery Fee: Rs <?php echo $product["delivery_fee_colombo"]; ?>.00</p>
+                                                                <p class="mt-1">Delivery Fee: Rs <?php echo $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?>.00</p>
 
                                                                 <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
 
