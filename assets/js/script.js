@@ -525,3 +525,70 @@ function deleteFromCart(id) {
       console.log("Error: " + error);
     });
 }
+
+function incrementQty(prodcut_qty, cart_id, price) {
+  var qty = $("#qty" + cart_id + "").text();
+  var newQty = parseInt(qty) + 1;
+  prodcut_qty >= newQty
+    ? $("#qty" + cart_id + "").text(newQty)
+    : alert("Only " + prodcut_qty + " Items are Available.");
+  var total = parseInt(price) * parseInt($("#qty" + cart_id).text());
+  $("#price" + cart_id).text(total);
+}
+
+function decrementQty(cart_id, price) {
+  var qty = $("#qty" + cart_id + "").text();
+
+  var newQty = parseInt(qty) - 1;
+  newQty >= 1
+    ? $("#qty" + cart_id + "").text(newQty)
+    : alert("Only " + prodcut_qty + " Items are Available.");
+  var total = parseInt(price) * parseInt($("#qty" + cart_id).text());
+  $("#price" + cart_id).text(total);
+}
+
+var items;
+var subtotal;
+var shipping;
+var total;
+
+function updateCartSummary(cart_id) {
+  items = parseInt($("#items").text());
+  subtotal = parseInt($("#subtotal").text());
+  shipping = parseInt($("#shipping").text());
+  total = parseInt($("#total").text());
+
+  var price = $("#price" + cart_id).text();
+  var df = $("#df" + cart_id).text();
+  var checkeBox = $("#cartCheck" + cart_id);
+  var status = checkeBox.prop("checked") ? "checked" : "unchecked";
+
+  if (status == "checked") {
+    checkedProcess(price, df);
+    setSummaryInfo();
+  } else {
+    uncheckedProcess(price, df);
+    setSummaryInfo();
+  }
+}
+
+function checkedProcess(price, df) {
+  items += 1;
+  subtotal += parseInt(price);
+  shipping += parseInt(df);
+  total += shipping + subtotal;
+}
+
+function uncheckedProcess(price, df) {
+  items -= 1;
+  subtotal -= parseInt(price);
+  shipping -= parseInt(df);
+  total = subtotal + shipping;
+}
+
+function setSummaryInfo() {
+  $("#items").text(items);
+  $("#subtotal").text(subtotal);
+  $("#shipping").text(shipping);
+  $("#total").text(total);
+}
