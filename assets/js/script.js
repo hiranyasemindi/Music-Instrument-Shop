@@ -532,8 +532,15 @@ function incrementQty(prodcut_qty, cart_id, price) {
   prodcut_qty >= newQty
     ? $("#qty" + cart_id + "").text(newQty)
     : alert("Only " + prodcut_qty + " Items are Available.");
-  var total = parseInt(price) * parseInt($("#qty" + cart_id).text());
-  $("#price" + cart_id).text(total);
+  var subtotal = parseInt(price) * parseInt($("#qty" + cart_id).text());
+  $("#price" + cart_id).text(subtotal);
+
+  var checkeBox = $("#cartCheck" + cart_id);
+  var status = checkeBox.prop("checked") ? "checked" : "unchecked";
+  if (status == "checked") {
+    $("#subtotal").text(subtotal);
+    $("#total").text(parseInt(subtotal) + parseInt($("#shipping").text()));
+  }
 }
 
 function decrementQty(cart_id, price) {
@@ -545,6 +552,13 @@ function decrementQty(cart_id, price) {
     : alert("Only " + prodcut_qty + " Items are Available.");
   var total = parseInt(price) * parseInt($("#qty" + cart_id).text());
   $("#price" + cart_id).text(total);
+
+  var checkeBox = $("#cartCheck" + cart_id);
+  var status = checkeBox.prop("checked") ? "checked" : "unchecked";
+  if (status == "checked") {
+    $("#subtotal").text(subtotal);
+    $("#total").text(parseInt(subtotal) + parseInt($("#shipping").text()));
+  }
 }
 
 var items;
