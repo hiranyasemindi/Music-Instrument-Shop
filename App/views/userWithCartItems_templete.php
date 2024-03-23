@@ -74,9 +74,9 @@
 
                                                 <!--sm screen  -->
                                                 <div class="col-12 d-block d-lg-none">
-                                                    <div class="row">
+                                                    <div class="row ">
                                                         <div class="w-[5%] mt-4 ">
-                                                            <input onchange="updateCartSummary(<?php echo $product['id']; ?>);" class="cyberpunk-checkbox" type="checkbox" name="" id="cartCheck<?php echo $product['id']; ?>"">
+                                                            <input onchange="updateCartSummary(<?php echo $product['id']; ?>);" class="cyberpunk-checkbox" type="checkbox" name="" id="cartCheck<?php echo $product['id']; ?>">
                                                         </div>
                                                         <div class=" w-[20%] ml-3 mb-4 pb-5 flex items-center">
                                                             <div class="card row">
@@ -88,25 +88,23 @@
                                                                 <p class="fw-semibold text-xl"><?php echo $product["title"]; ?></p><br>
                                                                 <p class="text-[#AD1212] mt-4 text-xl">Rs <span id="price<?php echo $product['id']; ?>"><?php echo $product["price"]; ?></span>.00</p>
                                                                 <div class="my-2">
-                                                                    <div class="flex items-start justify-start ">
-
-                                                                        <div class="flex justify-end ">
-                                                                            <i onclick="decrementQty(<?php echo $product['id']; ?>, <?php echo $product['price']; ?>);" class="bi bi-dash font-semibold hover:cursor-pointer bg-[#e6e9eb] rounded-circle px-1 me-3 text-[22px]"></i>
-                                                                            <span id="qty<?php echo $product['id']; ?>" class=" flex items-center"><?php echo $product["cart_qty"]; ?></span>
-                                                                            <i onclick="incrementQty(<?php echo $product['product_qty']; ?> , <?php echo $product['id']; ?>, <?php echo $product['price']; ?>);" class="bi bi-plus font-semibold hover:cursor-pointer mx-2 bg-[#e6e9eb] rounded-circle px-1 ms-3 text-[22px]"></i>
-                                                                        </div>
-                                                                        <i onclick="addToWishlist(<?php echo $product['product_id']; ?>);" class="bi bi-heart hover:cursor-pointer font-semibold me-2 ms-5 text-[22px]"></i>
-                                                                        <i onclick="deleteFromCart(<?php echo $product['product_id']; ?>);" class="bi bi-trash3 hover:cursor-pointer font-semibold mx-2 text-[22px] text-[#ed2835]"></i>
+                                                                    <div class="flex justify-end">
+                                                                        <i onclick="decrementQty(<?php echo $product['id']; ?>, <?php echo $product['price']; ?>);" class="bi bi-dash hover:cursor-pointer font-semibold bg-[#e6e9eb] rounded-circle px-1 me-3 text-[22px]"></i>
+                                                                        <span class="flex items-center" id="qty<?php echo $product['id']; ?>"><?php echo $product["cart_qty"]; ?></span>
+                                                                        <i onclick="incrementQty(<?php echo $product['product_qty']; ?> , <?php echo $product['id']; ?>, <?php echo $product['price']; ?>);" class="bi bi-plus hover:cursor-pointer font-semibold mx-2 bg-[#e6e9eb] rounded-circle px-1 ms-3 text-[22px]"></i>
                                                                     </div>
-
+                                                                    <i onclick="addToWishlist(<?php echo $product['product_id']; ?>);" class="bi bi-heart hover:cursor-pointer font-semibold mx-2 text-[22px]"></i>
+                                                                    <i onclick="deleteFromCart(<?php echo $product['product_id']; ?>);" class="bi bi-trash3 hover:cursor-pointer font-semibold mx-2 text-[22px] text-[#ed2835]"></i>
                                                                 </div>
-                                                                <p class="text-[#999b9e] mt-1">Condition: <?php echo $product["condition"]; ?></p>
+                                                                <p class="text-[#999b9e] mt-2">Condition: <?php echo $product["condition"]; ?></p>
                                                                 <p class="mt-2">Delivery Fee: Rs <span id="df<?php echo $product['id']; ?>"><?php echo $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?></span>.00</p>
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                                 <!--sm screen  -->
+
                                                 <hr class="mt-4">
                                             <?php
                                             }
