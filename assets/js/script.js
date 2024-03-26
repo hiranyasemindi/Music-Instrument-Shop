@@ -525,7 +525,7 @@ function deleteFromCart(id) {
       console.log("Error: " + error);
     });
 }
-
+7;
 function incrementQty(prodcut_qty, cart_id, price) {
   var qty = $("#qty" + cart_id + "").text();
   var newQty = parseInt(qty) + 1;
@@ -605,4 +605,18 @@ function setSummaryInfo() {
   $("#subtotal").text(subtotal);
   $("#shipping").text(shipping);
   $("#total").text(total);
+}
+
+function checkQty(maxQty, event) {
+  var typedQty = parseInt(event.target.value);
+
+  if (typedQty > maxQty) {
+    alert("Typed quantity exceeds the maximum quantity.");
+    $("#availableQty").val(maxQty);
+  }
+
+  if (typedQty < 0) {
+    $("#availableQty").val(0);
+    return;
+  }
 }
