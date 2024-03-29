@@ -36,7 +36,7 @@
 
         public function getLatestProducts()
         {
-            $result = $this->search("SELECT `id`,`title`,`price`,`rating`,`image_path` FROM product ORDER BY `added_date` DESC LIMIT 15");
+            $result = $this->search("SELECT `id`,`title`,`price`,`rating`,`image_path` FROM product WHERE `status_id`='1' ORDER BY `added_date` DESC LIMIT 15");
             return $result->num_rows > 0 ? $result : null;
         }
 
