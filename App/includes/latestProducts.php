@@ -59,7 +59,7 @@
                             <?php
                             while ($product = $latestProducts->fetch_assoc()) {
                             ?>
-                                <div class="col-6 col-lg-3 mt-3">
+                                <div class="col-6 col-lg-3 mt-3" >
                                     <div class="row">
                                         <div class="col-10 offset-1 shadow card">
 
@@ -98,6 +98,10 @@
                                                 <div style="width: 100%;" class="mt-3 text-center  align-items-center">
                                                     <div class="product-dot col-12 ">
                                                         <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                                                            <div onclick="window.location.href = 'singleProductView.php?id=<?php echo $product['id']; ?>'" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
+                                                                <i class="bi bi-eye fs-5"></i>
+                                                            </div>
+                                                            <div class="col-1"></div>
                                                             <div onclick="addToWishlist(<?php echo $product['id']; ?>);" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
                                                                 <i class="bi bi-heart fs-5 mt-1"></i>
                                                             </div>
