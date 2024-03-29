@@ -1,47 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+require "libs/connection.php";
+$process = new Process();
+$process->handleRequest();
+class Process
+{
+    public function handleRequest()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $this->handleGETRequest();
+        } else {
+            include "404.php";
+        }
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="assets/plugin/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
+    public function handleGETRequest()
+    {
+        if (isset($_GET["id"])) {
+            $promo_id = $_GET["id"];
+            $promotion = $this->getPromotion($promo_id);
+            if ($promotion) {
+                PromotionTemplete::generate($promotion);
+            } else {
+                include "404.php";
+            }
+        } else {
+            include "404.php";
+        }
+    }
 
-<body>
+    private function getPromotion($promo_id)
+    {
+        $result = $this->search("SELECT * FROM `promotions` WHERE `id`='" . $promo_id . "'");
+        return $result->num_rows > 0 ? $result->fetch_assoc() : null;
+    }
 
-    <?php include "App/includes/header.php"; ?>
+    private function search($q)
+    {
+        return Database::search($q);
+    }
+}
+?>
 
-    <div class="container-fluid mb-5">
-        <div class="row">
+<?php
+class PromotionTemplete
+{
+    public static function generate($promotion)
+    {
+?>
+        <!DOCTYPE html>
+        <html lang="en">
 
-            <div class="col-12 mt-5 mt-lg-4">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            <link rel="stylesheet" href="assets/plugin/bootstrap/css/bootstrap.css">
+            <link rel="stylesheet" href="assets/css/style.css">
+            <script src="https://cdn.tailwindcss.com"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        </head>
+
+        <body>
+
+            <?php include "App/includes/header.php"; ?>
+
+            <div class="container-fluid mb-5">
                 <div class="row">
-                    <div class="col-lg-8 col-10 offset-1 flex items-center justify-center offset-lg-2">
-                        <img src="assets/img/image 15.png" alt="promo_img" width="500px" height="500px" >
+
+                    <div class="col-12 mt-5 mt-lg-4">
+                        <div class="row">
+                            <div class="col-lg-8 col-10 offset-1 flex items-center justify-center offset-lg-2">
+                                <img src="<?php echo $promotion["image"];  ?>" alt="promo_img" width="500px" height="500px">
+                            </div>
+                            <div class="col-lg-8 col-10 flex items-center justify-center offset-1 offset-lg-2 mt-5 mt-lg-4">
+                                <p><?php echo $promotion["description"]; ?></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-8 col-10 flex items-center justify-center offset-1 offset-lg-2 mt-5 mt-lg-4">
-                        <p>Lorem ipsum dolor sit amet consectetur. Sed nulla aliquam sollicitudin dictumst.
-                            Dolor blandit viverra quam vitae. Ullamcorper vestibulum laoreet posuere massa
-                            sed massa et neque. Duis cursus tincidunt vulputate lectus vestibulum tincidunt
-                            et massa. Facilisi viverra aliquet gravida arcu faucibus in phasellus pretium.
-                            Mattis in velit proin nec ac lorem vitae. Adipiscing aliquet eget diam sapien
-                            varius tincidunt. Purus sit lectus ornare ullamcorper dolor ullamcorper laoreet
-                            nascetur. Tortor vulputate porta commodo eleifend.</p>
-                    </div>
+
                 </div>
+
+            </div>
             </div>
 
-        </div>
+            <?php include "App/includes/footer.php"; ?>
+            <script src="assets/js/script.js"></script>
+        </body>
 
-    </div>
-    </div>
-
-    <?php include "App/includes/footer.php"; ?>
-    <script src="assets/js/script.js"></script>
-</body>
-
-</html>
+        </html>
+<?php
+    }
+}
+?>
