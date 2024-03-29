@@ -5,12 +5,6 @@ include "../empty.php";
 
 class Process
 {
-    private $responseObj;
-
-    public function __construct()
-    {
-        $this->responseObj = new stdClass();
-    }
 
     public function handleRequest()
     {
