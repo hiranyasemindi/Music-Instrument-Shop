@@ -35,26 +35,27 @@
 
                             <div class="col-12  ">
                                 <div class="row">
+                                    <p id="umail" class="d-none"><?php echo $_SESSION["user"]["email"]; ?></p>
                                     <div class="col-lg-8 col-12">
                                         <div class="row">
                                             <?php
                                             while ($product = $cartItems->fetch_assoc()) {
                                             ?>
                                                 <!-- lg screen -->
-                                                <div class="col-12 mt-4 d-none d-lg-block">
+                                                <div class="col-12 mt-4 d-none d-lg-block product" data-product-id="<?php echo $product['id']; ?>">
                                                     <div class="row ">
                                                         <div class="flex items-center justify-end w-[5%] mt-3 mt-lg-0 ">
                                                             <input onchange="updateCartSummary(<?php echo $product['id']; ?>);" class="cyberpunk-checkbox" type="checkbox" name="" id="cartCheck<?php echo $product['id']; ?>">
                                                         </div>
                                                         <div class=" w-[25%] card flex items-center">
-                                                            <img src="<?php echo $product["image_path"]; ?>" class="px-1 " width="150px" height="150px" alt="">
+                                                            <img src="<?php echo $product["image_path"]; ?>" class="px-1 product-image" width="150px" height="150px" alt="">
                                                         </div>
                                                         <div class="w-[40%] flex items-start px-4">
                                                             <div class="row">
-                                                                <p class="fw-semibold text-2xl"><?php echo $product["title"]; ?></p><br>
-                                                                <p class="text-[#AD1212] mt-4 text-xl">Rs <span id="price<?php echo $product['id']; ?>"><?php echo $product["price"]; ?></span>.00</p>
-                                                                <p class="text-[#999b9e] mt-2">Condition: <?php echo $product["condition"]; ?></p>
-                                                                <p class="mt-2">Delivery Fee: Rs <span id="df<?php echo $product['id']; ?>"><?php echo $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?></span>.00</p>
+                                                                <p class="fw-semibold text-2xl product-title"><?php echo $product["title"]; ?></p><br>
+                                                                <p class="text-[#AD1212] mt-4 text-xl ">Rs <span class="product-price" id="price<?php echo $product['id']; ?>"><?php echo $product["price"]; ?></span>.00</p>
+                                                                <p class="text-[#999b9e] mt-2 product-condition">Condition: <?php echo $product["condition"]; ?></p>
+                                                                <p class="mt-2">Delivery Fee: Rs <span class="delivery-price" id="df<?php echo $product['id']; ?>"><?php echo $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?></span>.00</p>
                                                             </div>
                                                         </div>
                                                         <div class="w-[30%]">
@@ -64,7 +65,7 @@
                                                             </div>
                                                             <div class="flex justify-end mt-4 ">
                                                                 <i onclick="decrementQty(<?php echo $product['id']; ?>, <?php echo $product['price']; ?>);" class="bi bi-dash hover:cursor-pointer font-semibold bg-[#e6e9eb] rounded-circle px-1 me-3 text-[22px]"></i>
-                                                                <span class="flex items-center" id="qty<?php echo $product['id']; ?>"><?php echo $product["cart_qty"]; ?></span>
+                                                                <span class="flex items-center product-quantity" id="qty<?php echo $product['id']; ?>"><?php echo $product["cart_qty"]; ?></span>
                                                                 <i onclick="incrementQty(<?php echo $product['product_qty']; ?> , <?php echo $product['id']; ?>, <?php echo $product['price']; ?>);" class="bi bi-plus hover:cursor-pointer font-semibold mx-2 bg-[#e6e9eb] rounded-circle px-1 ms-3 text-[22px]"></i>
                                                             </div>
                                                         </div>
@@ -147,7 +148,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Checkout</button>
+                                            <button onclick="checkout();" class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Checkout</button>
 
                                         </div>
                                     </div>
