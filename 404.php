@@ -13,14 +13,22 @@
 
 <body>
 
-    <div class="flex items-center justify-center">
-        <img src="assets/img/undraw_page_not_found_re_e9o6.svg" alt="loginImg" width="500px" height="500px">
-    </div>
-    <div class="flex items-center justify-center mt-4">
-        <span class="fw-semibold text-3xl">Not Found</span>
-    </div>
-    <div class="flex items-center justify-center mt-4">
-        <button onclick="window.location.href = 'index.php'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Home</button>
+    <div class="container-fluid vh-100">
+        <div class="row">
+            <div class="col-12 my-5 pt-5">
+                <div class="row">
+                    <div class="flex items-center justify-center col-12">
+                        <img src="assets/img/undraw_page_not_found_re_e9o6.svg" alt="loginImg" width="750px" height="750px">
+                    </div>
+                    <div class="flex items-center justify-center mt-4">
+                        <span class="fw-semibold text-3xl">Not Found</span>
+                    </div>
+                    <div class="flex items-center justify-center mt-4">
+                        <button onclick="window.location.href = 'index.php'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Home</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="assets/js/script.js"></script>
