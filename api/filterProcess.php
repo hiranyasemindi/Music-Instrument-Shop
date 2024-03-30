@@ -211,7 +211,6 @@ class Process
     {
         return Database::search($q);
     }
-
 }
 
 $process = new Process();
