@@ -24,8 +24,8 @@
         {
             $result = $this->search("SELECT `category`.`id`, `category`.`name`, `category`.`img_path`
             FROM (
-                SELECT product_id, COUNT(`qty`) AS `sold_product_count`
-                FROM `invoice`
+            SELECT product_id, COUNT(`qty`) AS `sold_product_count`
+                FROM `invoice` INNER JOIN `invoice_item` ON `invoice`.`order_id`=`invoice_item`.`invoice_order_id`
                 GROUP BY `product_id`
             ) AS `most_sold_products`
             JOIN `product` ON `most_sold_products`.`product_id` = `product`.`id`
