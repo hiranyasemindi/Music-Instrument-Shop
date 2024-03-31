@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-10 offset-1">
+                <div class="w-[98%] ml-[1%]">
                     <div class="row">
                         <div class="col-lg-10 col-12 offset-0 offset-lg-1 py-5 mt-4">
                             <div class="row">

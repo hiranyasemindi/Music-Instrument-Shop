@@ -20,7 +20,7 @@
         /* @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;500&family=Padauk&family=Roboto:wght@100&display=swap'); */
         .scroll-images-customerreviews {
             width: 100%;
-            height: 350px;
+            height: 450px;
             display: flex;
             justify-content: left;
             align-items: center;
@@ -32,7 +32,7 @@
         @media only screen and (max-width: 600px) {
             .scroll-images-customerreviews {
                 width: 100%;
-                height: 300px;
+                height: 400px;
                 display: flex;
                 justify-content: left;
                 align-items: center;
@@ -58,9 +58,9 @@
                             <?php
                             while ($review = $customerReviews->fetch_assoc()) {
                             ?>
-                                <div class="col-lg-4 col-12">
-                                    <div class="row">
-                                        <div class="col-10 offset-1 shadow text-center">
+                                <div class="col-lg-4 col-12 items-center">
+                                    <div class="row justfy-center">
+                                        <div class="col-10 offset-1 h-[20rem] shadow text-center">
                                             <div class="flex mb-2 items-center justify-center mt-4">
                                                 <img class="rounded-circle" width="50px" src="<?php echo $review["profile_img"] ? $review["profile_img"] : "assets/img/round_profil_picture_before_.png";  ?>" alt="">
                                             </div>
