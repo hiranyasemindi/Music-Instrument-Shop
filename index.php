@@ -22,7 +22,7 @@
     {
         public function getTrendingCategories()
         {
-            $result = $this->search("SELECT `category`.`id`, `category`.`name`, `category`.`img_path`
+            $result = $this->search("SELECT DISTINCT `category`.`id`, `category`.`name`, `category`.`img_path`
             FROM (
             SELECT product_id, COUNT(`qty`) AS `sold_product_count`
                 FROM `invoice` INNER JOIN `invoice_item` ON `invoice`.`order_id`=`invoice_item`.`invoice_order_id`
@@ -30,7 +30,7 @@
             ) AS `most_sold_products`
             JOIN `product` ON `most_sold_products`.`product_id` = `product`.`id`
             INNER JOIN `category` ON `category`.`id`=`product`.`category_id`
-            ORDER BY `most_sold_products`.`sold_product_count` DESC LIMIT 10;");
+            LIMIT 10;");
             return $result->num_rows > 0 ? $result : null;
         }
 
