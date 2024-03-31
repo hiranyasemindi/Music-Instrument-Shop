@@ -33,6 +33,7 @@
                 <div class="col-lg-2 col-6 flex justify-center items-center">
                     <a href="wishlist.php" class="text-decoration-none text-dark"><i class="bi bi-heart font-semibold mx-2 px-2  text-[24px]"></i></a>
                     <a href="cart.php" class="text-decoration-none text-dark"><i class="bi bi-cart font-semibold mx-2 px-2 text-[24px]"></i></a>
+                    <a href="purchasingHistory.php" class="text-decoration-none text-dark"><i class="bi bi-clock-history font-semibold mx-2 px-2 text-[24px]"></i></a>
                     <a href="profile.php" class="text-decoration-none text-dark"><i class="bi bi-person font-semibold mx-2 px-2 text-[26px]"></i></a>
                 </div>
                 <div class="col-12 mt-1 d-flex d-lg-none justify-content-center align-items-center">

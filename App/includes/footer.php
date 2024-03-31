@@ -12,8 +12,8 @@
 
     <footer class="overflow-hidden">
         <div class=" bg-[#1D2026]">
-            <div class="row items-center justify-center">
-                <div class="col-lg-8 col-12 p-3">
+            <div class="row items-center ">
+                <div class="col-lg-4 col-12 p-3">
                     <img src="logo/logoo.png" alt="logo" width="100px" height="100px" class="ms-2">
                     <p class="ps-4 text-white">Lorem ipsum dolor sit amet consectetur. Semper etiam <br />
                         tincidunt varius pretium urna in sodales nunc natoque.</p>
@@ -34,6 +34,15 @@
                     </div>
                     <div class="mt-3">
                         <i class="bi bi-envelope-fill text-white"></i><span class="text-white"> someone@gmail.com</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12 p-3 mt-4 mt-lg-0 ps-5 items-center justify-center">
+                    <h2 class="text-[#AD1212] font-semibold text-[20px]">WRITE A REVIEW</h2>
+                    <div class="mt-3">
+                        <textarea class="border-2 border-[#AD1212] bg-[#1D2026] text-white outline-none px-2 py-2" name="" id="review" cols="50" rows="5"></textarea>
+                    </div>
+                    <div class="mt-2">
+                        <button onclick="postReview();" class="bg-[#AD1212] mt-2 rounded px-5 py-[12px] text-white font-bold">POST</button>
                     </div>
                 </div>
             </div>
