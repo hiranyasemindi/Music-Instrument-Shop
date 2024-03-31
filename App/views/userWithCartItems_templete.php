@@ -42,8 +42,9 @@
                                             while ($product = $cartItems->fetch_assoc()) {
                                             ?>
                                                 <!-- lg screen -->
-                                                <div class="col-12 mt-4 d-none d-lg-block product" data-product-id="<?php echo $product['id']; ?>">
+                                                <div class="col-12 mt-4 d-none d-lg-block product" data-product-id="<?php echo $product['product_id']; ?>">
                                                     <div class="row ">
+                                                        <p class="d-none  product-available"><?php echo $product['product_qty']; ?></p>
                                                         <div class="flex items-center justify-end w-[5%] mt-3 mt-lg-0 ">
                                                             <input onchange="updateCartSummary(<?php echo $product['id']; ?>);" class="cyberpunk-checkbox" type="checkbox" name="" id="cartCheck<?php echo $product['id']; ?>">
                                                         </div>
@@ -76,6 +77,7 @@
                                                 <!--sm screen  -->
                                                 <div class="col-12 d-block d-lg-none">
                                                     <div class="row ">
+                                                        <p class="d-none  product-available"><?php echo $product['product_qty']; ?></p>
                                                         <div class="w-[5%] mt-4 ">
                                                             <input onchange="updateCartSummary(<?php echo $product['id']; ?>);" class="cyberpunk-checkbox" type="checkbox" name="" id="cartCheck<?php echo $product['id']; ?>">
                                                         </div>
