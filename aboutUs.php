@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-lg-10 offset-lg-1 col-12 offset-0">
                         <div class="row">
                             <p class="pt-3 mt-4 text-center font-semibold text-3xl">Who We Are</p>
                             <p class="text-lg p-5 text-[#999b9e]">Welcome to Sonority Music Shop, where passion for music meets exceptional craftsmanship.
@@ -133,7 +133,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-lg-10 offset-lg-1 col-12 offset-0">
                         <div class="row">
                             <p class="text-center mt-5 pt-5 font-semibold text-3xl">History of Us</p>
                             <p class="text-lg px-5 mt-3 text-[#999b9e]">"Established in 2001, Sonority Music Shop has been a cornerstone of the music community, proudly serving musicians
