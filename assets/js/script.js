@@ -621,7 +621,6 @@ function checkQty(maxQty, event) {
   }
 }
 
-
 function checkout() {
   var productArray = [];
 
@@ -695,8 +694,7 @@ function buyNow(product_id, condition, df, availableQty) {
   };
   array.push(product);
   console.log(array);
-  parray = array;
-  var productArrayJSON = JSON.stringify(parray);
+  var productArrayJSON = JSON.stringify(array);
 
   var encodedProductArray = encodeURIComponent(productArrayJSON);
 
@@ -708,7 +706,7 @@ function buyNow(product_id, condition, df, availableQty) {
 }
 
 function confirmOrder(title, total, parray) {
-  console.log(parray)
+  console.log(parray);
   var productArray = JSON.parse(parray);
   fetch("api/confirmOrderProcess.php", {
     method: "POST",
