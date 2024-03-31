@@ -1,5 +1,6 @@
 <?php
 require_once "libs/connection.php";
+session_start();
 
 class Process
 {
@@ -9,11 +10,23 @@ class Process
             $product_id = $_GET["id"];
             $product = $this->getProductById($product_id);
             $relatedItems = $this->getRelatedItems($product["brand_id"]);
+            if (isset($_SESSION["user"])) {
+                $address = $this->getUserAddress($_SESSION["user"]["email"]);
+            } else {
+                $address = null;
+            }
             include "App/views/singleProduct_templete.php";
-            SignleProductTemplete::generate($product, $relatedItems);
+            SignleProductTemplete::generate($product, $relatedItems, $address);
         } else {
             include "../Music_Shop/404.php";
         }
+    }
+
+    private function getUserAddress($email)
+    {
+        $result = $this->search("SELECT `district_name` FROM `user_has_address` INNER JOIN `city` ON `city`.`id`=`user_has_address`.`city_id` 
+        INNER JOIN `district` ON `district`.`id`=`city`.`district_id` WHERE `user_email`='" . $email . "'");
+        return $result->num_rows > 0 ? $result->fetch_assoc() : null;
     }
 
     private function getProductById($id)
