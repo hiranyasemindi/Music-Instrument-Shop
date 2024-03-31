@@ -39,7 +39,11 @@ class ProductsTemplete
                                                         <?php
                                                         while ($category = $categories->fetch_assoc()) {
                                                         ?>
-                                                            <option value="<?php echo $category["id"]; ?>" <?php if (isset($_GET["id"])) { if ($category["id"] == $_GET["id"]) { echo "selected"; } } ?>><?php echo $category["name"]; ?></option>
+                                                            <option value="<?php echo $category["id"]; ?>" <?php if (isset($_GET["id"])) {
+                                                                                                                if ($category["id"] == $_GET["id"]) {
+                                                                                                                    echo "selected";
+                                                                                                                }
+                                                                                                            } ?>><?php echo $category["name"]; ?></option>
                                                         <?php
                                                         }
                                                         ?>
@@ -294,9 +298,9 @@ class DisplayProductsTemplete
                     <?php
                     while ($product = $products->fetch_assoc()) {
                     ?>
-                        <div class="col-6 col-lg-3 mt-3" onclick="window.location.href = 'singleProductView.php?id=<?php echo $product['id']; ?>'">
+                        <div class="col-6 col-lg-3 mb-5">
                             <div class="row">
-                                <div class="col-10 offset-1 shadow card">
+                                <div class="col-10 offset-1  card">
 
                                     <div class="flex items-center justify-center">
                                         <img src="<?php echo $product["image_path"]; ?>" alt="product_img" width="200px" height="200px">
@@ -305,28 +309,7 @@ class DisplayProductsTemplete
                                     <div class="row product-onclick-view justify-content-center align-content-center " style="position: absolute;" id="hover-view">
                                         <div style="width: 100%;">
                                             <div class="col-12">
-                                                <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-                                                    <p class="text-center text-lg" style="color: #FFFFFF; "><?php echo $product["title"]; ?></p>
-                                                </div>
-                                                <div class="d-flex align-items-center justify-content-center mt-2 mb-2" style="height: 100%;">
-                                                    <p class="text-center fw-bold text-xl" style="color: #fcb3b3;">Rs. <?php echo $product["price"]; ?>.00</p>
-                                                </div>
 
-                                                <div class="d-flex align-items-center justify-content-center mt-2 mb-1" style="height: 100%;">
-                                                    <span class="col-2 text-lg-center fw-bold" style="color: #AD1212;"><?php echo $product["rating"]; ?>.0</span>
-
-                                                    <span class="col-8">
-                                                        <?php
-                                                        $fill = $product["rating"];
-                                                        for ($x = 0; $x < 5; $x++) {
-                                                            $starClass = ($x < $fill) ? "bi bi-star-fill" : "bi bi-star";
-                                                        ?>
-                                                            <i class="<?php echo $starClass; ?> p-1" style="color: #AD1212;"></i>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -334,7 +317,7 @@ class DisplayProductsTemplete
                                             <div class="product-dot col-12 ">
                                                 <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
                                                     <div onclick="window.location.href = 'singleProductView.php?id=<?php echo $product['id']; ?>'" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
-                                                        <i class="bi bi-eye fs-5 mt-1"></i>
+                                                        <i class="bi bi-eye fs-5"></i>
                                                     </div>
                                                     <div class="col-1"></div>
                                                     <div onclick="addToWishlist(<?php echo $product['id']; ?>);" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
@@ -347,6 +330,25 @@ class DisplayProductsTemplete
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="p-3 text-center col-10 offset-1 h-[180px] border shadow-sm justify-center">
+                                    <p class="text-md "><?php echo $product["title"]; ?></p>
+                                    <p class="text-lg mt-2 fw-semibold">Rs.<?php echo $product["price"]; ?>.00</p>
+                                    <div class=" mt-2">
+                                        <span class="col-2 text-center text-lg-end fw-bold" style="color: #AD1212;"><?php echo $product["rating"]; ?>.0</span>
+
+                                        <span class="col-6">
+                                            <?php
+                                            $fill = $product["rating"];
+                                            for ($x = 0; $x < 5; $x++) {
+                                                $starClass = ($x < $fill) ? "bi bi-star-fill" : "bi bi-star";
+                                            ?>
+                                                <i class="<?php echo $starClass; ?> p-1" style="color: #AD1212;"></i>
+                                            <?php
+                                            }
+                                            ?>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
