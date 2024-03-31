@@ -918,3 +918,43 @@ function printInvoice() {
   window.print();
   $("body").html(originalContent);
 }
+
+function rateProduct(id, rating) {
+  fetch("api/rateProcess.php?id=" + id + "&value=" + rating, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.msg == "Success.") {
+        window.location.reload();
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function postReview() {
+  fetch("api/reviewProcess.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      review: $("#review").text(),
+    }),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.msg == "Success.") {
+        window.location.reload();
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
