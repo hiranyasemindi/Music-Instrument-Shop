@@ -612,11 +612,311 @@ function checkQty(maxQty, event) {
 
   if (typedQty > maxQty) {
     alert("Typed quantity exceeds the maximum quantity.");
-    $("#availableQty").val(maxQty);
+    $("#requiredQty").val(maxQty);
   }
 
   if (typedQty < 0) {
-    $("#availableQty").val(0);
+    $("#requiredQty").val(0);
     return;
   }
+}
+
+
+function checkout() {
+  var productArray = [];
+
+  document.querySelectorAll(".product").forEach(function (productElement) {
+    var isChecked = productElement.querySelector(".cyberpunk-checkbox").checked;
+
+    if (isChecked) {
+      var id = productElement.dataset.productId;
+      var title = productElement.querySelector(".product-title").textContent;
+      var price = parseFloat(
+        productElement
+          .querySelector(".product-price")
+          .textContent.replace(/[^0-9.-]+/g, "")
+      );
+      var delivery = parseFloat(
+        productElement
+          .querySelector(".delivery-price")
+          .textContent.replace(/[^0-9.-]+/g, "")
+      );
+      var quantity = parseInt(
+        productElement.querySelector(".product-quantity").textContent
+      );
+      var condition =
+        productElement.querySelector(".product-condition").textContent;
+      var availableQty =
+        productElement.querySelector(".product-available").textContent;
+      var image = productElement.querySelector(".product-image").src;
+
+      var product = {
+        id: id,
+        title: title,
+        price: price,
+        quantity: quantity,
+        delivery_fee: delivery,
+        condition: condition,
+        image: image,
+        availableQty: availableQty,
+      };
+
+      productArray.push(product);
+    }
+    console.log(productArray);
+  });
+  console.log(productArray);
+  var productArrayJSON = JSON.stringify(productArray);
+
+  var encodedProductArray = encodeURIComponent(productArrayJSON);
+
+  window.location =
+    "checkout.php?email=" +
+    encodeURIComponent($("#umail").text()) +
+    "&array=" +
+    encodedProductArray;
+}
+
+function buyNow(product_id, condition, df, availableQty) {
+  var qty = $("#requiredQty").val();
+  if (qty == "") {
+    alert("Please Insert the Qty");
+  }
+  var array = [];
+  var product = {
+    id: product_id,
+    title: $("#title").text(),
+    price: parseInt($("#price").text()) * parseInt(qty),
+    quantity: qty,
+    delivery_fee: df,
+    condition: condition,
+    image: $("#product-image").attr("src"),
+    availableQty: availableQty,
+  };
+  array.push(product);
+  console.log(array);
+  parray = array;
+  var productArrayJSON = JSON.stringify(parray);
+
+  var encodedProductArray = encodeURIComponent(productArrayJSON);
+
+  window.location =
+    "checkout.php?email=" +
+    encodeURIComponent($("#spumail").text()) +
+    "&array=" +
+    encodedProductArray;
+}
+
+function confirmOrder(title, total, parray) {
+  console.log(parray)
+  var productArray = JSON.parse(parray);
+  fetch("api/confirmOrderProcess.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title: title,
+      total: total,
+    }),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      // alert(data);
+      var response = JSON.parse(data);
+      if (response.msg == "Success") {
+        // Payment completed. It can be a successful failure.
+        payhere.onCompleted = function onCompleted(orderId) {
+          console.log("Payment completed. OrderID:" + orderId);
+          // Note: validate the payment and show success or failure page to the customer
+          saveInvoice(
+            response.requiredData.order_id,
+            response.requiredData.amount,
+            productArray
+          );
+        };
+        // Payment window closed
+        payhere.onDismissed = function onDismissed() {
+          window.location = "404.php";
+          console.log("Payment dismissed");
+        };
+        // Error occurred
+        payhere.onError = function onError(error) {
+          window.location = "404.php";
+          console.log("Error:" + error);
+        };
+        // Put the payment variables here
+        var payment = {
+          sandbox: true,
+          merchant_id: response.requiredData.merchant_id,
+          return_url: "http://localhost/music_shop/index.php",
+          cancel_url: "http://localhost/music_shop/index.php",
+          notify_url: "http://sample.com/notify",
+          order_id: response.requiredData.order_id,
+          items: response.requiredData.item,
+          amount: response.requiredData.amount,
+          currency: response.requiredData.currency,
+          hash: response.requiredData.hash,
+          first_name: response.requiredData.fname,
+          last_name: response.requiredData.lname,
+          email: response.requiredData.email,
+          phone: response.requiredData.mobile,
+          address: response.requiredData.address,
+          city: response.requiredData.city,
+          country: "Sri Lanka",
+          delivery_address: response.requiredData.address,
+          delivery_city: response.requiredData.city,
+          delivery_country: "Sri Lanka",
+          custom_1: "",
+          custom_2: "",
+        };
+        // Show the payhere.js popup, when "PayHere Pay" is clicked
+        document.getElementById("payhere-payment").onclick = function (e) {
+          payhere.startPayment(payment);
+        };
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function saveInvoice(order_id, amount, productArray) {
+  console.log(productArray);
+  fetch("api/saveInvoice.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      productArray: productArray,
+      orderId: order_id,
+      amount: amount,
+      subtotal: $("#cSubtotle").text(),
+      shipping: $("#cShipping").text(),
+    }),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+      var response = JSON.parse(data);
+      if (response.msg == "Success") {
+        var invoiceDataArrayJSON = JSON.stringify(response.invoiceData);
+        var encodedInvoiceDataArray = encodeURIComponent(invoiceDataArrayJSON);
+        window.location = "invoice.php?data=" + encodedInvoiceDataArray;
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+var selectedColorId;
+var selectedRating;
+document.addEventListener("DOMContentLoaded", function () {
+  const colorOptions = document.querySelectorAll(".color-option");
+  const ratingOptions = document.querySelectorAll(".rating-option");
+  const paymentOptions = document.querySelectorAll(".payment-option");
+
+  colorOptions.forEach(function (option) {
+    option.addEventListener("click", function () {
+      colorOptions.forEach(function (opt) {
+        opt.classList.remove("border-[1px]");
+      });
+      option.classList.add("border-[1px]");
+      selectedColorId = option.getAttribute("data-code");
+    });
+  });
+  ratingOptions.forEach(function (option) {
+    option.addEventListener("click", function () {
+      ratingOptions.forEach(function (opt) {
+        opt.classList.remove("border-[1px]");
+      });
+      option.classList.add("border-[1px]");
+      selectedRating = option.getAttribute("data-code");
+    });
+  });
+  paymentOptions.forEach(function (option) {
+    option.addEventListener("click", function () {
+      paymentOptions.forEach(function (opt) {
+        opt.classList.remove("border-[1px]");
+      });
+      option.classList.add("border-[1px]");
+      selectedPatyment = option.getAttribute("data-code");
+    });
+  });
+});
+
+function filter() {
+  var category = $("#category").val();
+  var brand = $("#brand").val();
+  var model = $("#model").val();
+  var min = $("#minPrice").val();
+  var max = $("#maxPrice").val();
+  var sort = $("#sort").val();
+  console.log(
+    JSON.stringify({
+      category: category,
+      brand: brand,
+      model: model,
+      min: parseInt(min),
+      max: parseInt(max),
+      color: selectedColorId,
+      rating: selectedRating,
+      sort: sort,
+    })
+  );
+  fetch("api/filterProcess.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      category: category,
+      brand: brand,
+      model: model,
+      min: parseInt(min),
+      max: parseInt(max),
+      color: selectedColorId ? selectedColorId : null,
+      rating: selectedRating ? selectedRating : null,
+      sort: sort,
+    }),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+      if (data.trim() === "error") {
+        window.location = "404.php";
+      } else {
+        $("#products-area").html(data);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function clearSearch() {
+  window.location = "products";
+}
+
+function loadProductsByCategories(id) {
+  fetch("api/productsByCategory.php?id=" + id, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+      window.location = "productsByCategory.php";
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function printInvoice() {
+  var printContent = $("#printArea").html();
+  var originalContent = $("body").html();
+
+  $("body").html(printContent);
+  window.print();
+  $("body").html(originalContent);
 }
