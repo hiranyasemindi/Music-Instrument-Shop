@@ -25,7 +25,7 @@ class Process
 
     public function getInvoiceItems($order_id)
     {
-        $result = $this->search("SELECT `title`,`condition`,`price`,`image_path`,`invoice_item`.`qty`,`delivery_fee_colombo`,`delivery_fee_other` FROM `invoice_item` INNER JOIN `product` ON `product`.`id`=`invoice_item`.`product_id` INNER JOIN `condition`
+        $result = $this->search("SELECT `title`,`condition`,`price`,`image_path`,`invoice_item`.`qty`,`delivery_fee_colombo`,`delivery_fee_other`,`rating`,`product`.`id` FROM `invoice_item` INNER JOIN `product` ON `product`.`id`=`invoice_item`.`product_id` INNER JOIN `condition`
         ON `condition`.`id`=`product`.`condition_id` WHERE `invoice_order_id`='" . $order_id . "'");
         return $result->num_rows > 0 ? $result : null;
     }
@@ -102,7 +102,7 @@ class PurchaseHistoryTemplete
                                                                         <span class="text-[#999b9e] text-end"><span class="fw-semibold">Date :</span> <span><?php echo $order["date_selled"]; ?></span></span>
                                                                     </div>
                                                                     <div class="text-end col-4">
-                                                                        <span class="text-[#999b9e] text-end"><span class="fw-semibold">Total :</span> <span>Rs.<?php echo $order["total"]; ?>.00</span></span>
+                                                                        <span class="text-[#999b9e] text-end"><span class="fw-semibold">Grand Total :</span> <span>Rs.<?php echo $order["total"]; ?>.00</span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -124,20 +124,36 @@ class PurchaseHistoryTemplete
                                                                                 <?php
                                                                                 $df = $address["district_name"] == "Colombo" ? $item["delivery_fee_colombo"] : $item["delivery_fee_other"];
                                                                                 ?>
-                                                                                <p class="mt-2">Delivery Fee: Rs 300.00</p>
+                                                                                <p class="mt-2">Delivery Fee: Rs <?php echo $df; ?>.00</p>
                                                                                 <!-- <p class="mt-4 fw-semibold text-lg">Total: Rs 20,300.00</p> -->
                                                                             </div>
                                                                         </div>
 
-                                                                        <div class="w-[20%] flex items-center px-4">
+                                                                        <div class="w-[15%] flex items-center justify-center px-4">
                                                                             <div class="row">
                                                                                 <p class="mt-4 fw-semibold text-lg">Quantity: <?php echo $item["qty"]; ?></p>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="w-[25%] flex items-center px-4">
+                                                                        <div class="w-[15%] flex items-center px-4">
                                                                             <div class="row">
                                                                                 <p class="mt-4 text-[#AD1212]  fw-semibold text-lg">Total: Rs <?php echo ((int)$item["qty"] * (int)$item["price"]) + (int)$df; ?>.00</p>
                                                                             </div>
+                                                                        </div>
+                                                                        <div class=" w-[15%] flex items-center px-4 mt-4">
+                                                                            <span class="text-center me-2 text-lg-end fw-bold" style="color: #AD1212;"><?php echo $item["rating"]; ?>.0</span>
+
+                                                                            <span class=" ">
+                                                                                <?php
+                                                                                $fill = $item["rating"];
+                                                                                for ($x = 0; $x < 5; $x++) {
+                                                                                    $starClass = ($x < $fill) ? "bi bi-star-fill" : "bi bi-star";
+                                                                                ?>
+                                                                                    <i onclick="rateProduct('<?php echo $item['id']; ?>',<?php echo $x + 1; ?>);" class="<?php echo $starClass; ?> pe-1 hover:cursor-pointer" style="color: #AD1212;"></i>
+
+                                                                                <?php
+                                                                                }
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
                                                                         <hr class="mt-2">
                                                                     <?php
@@ -156,23 +172,26 @@ class PurchaseHistoryTemplete
                                                                 <p class="text-[#999b9e]">1st September, 2021 at 11.30 PM</p>
                                                             </div>
                                                             <?php
-                                                            for ($i = 0; $i < 1; $i++) {
+                                                            foreach ($invoiceItems as $item) {
                                                             ?>
                                                                 <div class="border col-12">
                                                                     <div class="row">
                                                                         <div class=" w-[20%] ml-3 mb-[60px] pb-5 flex items-center">
                                                                             <div class="card row">
-                                                                                <img src="assets/img/drum.jpg" class="px-1 " width="150px" height="150px" alt="">
+                                                                                <img src="<?php echo $item["image_path"]; ?>" class="px-1 " width="150px" height="150px" alt="">
                                                                             </div>
                                                                         </div>
                                                                         <div class="w-[75%] flex items-start px-4 mt-3">
                                                                             <div class="row">
-                                                                                <p class="fw-semibold text-lg">Drum Dolgi Drum Dolgi Drum Dolgi</p><br>
-                                                                                <span class=" mt-2 text-lg me-5">Rs 20, 000.00</span>
-                                                                                <p class="text-[#999b9e] mt-1">Condition: BrandNew</p>
-                                                                                <p class="mt-1">Delivery Fee: Rs 300.00</p>
-                                                                                <p class="mt-3 fw-semibold text-md">Quantity: 5</p>
-                                                                                <p class="my-2  text-[#AD1212]  fw-semibold text-lg">Total: Rs 20,300.00</p>
+                                                                                <p class="fw-semibold text-lg"><?php echo $item["title"]; ?></p><br>
+                                                                                <span class=" mt-2 text-lg me-5">Rs <?php echo $item["price"]; ?>.00</span>
+                                                                                <p class="text-[#999b9e] mt-1">Condition: <?php echo $item["condition"]; ?></p>
+                                                                                <?php
+                                                                                $df = $address["district_name"] == "Colombo" ? $item["delivery_fee_colombo"] : $item["delivery_fee_other"];
+                                                                                ?>
+                                                                                <p class="mt-1">Delivery Fee: Rs <?php echo $df; ?>.00</p>
+                                                                                <p class="mt-3 fw-semibold text-md">Quantity: <?php echo $item["qty"]; ?></p>
+                                                                                <p class="my-2  text-[#AD1212]  fw-semibold text-lg">Total: Rs <?php echo ((int)$item["qty"] * (int)$item["price"]) + (int)$df; ?>.00</p>
                                                                             </div>
 
                                                                             <hr class="mt-3">
@@ -213,6 +232,7 @@ class PurchaseHistoryTemplete
 
             <?php include "App/includes/footer.php"; ?>
             <script src="assets/js/script.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         </body>
 
         </html>
