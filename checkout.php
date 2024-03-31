@@ -29,15 +29,11 @@ class Process
 
     private function checkUser($email, $array)
     {
-        if ($email) {
-            $user = $this->getUserByEmail($email);
-            if ($user) {
-                $this->loggedUser($array, $email, $user);
-            } else {
-                include "404.php";
-            }
+        $user = $this->getUserByEmail($email);
+        if ($user) {
+            $this->loggedUser($array, $email, $user);
         } else {
-            include "App/views/notLogged_user_templete.php";
+            include "404.php";
         }
     }
 
