@@ -36,6 +36,8 @@
                                 <div class="row">
                                     <div class=" col-12">
                                         <div class="row">
+                                            <p id="spumail" class="d-none"><?php echo $_SESSION["user"]["email"]; ?></p>
+                                            <input type="text" value="1" class="d-none" id="requiredQty">
                                             <?php
 
                                             while ($product = $wishlistItems->fetch_assoc()) {
@@ -45,15 +47,16 @@
                                                     <div class="row px-5">
 
                                                         <div class=" w-[30%] card flex items-center">
-                                                            <img src="<?php echo $product["image_path"]; ?>" class="px-1 " width="150px" height="150px" alt="">
+                                                            <img id="product-image" src="<?php echo $product["image_path"]; ?>" class="px-1 " width="150px" height="150px" alt="">
                                                         </div>
                                                         <div class="w-[40%] flex items-start px-4">
                                                             <div class="row">
-                                                                <p class="fw-semibold text-2xl"><?php echo $product["title"]; ?></p><br>
-                                                                <p class="text-[#AD1212] mt-4 text-xl">Rs <?php echo $product["price"]; ?>.00</p>
+                                                                <p id="title" class="fw-semibold text-2xl"><?php echo $product["title"]; ?></p><br>
+                                                                <p class="text-[#AD1212] mt-4 text-xl">Rs <span id="price"><?php echo $product["price"]; ?></span>.00</p>
                                                                 <p class="text-[#999b9e] mt-2">Condition: <?php echo $product["condition"]; ?></p>
-                                                                <p class="mt-2">Delivery Fee: Rs <?php echo $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?>.00</p>
-                                                                <button class="bg-[#AD1212] col-5 ms-2 rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
+                                                                <?php $df = $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?>
+                                                                <p class="mt-2">Delivery Fee: Rs <?php echo $df; ?>.00</p>
+                                                                <button onclick="buyNow(<?php echo $product['id']; ?>,'<?php echo addslashes($product['condition']); ?>', <?php echo $df; ?>, <?php echo $product['qty']; ?>);" class="bg-[#AD1212] col-5 ms-2 rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
                                                             </div>
                                                         </div>
                                                         <div class="w-[30%]">
@@ -72,26 +75,27 @@
 
                                                         <div class=" w-[20%] ml-3 mb-[90px] pb-5 flex items-center">
                                                             <div class="card row">
-                                                                <img src="<?php echo $product["image_path"]; ?>" class="px-1 " width="150px" height="150px" alt="">
+                                                                <img id="product-image" src="<?php echo $product["image_path"]; ?>" class="px-1 " width="150px" height="150px" alt="">
                                                             </div>
                                                         </div>
                                                         <div class="w-[75%] flex items-start px-4 mt-3">
                                                             <div class="row">
-                                                                <p class="fw-semibold text-xl"><?php echo $product["title"]; ?></p><br>
+                                                                <p id="title" class="fw-semibold text-xl"><?php echo $product["title"]; ?></p><br>
 
                                                                 <div class="my-2">
 
                                                                     <div class="flex items-center justify-center ">
-                                                                        <span class="text-[#AD1212] mt-2 text-lg me-5">Rs <?php echo $product["price"]; ?>.00</span>
+                                                                        <span class="text-[#AD1212] mt-2 text-lg me-5">Rs<span id="price"> <?php echo $product["price"]; ?></span>.00</span>
                                                                         <i onclick="addToCart(<?php echo $product['product_id']; ?>);" class="bi bi-cart hover:cursor-pointer font-semibold me-2 text-[20px]"></i>
                                                                         <i onclick="deleteFromWishlist(<?php echo $product['product_id']; ?>);" class="bi bi-trash3 hover:cursor-pointer font-semibold mx-2 text-[20px] text-[#ed2835]"></i>
                                                                     </div>
 
                                                                 </div>
                                                                 <p class="text-[#999b9e] mt-1">Condition: <?php echo $product["condition"]; ?></p>
-                                                                <p class="mt-1">Delivery Fee: Rs <?php echo $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?>.00</p>
+                                                                <?php $df = $district == "Colombo" ?  $product["delivery_fee_colombo"] : $product["delivery_fee_other"]; ?>
+                                                                <p class="mt-1">Delivery Fee: Rs <?php echo  $df; ?>.00</p>
 
-                                                                <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
+                                                                <button onclick="buyNow(<?php echo $product['id']; ?>,'<?php echo addslashes($product['condition']); ?>', <?php echo $df; ?>, <?php echo $product['qty']; ?>);" class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Buy Now</button>
 
                                                             </div>
                                                         </div>
@@ -141,6 +145,8 @@
 
 
     <script src="assets/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 </body>
 
 </html>
