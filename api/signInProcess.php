@@ -48,20 +48,26 @@ class Process
         $rememberMe = $decoded->rememberMe;
         $user = $this->getUserByEmail($email);
         if ($user) {
-            if (password_verify($password, $user["password"])) {
-                session_start();
-                $_SESSION['user'] = $user;
-                if ($rememberMe == "true") {
-                    setcookie("email", $email, time() + (60 * 60 * 24 * 365));
-                    setcookie("password", $password, time() + (60 * 60 * 24 * 365));
+            $active = $this->getActiveUserByEmail($email);
+            if ($active) {
+                if (password_verify($password, $user["password"])) {
+                    session_start();
+                    $_SESSION['user'] = $user;
+                    if ($rememberMe == "true") {
+                        setcookie("email", $email, time() + (60 * 60 * 24 * 365));
+                        setcookie("password", $password, time() + (60 * 60 * 24 * 365));
+                    } else {
+                        setcookie("email", "", -1);
+                        setcookie("password", "", -1);
+                    }
+                    $this->responseObj->msg = "SignIn Success.";
+                    $this->sendResponse();
                 } else {
-                    setcookie("email", "", -1);
-                    setcookie("password", "", -1);
+                    $this->responseObj->error = "Password is Incorrect";
+                    $this->sendResponse(400);
                 }
-                $this->responseObj->msg = "SignIn Success.";
-                $this->sendResponse();
             } else {
-                $this->responseObj->error = "Password is Incorrect";
+                $this->responseObj->error = "User is Deactivate.";
                 $this->sendResponse(400);
             }
         } else {
@@ -73,6 +79,12 @@ class Process
     private function getUserByEmail($email)
     {
         $result =  $this->search("SELECT * FROM `user` WHERE `email`='" . $email . "'");
+        return $result->num_rows > 0 ? $result->fetch_assoc() : null;
+    }
+
+    private function getActiveUserByEmail($email)
+    {
+        $result =  $this->search("SELECT * FROM `user` WHERE `email`='" . $email . "' AND `status_id`='1'");
         return $result->num_rows > 0 ? $result->fetch_assoc() : null;
     }
 
