@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HOME | SONORITY</title>
     <link rel="stylesheet" href="assets/plugin/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -107,7 +107,7 @@
                                     and playability. Elevate your musical journey with our best editions, where every instrument is a masterpiece
                                     waiting to inspire your creativity and elevate your performance to new heights. Explore our exclusive range
                                     today and experience the artistry that defines true perfection in music.</p>
-                                <button onclick="window.location.href = 'products.php'" class="bg-[#AD1212] mt-2 rounded px-5 py-3 text-white font-bold">View More</button>
+                                <button onclick="window.location.href = 'products'" class="bg-[#AD1212] mt-2 rounded px-5 py-3 text-white font-bold">View More</button>
                             </div>
                         </div>
                     </div>

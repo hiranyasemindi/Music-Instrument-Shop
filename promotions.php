@@ -51,7 +51,7 @@ class PromotionsTemplete
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
+            <title>PROMOTIONS | SONORITY</title>
             <link rel="stylesheet" href="assets/plugin/bootstrap/css/bootstrap.css">
             <link rel="stylesheet" href="assets/css/style.css">
             <script src="https://cdn.tailwindcss.com"></script>
@@ -80,7 +80,7 @@ class PromotionsTemplete
                                     <?php
                                     while ($promotion = $promotions->fetch_assoc()) {
                                     ?>
-                                        <div class="col-lg-4 hover:cursor-pointer col-12 items-center flex justify-center mt-5" onclick="window.location.href = 'singlePromoView.php?id=<?php echo $promotion['id']; ?>'">
+                                        <div class="col-lg-4 hover:cursor-pointer col-12 items-center flex justify-center mt-5" onclick="window.location.href = 'singlePromoView?id=<?php echo $promotion['id']; ?>'">
                                             <img src="<?php echo $promotion["image"]; ?>" alt="prmo_img" width="400px" height="400px">
                                         </div>
                                     <?php
