@@ -1,14 +1,13 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 * {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    font-variation-settings:
-        "slnt" 0;
-}::-webkit-scrollbar {
-    display: none;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 
 input::-webkit-outer-spin-button,
@@ -18,142 +17,144 @@ input::-webkit-inner-spin-button {
 }
 
 body {
-    margin: 0 !important;
+  margin: 0 !important;
 }
-
 
 /* Sign up Start */
 .sign-in-main-box {
-    position: absolute;
-    z-index: 5;
+  position: absolute;
+  z-index: 5;
 }
 
 .sign-in-ellipse-left {
-    position: absolute;
-    z-index: 2;
+  position: absolute;
+  z-index: 2;
 }
 
 .sign-in-ellipse-right {
-    position: absolute;
-    z-index: 3;
+  position: absolute;
+  z-index: 3;
 }
 
 .sign-in-hero {
-    height: calc(100vh - 6rem);
-    background-color: #FFFAEF;
-    border-radius: 15px 0px 15px 15px;
+  height: calc(100vh - 6rem);
+  background-color: #fffaef;
+  border-radius: 15px 0px 15px 15px;
 }
 
 .sign-in-hero-white {
-    height: calc(100vh - 6rem);
+  height: calc(100vh - 6rem);
 }
 
 .sign-in-link {
-    font-size: 0.9rem;
-    color: #E7B94E;
-    font-weight: bold;
+  font-size: 0.9rem;
+  color: #e7b94e;
+  font-weight: bold;
 }
 
-.sign-in-link:hover{
-    cursor: pointer;
-    text-decoration: underline;
+.sign-in-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .get-start-sign-in {
-    height: calc(100vh - 100rem);
+  height: calc(100vh - 100rem);
 }
 
 .sign-in-text-field-area {
-    height: calc(100vh - 11.5rem);
+  height: calc(100vh - 11.5rem);
 }
 
 .sign-in-input {
-    width: 100%;
-    padding: 4px;
-    font-size: 0.9rem;
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #E7B94E;
-    outline: none;
-    transition: border-color 0.3s ease;
-    color: #696969;
-    font-weight: 700;
+  width: 100%;
+  padding: 4px;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #e7b94e;
+  outline: none;
+  transition: border-color 0.3s ease;
+  color: #696969;
+  font-weight: 700;
 }
 
 .sign-in-input:focus,
 .sign-in-input:not(:placeholder-shown) {
-    border-color: #E7B94E;
+  border-color: #e7b94e;
 }
 
 .sign-in-input-label {
-    font-size: 1rem;
-    color: #9A9A9A;
+  font-size: 1rem;
+  color: #9a9a9a;
 }
 
-.sign-in-input:focus+.sign-in-input-label,
-.sign-in-input:not(:placeholder-shown)+.sign-in-input-label {
-    transform: translateY(-100%) translateX(-5px) scale(0.8);
+.sign-in-input:focus + .sign-in-input-label,
+.sign-in-input:not(:placeholder-shown) + .sign-in-input-label {
+  transform: translateY(-100%) translateX(-5px) scale(0.8);
 }
 /* Sign up end  */
 
 /* Sign In start  */
 .cyberpunk-checkbox {
-    appearance: none;
-    width: 15px;
-    height:15px;
-    border: 1px solid #AD1212;
-    background-color: transparent;
-    display: inline-block;
-    position: relative;
-    margin-right: 5px;
-    border-radius: 3px;
-    cursor: pointer;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #ad1212;
+  background-color: transparent;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  border-radius: 3px;
+  cursor: pointer;
 }
-  
+
 .cyberpunk-checkbox:before {
-    content: "";
-    background-color: #AD1212;
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
-    transition: all 0.3s ease-in-out;
+  content: "";
+  background-color: #ad1212;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
 }
-  
+
 .cyberpunk-checkbox:checked:before {
-    transform: translate(-50%, -50%) scale(1);
-}
-  
-
-
-.sign-in-FP{
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #8C94A3;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-.sign-in-FP:hover{
-    cursor: pointer;
-    text-decoration: underline;
+.sign-in-FP {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #8c94a3;
+}
+
+.sign-in-FP:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 /* Sign In End  */
 
-
 /* Home start */
 .card:hover .product-onclick-view {
-    opacity: 4;
-    cursor: pointer;
+  opacity: 4;
+  cursor: pointer;
 }
 
 .product-onclick-view {
-    width: 100%;
-    height: 100%;
-    border-radius: 6px;
-    background-color: rgba(51, 51, 51, 0.63);
-    opacity: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background-color: rgba(51, 51, 51, 0.63);
+  opacity: 0;
 }
 /* Home end */
+
+.table td,
+.table th {
+  padding-top: 55px; /* Adjust as needed */
+  padding-bottom: 55px; /* Adjust as needed */
+}
