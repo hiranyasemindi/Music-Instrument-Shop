@@ -1171,7 +1171,7 @@ function ActivateOrDeactivateUser(id, email) {
         response.msg == "Deactivated User."
       ) {
         alert(response.msg);
-        window.location.reload(); 
+        window.location.reload();
       } else {
         alert(response.error);
       }
@@ -1183,7 +1183,10 @@ function ActivateOrDeactivateUser(id, email) {
 
 function ActivateOrDeactivateProduct(status_id, product_id) {
   fetch(
-    "api/adminProductActivateDeactivateProcess.php?status_id=" + status_id + "&product_id=" + product_id,
+    "api/adminProductActivateDeactivateProcess.php?status_id=" +
+      status_id +
+      "&product_id=" +
+      product_id,
     {
       method: "GET",
     }
@@ -1196,7 +1199,355 @@ function ActivateOrDeactivateProduct(status_id, product_id) {
         response.msg == "Deactivated Product."
       ) {
         alert(response.msg);
-        window.location.reload(); 
+        window.location.reload();
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function editPromotion() {
+  $("#promoImage").removeAttr("disabled");
+  $("#promoDescription").removeAttr("disabled");
+  $("#editPromoBtn").toggleClass("d-none");
+  $("#updatePromoBtn").toggleClass("d-none");
+  alert("Now you can edit the promotion");
+}
+
+function changeImage() {
+  var fileInput = $("#promoImage"); //file chooser
+
+  fileInput.change(function () {
+    var file = this.files[0];
+    var url = window.URL.createObjectURL(file);
+    $("#viePromoImg").attr("src", url);
+  });
+}
+
+function updatePromotion(id) {
+  var fileInput = document.getElementById("promoImage");
+
+  var form = new FormData();
+  form.append("description", $("#promoDescription").val());
+  form.append("id", id);
+  form.append("function", "update");
+  if (fileInput.files.size == 0) {
+    form.append("img", null);
+  } else {
+    form.append("img", fileInput.files[0]);
+  }
+
+  fetch("api/add&updatePromotion.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.done == "Promotion Updated.") {
+        alert("Succesfully Updated the Promotion.");
+        window.location = "adminPromotions";
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
+    });
+}
+
+function promotionValidation() {
+  var AlertBox = $("#promotion_alertBox");
+  var Alert = $("#promotion_alert");
+  if ($("#description").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Description.");
+  } else if ($("#promoDescription").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Description.");
+  }
+}
+
+function addPromotion() {
+  var fileInput = document.getElementById("promoImage");
+  var AlertBox = $("#promotion_alertBox");
+  var Alert = $("#promotion_alert");
+  if ($("#promoDescription").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Description.");
+  } else if (fileInput.files.size == 0) {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please select an image.");
+  } else {
+    var form = new FormData();
+    form.append("description", $("#promoDescription").val());
+    form.append("function", "add");
+    if (!fileInput.files.size == 0) {
+      form.append("img", fileInput.files[0]);
+    }
+
+    fetch("api/add&updatePromotion.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        if (response.done == "Promotion Added.") {
+          alert("Succesfully Added the Promotion.");
+          window.location = "adminPromotions";
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
+function editProduct() {
+  $("#productImage").removeAttr("disabled");
+  $("#tit").removeAttr("disabled");
+  $("#des").removeAttr("disabled");
+  $("#qt").removeAttr("disabled");
+  $("#dfc").removeAttr("disabled");
+  $("#dfo").removeAttr("disabled");
+  $("#editProductBtn").toggleClass("d-none");
+  $("#updateProductBtn").toggleClass("d-none");
+  alert("Now you can edit the product.");
+}
+
+function changeProductImage() {
+  var fileInput = $("#productImage"); //file chooser
+
+  fileInput.change(function () {
+    var file = this.files[0];
+    var url = window.URL.createObjectURL(file);
+    $("#viewProductImg").attr("src", url);
+  });
+}
+
+function updateProduct(id) {
+  var fileInput = document.getElementById("productImage");
+
+  var form = new FormData();
+  form.append("title", $("#tit").val());
+  form.append("description", $("#des").val());
+  form.append("qty", $("#qt").val());
+  form.append("dfeecolombo", $("#dfc").val());
+  form.append("dfeeout", $("#dfo").val());
+  form.append("id", id);
+  form.append("function", "update");
+  if (fileInput.files.size == 0) {
+    form.append("img", null);
+  } else {
+    form.append("img", fileInput.files[0]);
+  }
+
+  fetch("api/add&updateProduct.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.done == "Product Updated.") {
+        alert("Succesfully Updated the Product.");
+        window.location = "adminManageProducts";
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
+    });
+}
+
+function productValidations() {
+  var AlertBox = $("#product_alertBox");
+  var Alert = $("#product_alert");
+  if ($("#cat").val() == 0) {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Select a Category.");
+  } else if ($("#br").val() == 0) {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Select a Brand.");
+  } else if ($("#md").val() == 0) {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Select a Model.");
+  } else if ($("#tit").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Title.");
+  } else if ($("#des").val() === "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Description.");
+  } else if ($("#qt").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Quantity.");
+  } else if ($("#pr").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Price.");
+  } else if ($("#dfc").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Delivery Fee Colombo.");
+  } else if ($("#dfo").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Product Delivery Fee Out of Colombo.");
+  } else {
+    return true;
+  }
+}
+
+function addProduct() {
+  var fileInput = document.getElementById("productImage");
+  if (productValidations()) {
+    var form = new FormData();
+    form.append("cat", $("#cat").val());
+    form.append("br", $("#br").val());
+    form.append("md", $("#md").val());
+    form.append("title", $("#tit").val());
+    form.append("description", $("#des").val());
+    form.append("qty", $("#qt").val());
+    form.append("pr", $("#pr").val());
+    form.append("dfeecolombo", $("#dfc").val());
+    form.append("dfeeout", $("#dfo").val());
+    form.append("function", "add");
+    if (fileInput.files.size == 0) {
+      alert("Please select an image.");
+    } else {
+      form.append("img", fileInput.files[0]);
+    }
+
+    fetch("api/add&updateProduct.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        if (response.done == "Product Added.") {
+          alert("Succesfully Added the Product.");
+          window.location = "adminManageProducts";
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
+function updateAdminProfileImage() {
+  if (productValidations()) {
+    var img = $("#viewAdminProfileImg");
+
+    var fileInput = $("#adminProfileImg");
+    var file = fileInput[0].files[0];
+
+    var form = new FormData();
+    form.append("img", file);
+    console.log(form.get("img"));
+    fetch("api/updateAdminProfileImage.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        if (response.msg == "Successfully Updated") {
+          alert("Succesfully Updated.");
+          window.location.reload();
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
+var adminModel;
+
+function updateAdminProfile() {
+  var newEmail = $("#newEmail").val();
+  var oldEmail = $("#oldEmail").val();
+  if (newEmail != oldEmail) {
+    fetch("api/adminSendVcode.php?email=" + oldEmail, {
+      method: "GET",
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        if (response.msg == "openModel") {
+          adminModel = $("#adminModal");
+          adminModel.removeClass("hidden").attr("aria-hidden", "false").focus();
+          $('[data-modal-hide="adminModal"]').on("click", function () {
+            adminModel.addClass("hidden").attr("aria-hidden", "true");
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+      });
+  }
+}
+
+function changeEmail() {
+  var newEmail = $("#newEmail").val();
+  var vcode = $("#vcodeAdmin").val();
+  var oldEmail = $("#oldEmail").val();
+  var name = $("#nameAdmin").val();
+  if (newEmail != oldEmail) {
+    fetch("api/adminSendVcode.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: newEmail,
+        oldEmail: oldEmail,
+        name: name,
+        vcode: vcode,
+      }),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        alert(data);
+        if ((response.msg = "Reset Success.")) {
+          alert(response.msg);
+          adminModel.addClass("hidden");
+          $("#vcode").val("");
+          $("#oldEmail").val("");
+          $("#nameAdmin").val("");
+          window.location.reload();
+        } else {
+          alert(res.error);
+        }
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+      });
+  }
+}
+
+function signout(type) {
+  fetch("api/signOutProcess.php?type=" + type, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.msg == "Logout Sucess.") {
+        if (type == "admin") {
+          window.location = "adminLogin";
+        } else if (type == "user") {
+          window.location = "register";
+        }
       } else {
         alert(response.error);
       }
