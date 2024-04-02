@@ -27,7 +27,7 @@
          </div>
          <div class="col-10 offset-1 h-[10%]">
              <div class="row">
-                 <div class="text-start mt-3 p-[13px] rounded-1 hover:cursor-pointer">
+                 <div onclick="signout('admin');" class="text-start mt-3 p-[13px] rounded-1 hover:cursor-pointer">
                      <i class="bi bi-box-arrow-right mx-4 text-lg text-white"></i><span class="text-white">Logout</span>
                  </div>
              </div>
