@@ -159,7 +159,7 @@ function logIn() {
         if (res.msg == "SignIn Success.") {
           loginAlertBox.addClass("d-none");
           // alert(res.done);
-          window.location = "index.php";
+          window.location = "index";
         } else {
           loginAlertBox.removeClass("d-none");
           loginAlert.text(res.error);
@@ -525,7 +525,7 @@ function deleteFromCart(id) {
       console.log("Error: " + error);
     });
 }
-7;
+
 function incrementQty(prodcut_qty, cart_id, price) {
   var qty = $("#qty" + cart_id + "").text();
   var newQty = parseInt(qty) + 1;
@@ -670,7 +670,7 @@ function checkout() {
   var encodedProductArray = encodeURIComponent(productArrayJSON);
 
   window.location =
-    "checkout.php?email=" +
+    "checkout?email=" +
     encodeURIComponent($("#umail").text()) +
     "&array=" +
     encodedProductArray;
@@ -699,7 +699,7 @@ function buyNow(product_id, condition, df, availableQty) {
   var encodedProductArray = encodeURIComponent(productArrayJSON);
 
   window.location =
-    "checkout.php?email=" +
+    "checkout?email=" +
     encodeURIComponent($("#spumail").text()) +
     "&array=" +
     encodedProductArray;
@@ -733,12 +733,12 @@ function confirmOrder(title, total, parray) {
         };
         // Payment window closed
         payhere.onDismissed = function onDismissed() {
-          window.location = "404.php";
+          window.location = "404";
           console.log("Payment dismissed");
         };
         // Error occurred
         payhere.onError = function onError(error) {
-          window.location = "404.php";
+          window.location = "404";
           console.log("Error:" + error);
         };
         // Put the payment variables here
@@ -799,7 +799,7 @@ function saveInvoice(order_id, amount, productArray) {
       if (response.msg == "Success") {
         var invoiceDataArrayJSON = JSON.stringify(response.invoiceData);
         var encodedInvoiceDataArray = encodeURIComponent(invoiceDataArrayJSON);
-        window.location = "invoice.php?data=" + encodedInvoiceDataArray;
+        window.location = "invoice?data=" + encodedInvoiceDataArray;
       } else {
         alert(response.error);
       }
@@ -882,7 +882,7 @@ function filter() {
     .then((data) => {
       console.log(data);
       if (data.trim() === "error") {
-        window.location = "404.php";
+        window.location = "404";
       } else {
         $("#products-area").html(data);
       }
@@ -903,7 +903,7 @@ function loadProductsByCategories(id) {
     .then((response) => response.text())
     .then((data) => {
       console.log(data);
-      window.location = "productsByCategory.php";
+      window.location = "productsByCategory";
     })
     .catch((error) => {
       console.log("Error: " + error);
@@ -950,6 +950,253 @@ function postReview() {
       var response = JSON.parse(data);
       if (response.msg == "Success.") {
         window.location.reload();
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+//admin functions
+
+function adminLogIn() {
+  var email = $("#loginEmailAdmin").val();
+  var password = $("#loginPasswordAdmin").val();
+  var rememberMe = $("#rememberMeAdmin").prop("checked");
+
+  var emailRegex =
+    /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  var loginAlertBox = $("#login_alertBox");
+  var loginAlert = $("#login_alert");
+
+  if (email == "") {
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter Your Email Address.");
+  } else if (!email.match(emailRegex)) {
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter a Valid Email Address.");
+  } else if (password == "") {
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter Your Password.");
+  } else {
+    loginAlertBox.addClass("d-none");
+    fetch("api/adminLoginProcess.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        rememberMe: rememberMe == true ? "true" : "false",
+      }),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var res = JSON.parse(data);
+        if (res.msg == "SignIn Success.") {
+          loginAlertBox.addClass("d-none");
+          localStorage.setItem("activeMenuItem", "adminDashboard");
+          window.location = "adminDashboard";
+        } else {
+          loginAlertBox.removeClass("d-none");
+          loginAlert.text(res.error);
+        }
+      });
+  }
+}
+
+function adminLoginVisibility() {
+  var pw = $("#loginPasswordAdmin");
+  var iv = $("#icon-visibility");
+
+  if (pw.attr("type") == "password") {
+    pw.attr("type", "text");
+    iv.attr(
+      "class",
+      "bi bi-eye-fill hover:cursor-pointer text-xl  text-[#A9A9AF] "
+    );
+  } else {
+    pw.attr("type", "password");
+    iv.attr(
+      "class",
+      "bi bi-eye-slash-fill hover:cursor-pointer text-xl   text-[#A9A9AF] "
+    );
+  }
+}
+
+var adminModel;
+
+function adminForgotPassowrd() {
+  var email = $("#loginEmailAdmin").val();
+
+  var emailRegex =
+    /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  var loginAlertBox = $("#login_alertBox");
+  var loginAlert = $("#login_alert");
+
+  if (email == "") {
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter Your Email Address.");
+  } else if (!email.match(emailRegex)) {
+    loginAlertBox.removeClass("d-none");
+    loginAlert.text("Please Enter a Valid Email Address.");
+  } else {
+    loginAlertBox.addClass("d-none");
+    fetch("api/adminForgotPasswordProcess.php?email=" + email, {
+      method: "GET",
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var res = JSON.parse(data);
+        if (res.msg == "openModel") {
+          adminModel = $("#fp-modal-admin");
+          adminModel.removeClass("hidden").attr("aria-hidden", "false").focus();
+          $('[data-modal-hide="fp-modal-admin"]').on("click", function () {
+            adminModel.addClass("hidden").attr("aria-hidden", "true");
+          });
+        } else {
+          alert(res.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
+function adminResetPassword() {
+  var vcode = $("#vcodeAdmin").val();
+  var npw = $("#new_passwordAdmin").val();
+  var cpw = $("#confirm_passwordAdmin").val();
+  var email = $("#loginEmailAdmin").val();
+
+  var fpAlertBox = $("#fp_alertBox");
+  var fpAlert = $("#fp_alert");
+
+  if (npw == "") {
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Please fill the new password field.");
+  } else if (cpw == "") {
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Please re-type your password.");
+  } else if (npw !== cpw) {
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password doesn't match.");
+  } else {
+    fpAlertBox.addClass("d-none");
+    fetch("api/adminForgotPasswordProcess.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        vcode: vcode,
+        npw: npw,
+        email: email,
+      }),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var res = JSON.parse(data);
+        if ((res.msg = "Reset Success.")) {
+          alert(res.msg);
+          model.addClass("hidden");
+          $("#vcodeAdmin").val("");
+          $("#new_passwordAdmin").val("");
+          $("#confirm_passwordAdmin").val("");
+        } else {
+          alert(res.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
+function validateNewPasswordAdmin() {
+  var password = $("#new_passwordAdmin").val();
+  var pattern1 = /[a-z]/;
+  var pattern2 = /[A-Z]/;
+  var pattern3 = /[0-9]/;
+  var pattern4 = /.{8,}/;
+
+  var fpAlertBox = $("#fp_alertBox");
+  var fpAlert = $("#fp_alert");
+
+  if (!password.match(pattern1)) {
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password Must Contain Lowercase Letters.");
+  } else if (!password.match(pattern2)) {
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password Must Contain Uppercase Letters.");
+  } else if (!password.match(pattern3)) {
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password Must Contain Digits.");
+  } else if (!password.match(pattern4)) {
+    fpAlertBox.removeClass("d-none");
+    fpAlert.text("Password Must Contain Minimum 8 Characters.");
+  } else {
+    fpAlertBox.addClass("d-none");
+  }
+}
+
+function changeBgColor(id) {
+  window.location.href = id;
+  localStorage.setItem("activeMenuItem", id);
+}
+
+window.onload = function () {
+  var activeMenuItemId = localStorage.getItem("activeMenuItem");
+  if (activeMenuItemId) {
+    var activeMenuItem = document.getElementById(activeMenuItemId);
+    if (activeMenuItem) {
+      activeMenuItem.classList.add("bg-[#AD1212]");
+    }
+  }
+};
+
+function ActivateOrDeactivateUser(id, email) {
+  fetch(
+    "api/adminUserActivateDeactivateProcess.php?id=" + id + "&email=" + email,
+    {
+      method: "GET",
+    }
+  )
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (
+        response.msg == "Activated User." ||
+        response.msg == "Deactivated User."
+      ) {
+        alert(response.msg);
+        window.location.reload(); 
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function ActivateOrDeactivateProduct(status_id, product_id) {
+  fetch(
+    "api/adminProductActivateDeactivateProcess.php?status_id=" + status_id + "&product_id=" + product_id,
+    {
+      method: "GET",
+    }
+  )
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (
+        response.msg == "Activated Product." ||
+        response.msg == "Deactivated Product."
+      ) {
+        alert(response.msg);
+        window.location.reload(); 
       } else {
         alert(response.error);
       }
