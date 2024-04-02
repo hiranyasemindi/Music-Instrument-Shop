@@ -30,7 +30,7 @@ class Process
                 cartTemplete::emptyCart();
             }
         } else {
-            include "App/views/404.php";
+            include "404.php";
         }
     }
 

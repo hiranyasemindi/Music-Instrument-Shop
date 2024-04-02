@@ -14,10 +14,10 @@
             <div class="row">
                 <ul class="d-lg-inline-flex d-none">
 
-                    <a href="index.php" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212]">Home</li></a>
-                    <a href="products.php" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">Our Collection</li></a>
-                    <a href="promotions.php" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">Promotions</li></a>
-                    <a href="aboutUs.php" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">About Us</li></a>
+                    <a href="index" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212]">Home</li></a>
+                    <a href="products" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">Our Collection</li></a>
+                    <a href="promotions" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">Promotions</li></a>
+                    <a href="aboutUs" class="text-decoration-none"><li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">About Us</li></a>
 
                 </ul>
             </div>

@@ -12,7 +12,7 @@ class EmptyDesign
                 <span class="fw-semibold text-3xl"><?php echo $text; ?></span>
             </div>
             <div class="flex items-center justify-center mt-4">
-                <button onclick="window.location.href = 'index.php'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Home</button>
+                <button onclick="window.location.href = 'index'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Home</button>
             </div>
         </div>
 <?php

@@ -21,7 +21,7 @@
         <span class="fw-semibold text-3xl">Please Login To Your Account First</span>
     </div>
     <div class="flex items-center justify-center mt-4">
-        <button onclick="window.location.href = 'register.php'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Login</button>
+        <button onclick="window.location.href = 'register'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Login</button>
     </div>
 
 
