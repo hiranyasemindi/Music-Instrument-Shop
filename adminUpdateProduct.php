@@ -35,6 +35,7 @@
                 <!-- header -->
                 <?php
                 include "App/includes/adminDashbordHeader.php";
+                AdminHeaderTemplete::generate();
                 ?>
                 <!-- header -->
 

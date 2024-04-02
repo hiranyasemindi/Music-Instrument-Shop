@@ -92,6 +92,7 @@ class ManageProductTemplete
                         <!-- header -->
                         <?php
                         include "App/includes/adminDashbordHeader.php";
+                        AdminHeaderTemplete::generate();
                         ?>
                         <!-- header -->
 
@@ -100,7 +101,7 @@ class ManageProductTemplete
                             <div class="w-[43%] bg-white pt-5 ps-5 pe-5 pb-5 ml-[7%] ">
                                 <span class="mb-[35px] text-2xl text-[#AD1212] fw-semibold">Manage Products</span>
                             </div>
-                            <div class="w-[43%] bg-white pt-5 ps-5 pe-5 pb-5  text-end">
+                            <div class="w-[43%] bg-white pt-5 ps-5 pe-5 pb-5  text-end" onclick="addProductPage();">
                                 <button class="bg-[#AD1212] text-white p-2 rounded "><i class="bi bi-plus-lg pe-2"></i>Add Product</button>
                             </div>
                             <div class="w-[86%] bg-white pb-5 pe-5 ps-5 ml-[7%]" style="overflow-y: scroll; height:36rem;">
@@ -119,7 +120,7 @@ class ManageProductTemplete
                                             <?php
                                             while ($product = $products->fetch_assoc()) {
                                             ?>
-                                                <tr class="border-[#AD1212]">
+                                                <tr class="border-[#AD1212]" onclick="window.location.href = 'adminSingleProduct?id='+ <?php echo $product['id']; ?>">
                                                     <th scope="row">
                                                         <img src="<?php echo $product['image_path']; ?>" width="20px" height="20px" alt="">
                                                     </th>
@@ -165,6 +166,12 @@ class ManageProductTemplete
             <script src="assets/js/script.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            <script>
+                function addProductPage() {
+                    localStorage.setItem("activeMenuItem", "");
+                    window.location.href = 'adminSingleProduct';
+                }
+            </script>
         </body>
 
         </html>
