@@ -91,6 +91,7 @@ class PromotionsTemplete
                         <!-- header -->
                         <?php
                         include "App/includes/adminDashbordHeader.php";
+                        AdminHeaderTemplete::generate();
                         ?>
                         <!-- header -->
 
@@ -109,7 +110,7 @@ class PromotionsTemplete
                                             <?php
                                             while ($promotion = $promotions->fetch_assoc()) {
                                             ?>
-                                                <div onclick="window.location.href = 'adminAddPromotion?id='+<?php echo $promotion['id']; ?>" class="col-lg-4 hover:cursor-pointer col-12 items-center flex justify-center mb-5">
+                                                <div onclick="window.location.href = 'adminSinglePromotion?id='+<?php echo $promotion['id']; ?>" class="col-lg-4 hover:cursor-pointer col-12 items-center flex justify-center mb-5">
                                                     <img src="<?php echo $promotion["image"]; ?>" alt="prmo_img" width="400px" height="400px">
                                                 </div>
                                             <?php
@@ -135,7 +136,7 @@ class PromotionsTemplete
             <script>
                 function addPromo() {
                     localStorage.setItem("activeMenuItem", "");
-                    window.location.href = 'adminAddPromotion';
+                    window.location.href = 'adminSinglePromotion';
                 }
             </script>
         </body>

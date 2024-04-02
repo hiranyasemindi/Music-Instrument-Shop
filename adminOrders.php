@@ -25,8 +25,7 @@ class Process
 
     private function getAllOrders()
     {
-        $result = $this->search("SELECT * FROM `invoice` INNER JOIN `invoice_item` ON `invoice_item`.`invoice_order_id`=`invoice`.`order_id` 
-        INNER JOIN `product` ON `product`.`id`=`invoice_item`.`product_id`");
+        $result = $this->search("SELECT * FROM `invoice`");
         return $result->num_rows > 0 ? $result : null;
     }
 
@@ -93,6 +92,7 @@ class OrdersTemplete
                         <!-- header -->
                         <?php
                         include "App/includes/adminDashbordHeader.php";
+                        AdminHeaderTemplete::generate();
                         ?>
                         <!-- header -->
 
@@ -116,11 +116,12 @@ class OrdersTemplete
                                         </thead>
                                         <tbody class="">
                                             <?php
+                                            $x = 0;
                                             while ($order = $orders->fetch_assoc()) {
                                             ?>
-                                                <tr class="border-[#AD1212]">
+                                                <tr class="border-[#AD1212]" onclick="window.location.href = 'adminSingleOrder?id='+'<?php echo $order['order_id']; ?>'">
                                                     <th scope="row">
-                                                        <img src="<?php echo $order["image_path"]; ?>" width="20px" height="20px" alt="">
+                                                        <?php echo $x += 1; ?>
                                                     </th>
                                                     <td><?php echo $order["order_id"]; ?></td>
                                                     <td><?php echo $order["user_email"]; ?></td>
@@ -155,6 +156,7 @@ class OrdersTemplete
             <script src="assets/js/script.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
         </body>
 
         </html>
