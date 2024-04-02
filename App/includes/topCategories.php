@@ -58,7 +58,7 @@
                             <?php
                             while ($category = $categories->fetch_assoc()) {
                             ?>
-                                <div class="col-6 col-lg-3 mt-3" onclick="window.location.href = 'productsByCategory.php?id=<?php echo $category['id']; ?>'">
+                                <div class="col-6 col-lg-3 mt-3" onclick="window.location.href = 'productsByCategory?id=<?php echo $category['id']; ?>'">
                                     <div class="row">
                                         <div class="col-10 offset-1 shadow card">
 
