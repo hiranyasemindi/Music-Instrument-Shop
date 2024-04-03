@@ -78,7 +78,7 @@
                     ?>
 
                     <div class="p-4 mt-5">
-                        <h2 class="text-3xl font-bold">Last Arrivals</h2>
+                        <h2 class="text-3xl font-bold">Lastest Arrivals</h2>
                         <div class="bg-[#AD1212] my-3 h-1 w-[20%] d-none d-lg-block ml-[2%] rounded"></div>
                         <div class="bg-[#AD1212] my-2 h-[2px] w-[60%] d-block d-lg-none ml-[2%] rounded"></div>
                     </div>

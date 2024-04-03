@@ -15,8 +15,8 @@
             <div class="row items-center ">
                 <div class="col-lg-4 col-12 p-3">
                     <img src="logo/logoo.png" alt="logo" width="100px" height="100px" class="ms-2">
-                    <p class="ps-4 text-white">Lorem ipsum dolor sit amet consectetur. Semper etiam <br />
-                        tincidunt varius pretium urna in sodales nunc natoque.</p>
+                    <p class="ps-4 text-white">Sonority Music Instrument Shop is a haven for musicians of all levels, offering a diverse range of high-quality instruments 
+                        and accessories to cater to various musical tastes and preferences. </p>
                     <div class="flex ps-4 mt-5 mb-4">
                         <div class="bg-[#363B47] hover:bg-[#AD1212] items-center justify-center flex w-[55px] h-[55px] me-3"><i class="bi bi-facebook text-[20px] text-white"></i></div>
                         <div class="bg-[#363B47] hover:bg-[#AD1212] items-center justify-center flex w-[55px] h-[55px] me-3"><i class="bi bi-instagram text-[20px] text-white"></i></div>

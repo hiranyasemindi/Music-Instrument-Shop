@@ -22,6 +22,9 @@
         {
     ?>
             <div class="container-fluid mb-5 mt-3 mt-lg-0 overflow-hidden">
+                <div onclick="signout('user');" class="text-start mb-3 border-[1px] border-red-800 ml-[78%] w-[14%] mt-3 p-[13px] rounded-1 hover:cursor-pointer">
+                    <i class="bi bi-box-arrow-right mx-4 text-lg text-red-800 "></i><span class="text-red-800">Logout</span>
+                </div>
                 <div class="row align-items-center">
                     <div class="col-lg-10 col-12 offset-0 offset-lg-1 h-[100px] overflow-hidden" style=" background: linear-gradient(to right, #8e0e00, #1f1c18);">
                         <div class="row">

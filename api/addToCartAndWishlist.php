@@ -29,7 +29,7 @@ class Process
             if ($result) {
                 $email = $_SESSION["user"]["email"];
                 if ($_GET["function"] == "wishlist") {
-                    $product = $this->getProductFromWishlist($product_id);
+                    $product = $this->getProductFromWishlist($product_id, $email);
                     if ($product) {
                         $this->responseObj->msg = "Already added this product to the wishlist.";
                         $this->sendResponse();
@@ -39,7 +39,7 @@ class Process
                         $this->sendResponse();
                     }
                 } else if ($_GET["function"] == "cart") {
-                    $product = $this->getProductFromCart($product_id);
+                    $product = $this->getProductFromCart($product_id, $email);
                     if ($product) {
                         $this->responseObj->msg = "Already added this product to the cart.";
                         $this->sendResponse();
@@ -73,15 +73,15 @@ class Process
         $this->iud("INSERT INTO `wishlist` (`user_email`,`product_id`) VALUES('" . $email . "','" . $product_id . "')");
     }
 
-    private function getProductFromCart($product_id)
+    private function getProductFromCart($product_id, $email)
     {
-        $result =  $this->search("SELECT * FROM `cart` WHERE `product_id`='" . $product_id . "'");
+        $result =  $this->search("SELECT * FROM `cart` WHERE `product_id`='" . $product_id . "' AND `user_email`='" . $email . "'");
         return $result->num_rows > 0 ? $result->fetch_assoc() : null;
     }
 
-    private function getProductFromWishlist($product_id)
+    private function getProductFromWishlist($product_id, $email)
     {
-        $result =  $this->search("SELECT * FROM `wishlist` WHERE `product_id`='" . $product_id . "'");
+        $result =  $this->search("SELECT * FROM `wishlist` WHERE `product_id`='" . $product_id . "' AND `user_email`='" . $email . "'");
         return $result->num_rows > 0 ? $result->fetch_assoc() : null;
     }
 
