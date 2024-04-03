@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cart | SONORITY</title>
+    <link rel="icon" href="logo//logoo.png">
     <link rel="stylesheet" href="assets/plugin/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>

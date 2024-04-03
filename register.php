@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN | SONORITY</title>
-    <link rel="stylesheet" href="assets/plugin/bootstrap/css/bootstrap.css">
+    <title>Login | SONORITY</title>
+    <link rel="icon" href="logo//logoo.png">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
