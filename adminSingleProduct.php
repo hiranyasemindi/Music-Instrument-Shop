@@ -122,12 +122,14 @@ class SingleProductTemplete
                         <!-- header -->
                         <?php
                         include "App/includes/adminDashbordHeader.php";
+                        AdminHeaderTemplete::generate();
+
                         ?>
                         <!-- header -->
 
                         <!-- Add product -->
                         <div class="row mt-4 " style="overflow-y: scroll; height:44rem;">
-                            <div class="w-[86%] bg-white pt-5 ps-5 pe-5 pb-4 ml-[7%] ">
+                            <div class="w-[86%] bg-white pt-5 ps-5 pe-5 pb-5 ml-[7%] ">
                                 <span class=" text-2xl text-[#AD1212] fw-semibold"><?php echo $product ? "Edit" : "Add"; ?> Product</span>
                             </div>
                             <div class="w-[86%] bg-white pt-2 ps-5 pb-4 pe-5 ml-[7%] ">
