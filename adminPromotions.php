@@ -111,7 +111,10 @@ class PromotionsTemplete
                                             <?php
                                             while ($promotion = $promotions->fetch_assoc()) {
                                             ?>
-                                                <div onclick="window.location.href = 'adminSinglePromotion?id='+<?php echo $promotion['id']; ?>" class="col-lg-4 hover:cursor-pointer col-12 items-center flex justify-center mb-5">
+                                                <div onclick="window.location.href = 'adminSinglePromotion?id='+<?php echo $promotion['id']; ?>" class="col-lg-4 single-promo  col-12 items-center flex justify-center mb-5">
+                                                    <!-- <div class="bg-white  rounded-circle p-2">
+                                                        <i class="bi bi-trash3 font-semibold mx-2 text-[22px] hover:cursor-pointer text-[#ed2835]"></i>
+                                                    </div> -->
                                                     <img src="<?php echo $promotion["image"]; ?>" alt="prmo_img" width="400px" height="400px">
                                                 </div>
                                             <?php
