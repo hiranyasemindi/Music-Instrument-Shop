@@ -197,7 +197,7 @@ class SingleOrderTemplete
 
 
                                     <div class="mt-4 col-12 text-end">
-                                        <button class="bg-[#AD1212] w-[40%] text-white p-[14px] rounded ">Update Delivered Status</button>
+                                        <button onclick="updateDelivery('<?php echo $orderDetails['order_id']; ?>');" class="bg-[#AD1212] w-[40%] text-white p-[14px] rounded ">Update Delivered Status</button>
                                     </div>
 
                                 </div>
