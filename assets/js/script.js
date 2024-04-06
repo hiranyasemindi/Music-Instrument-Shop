@@ -1556,3 +1556,22 @@ function signout(type) {
       console.log("Error: " + error);
     });
 }
+
+function updateDelivery(order_id) {
+  fetch("api/updateDeliveryStatus.php?order_id=" + order_id, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.msg == "Updated Status.") {
+        alert(response.msg);
+        window.location.href = "adminOrders";
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
