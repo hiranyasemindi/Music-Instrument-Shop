@@ -123,7 +123,7 @@ class Process
 
     private function insertToInvoice($orderId, $today, $email, $amount)
     {
-        $this->iud("INSERT INTO `invoice` (`order_id`,`date_selled`,`user_email`,`total`) VALUES('" . $orderId . "','" . $today . "','" . $email . "','" . $amount . "')");
+        $this->iud("INSERT INTO `invoice` (`order_id`,`date_selled`,`user_email`,`total`,`deliver_status_id`) VALUES('" . $orderId . "','" . $today . "','" . $email . "','" . $amount . "','1')");
     }
 
     private function getProductById($product_id)
