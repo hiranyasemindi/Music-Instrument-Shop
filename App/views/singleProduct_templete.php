@@ -79,6 +79,7 @@
                                     <?php
                                     if ($address) {
                                         $df = $address["district_name"] == "Colombo" ? $product['delivery_fee_colombo'] : $product['delivery_fee_other'];
+                                        
                                     ?>
                                         <button type="submit" id="payhere-payment" onclick="buyNow(<?php echo $product['id']; ?>,'<?php echo addslashes($product['condition']); ?>', <?php echo $df; ?>, <?php echo $product['qty']; ?>);" class="bg-[#AD1212] hover:cursor-pointer mt-4 rounded px-2 py-3 w-[34%] text-white font-bold">Buy Now</button>
                                     <?php
