@@ -96,14 +96,17 @@ class PurchaseHistoryTemplete
                                                         <div class="row">
                                                             <div class="border py-2 col-12 ">
                                                                 <div class="row">
-                                                                    <div class="text-start col-4">
+                                                                    <div class="text-start col-3">
                                                                         <span class="text-[#999b9e]"><span class="fw-semibold">Order ID :</span> <span><?php echo $order["order_id"]; ?></span></span>
                                                                     </div>
-                                                                    <div class="text-end col-4">
+                                                                    <div class="text-end col-3">
                                                                         <span class="text-[#999b9e] text-end"><span class="fw-semibold">Date :</span> <span><?php echo $order["date_selled"]; ?></span></span>
                                                                     </div>
-                                                                    <div class="text-end col-4">
+                                                                    <div class="text-end col-3">
                                                                         <span class="text-[#999b9e] text-end"><span class="fw-semibold">Grand Total :</span> <span>Rs.<?php echo $order["total"]; ?>.00</span></span>
+                                                                    </div>
+                                                                    <div class="text-end col-3">
+                                                                        <span class="text-[#999b9e] text-end"><span class="fw-semibold">Deliver Status :</span> <span><?php echo $order["deliver_status_id"] == 1 ? "Pending" : "Delivered"; ?></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
