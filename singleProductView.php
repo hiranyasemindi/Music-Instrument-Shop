@@ -31,7 +31,10 @@ class Process
 
     private function getProductById($id)
     {
-        $result = $this->search("SELECT * FROM `product` INNER JOIN `condition` ON `product`.`condition_id`=`condition`.`id` 
+        $result = $this->search("SELECT `product`.`id`,`title`,`description`,`category_id`,`qty`,
+        `price`,`delivery_fee_colombo`,`delivery_fee_other`,`image_path`,`status_id`,
+        `added_date`,`condition_id`,`rating`,`brand_has_model_id`,`condition`,`brand_id`,`model_id`,
+        `brand_name`,`model_name` FROM `product` INNER JOIN `condition` ON `product`.`condition_id`=`condition`.`id` 
         INNER JOIN `brand_has_model` ON `brand_has_model`.`id`=`product`.`brand_has_model_id` INNER JOIN `brand` ON `brand`.`id`=`brand_has_model`.`brand_id` 
         INNER JOIN `model` ON `model`.`id`=`brand_has_model`.`model_id` WHERE `product`.`id`='" . $id . "'");
         return $result->num_rows > 0 ? $result->fetch_assoc() : null;
