@@ -129,12 +129,22 @@ class OrdersTemplete
                                                     <td><?php echo $order["date_selled"]; ?></td>
                                                     <td>Rs.<?php echo $order["total"]; ?>.00</td>
                                                     <td>
-                                                        <!-- <div class="bg-[#F7CECE] text-center p-1 rounded hover:cursor-pointer">
-                                                    <span class="text-[#E63535]">Deactivate</span>
-                                                </div> -->
-                                                        <div class="bg-[#C9F0DD] text-center p-1 rounded hover:cursor-pointer">
-                                                            <span class="text-[#18BA6B]">Pending</span>
-                                                        </div>
+                                                        <?php
+                                                        if ($order["deliver_status_id"] == 2) {
+                                                        ?>
+                                                            <div class="bg-[#C9F0DD] text-center p-1 rounded hover:cursor-pointer">
+                                                                <span class="text-[#18BA6B]">Delivered</span>
+                                                            </div>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <div class="bg-[#F7CECE] text-center p-1 rounded hover:cursor-pointer">
+                                                                <span class="text-[#E63535]">Pending</span>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+
                                                     </td>
                                                 </tr>
                                             <?php
