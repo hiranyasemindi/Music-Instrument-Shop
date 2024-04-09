@@ -1603,3 +1603,277 @@ function addCat() {
       console.log("Error: " + error);
     });
 }
+
+function changeCatImage() {
+  var fileInput = $("#catImage"); //file chooser
+
+  fileInput.change(function () {
+    var file = this.files[0];
+    var url = window.URL.createObjectURL(file);
+    $("#vieCatImg").attr("src", url);
+  });
+}
+
+function editCategory() {
+  $("#catImage").removeAttr("disabled");
+  $("#cat_name").removeAttr("disabled");
+  $("#editCatBtn").toggleClass("d-none");
+  $("#updateCatBtn").toggleClass("d-none");
+  alert("Now you can edit the category");
+}
+
+function addCategory() {
+  var fileInput = document.getElementById("catImage");
+  var AlertBox = $("#cat_alertBox");
+  var Alert = $("#cat_alert");
+  if ($("#cat_name").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Category Name.");
+  } else if (fileInput.files.length == 0) {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please select an image.");
+  } else {
+    var form = new FormData();
+    form.append("name", $("#cat_name").val());
+    form.append("function", "add");
+    if (!fileInput.files.length == 0) {
+      form.append("img", fileInput.files[0]);
+    }
+
+    fetch("api/add&updateCategory.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        if (response.done == "Category Added.") {
+          alert("Succesfully Added the Category.");
+          window.location = "adminCat";
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
+function updateCategory(id) {
+  var fileInput = document.getElementById("catImage");
+
+  var form = new FormData();
+  form.append("name", $("#cat_name").val());
+  form.append("id", id);
+  form.append("function", "update");
+  if (fileInput.files.size == 0) {
+    form.append("img", null);
+  } else {
+    form.append("img", fileInput.files[0]);
+  }
+
+  fetch("api/add&updateCategory.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.done == "Category Updated.") {
+        alert("Succesfully Updated the Category.");
+        window.location = "adminCat";
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
+    });
+}
+
+function singleBrand(id) {
+  fetch("adminBrands.php?id=" + id)
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      // document.getElementById("categories_area").classList.add("d-none");
+      document.getElementById("brands_area").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function addBr() {
+  fetch("adminBrands.php?name=add")
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      // document.getElementById("categories_area").classList.add("d-none");
+      document.getElementById("brands_area").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function editBrand() {
+  $("#b_name").removeAttr("disabled");
+  $("#editBrBtn").toggleClass("d-none");
+  $("#updateBrBtn").toggleClass("d-none");
+  alert("Now you can edit the brand");
+}
+
+function addBrand() {
+  var AlertBox = $("#br_alertBox");
+  var Alert = $("#br_alert");
+  if ($("#b_name").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Brand Name.");
+  } else {
+    var form = new FormData();
+    form.append("name", $("#b_name").val());
+    form.append("function", "add");
+    form.append("type", "brand");
+
+    fetch("api/add&updateBrand&Model.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        if (response.done == "Brand Added.") {
+          alert("Succesfully Added the Brand.");
+          window.location = "adminBrands";
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
+function updateBrand(id) {
+  var form = new FormData();
+  form.append("name", $("#b_name").val());
+  form.append("id", id);
+  form.append("function", "update");
+  form.append("type", "brand");
+
+  fetch("api/add&updateBrand&Model.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.done == "Brand Updated.") {
+        alert("Succesfully Updated the Brand.");
+        window.location = "adminBrands";
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
+    });
+}
+
+function singleModel(id) {
+  fetch("adminModels.php?id=" + id)
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      // document.getElementById("categories_area").classList.add("d-none");
+      document.getElementById("models_area").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function addMod() {
+  fetch("adminModels.php?name=add")
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      // document.getElementById("categories_area").classList.add("d-none");
+      document.getElementById("models_area").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function editModel() {
+  $("#m_name").removeAttr("disabled");
+  $("#editMoBtn").toggleClass("d-none");
+  $("#updateMoBtn").toggleClass("d-none");
+  alert("Now you can edit the model");
+}
+
+function addModel() {
+  var AlertBox = $("#m_alertBox");
+  var Alert = $("#m_alert");
+  if ($("#m_name").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Model Name.");
+  } else {
+    var form = new FormData();
+    form.append("name", $("#m_name").val());
+    form.append("function", "add");
+    form.append("type", "model");
+
+    fetch("api/add&updateBrand&Model.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        if (response.done == "Model Added.") {
+          alert("Succesfully Added the Model.");
+          window.location = "adminModels";
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
+function updateModel(id) {
+  var form = new FormData();
+  form.append("name", $("#m_name").val());
+  form.append("id", id);
+  form.append("function", "update");
+  form.append("type", "model");
+
+  fetch("api/add&updateBrand&Model.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.done == "Model Updated.") {
+        alert("Succesfully Updated the Model.");
+        window.location = "adminModels";
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
+    });
+}
