@@ -1575,3 +1575,31 @@ function updateDelivery(order_id) {
       console.log("Error: " + error);
     });
 }
+
+function singleCat(id) {
+  fetch("adminCat.php?id=" + id)
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      // document.getElementById("categories_area").classList.add("d-none");
+      document.getElementById("categories_area").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function addCat() {
+  fetch("adminCat.php?name=add")
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      // document.getElementById("categories_area").classList.add("d-none");
+      document.getElementById("categories_area").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
