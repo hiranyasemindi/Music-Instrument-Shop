@@ -96,7 +96,6 @@ class DashboardTemplete
                 .table td,
                 .table th {
                     padding-top: 20px;
-                    /* Adjust as needed */
                     padding-bottom: 20px;
                     /* Adjust as needed */
                 }
@@ -184,7 +183,7 @@ class DashboardTemplete
                                     <div class="col-md-6 w-[49%] bg-white">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                <h3 class="fw-semibold p-3 text-xl">Earnings</h3>
+                                                <h3 class="fw-semibold p-3 text-xl">Order Sumary</h3>
                                             </div>
                                             <div class="panel-body">
                                                 <div id="chart2"></div>
@@ -232,7 +231,7 @@ class DashboardTemplete
             </script>
             <script type="text/javascript">
                 jQuery(function($) {
-                    var data1 = [12, 3, 4, 2];
+                    var data1 = [4, 2];
 
                     $(function() {
                         $("#chart2").shieldChart({
