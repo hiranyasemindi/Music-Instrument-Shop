@@ -1877,3 +1877,21 @@ function updateModel(id) {
       console.log("error: " + error);
     });
 }
+
+window.onload = function () {
+  var disabledPages = [
+    "index.php",
+    "aboutUs.php",
+    "promotions.php",
+    "wishlist.php",
+    "cart.php",
+    "purchasingHistory.php",
+    "profile.php",
+    "singleProductView.php",
+  ]; // Add page names here
+  var currentPage = window.location.pathname.split("/").pop();
+  if (disabledPages.includes(currentPage)) {
+    document.getElementById("searchInput").disabled = true;
+    document.getElementById("searchInputSm").disabled = true;
+  }
+};
