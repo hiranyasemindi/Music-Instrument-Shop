@@ -11,10 +11,17 @@ class Process
         if (isset($_SESSION["user"])) {
             $orders = $this->getInvoiceData($_SESSION["user"]["email"]);
             $address =  $this->getUserAddress($_SESSION["user"]["email"]);
-            PurchaseHistoryTemplete::generate($orders, $address);
+            $userRatings = $this->getUserRatings();
+            PurchaseHistoryTemplete::generate($orders, $address, $userRatings);
         } else {
             include "App/views/notLogged_user_templete.php";
         }
+    }
+
+    private function getUserRatings()
+    {
+        $result = $this->search("SELECT * FROM `ratings` WHERE `user_email`='" . $_SESSION["user"]["email"] . "'");
+        return $result->num_rows > 0 ? $result : null;
     }
 
     private function getInvoiceData($email)
@@ -25,7 +32,7 @@ class Process
 
     public function getInvoiceItems($order_id)
     {
-        $result = $this->search("SELECT `title`,`condition`,`price`,`image_path`,`invoice_item`.`qty`,`delivery_fee_colombo`,`delivery_fee_other`,`rating`,`product`.`id` FROM `invoice_item` INNER JOIN `product` ON `product`.`id`=`invoice_item`.`product_id` INNER JOIN `condition`
+        $result = $this->search("SELECT `product_id`,`title`,`condition`,`price`,`image_path`,`invoice_item`.`qty`,`delivery_fee_colombo`,`delivery_fee_other`,`rating`,`product`.`id` FROM `invoice_item` INNER JOIN `product` ON `product`.`id`=`invoice_item`.`product_id` INNER JOIN `condition`
         ON `condition`.`id`=`product`.`condition_id` WHERE `invoice_order_id`='" . $order_id . "'");
         return $result->num_rows > 0 ? $result : null;
     }
@@ -49,7 +56,7 @@ class Process
 <?php
 class PurchaseHistoryTemplete
 {
-    public static function generate($orders, $address)
+    public static function generate($orders, $address, $userRatings)
     {
 ?>
 
@@ -143,12 +150,22 @@ class PurchaseHistoryTemplete
                                                                                 <p class="mt-4 text-[#AD1212]  fw-semibold text-lg">Total: Rs <?php echo ((int)$item["qty"] * (int)$item["price"]) + (int)$df; ?>.00</p>
                                                                             </div>
                                                                         </div>
+                                                                        <?php
+                                                                        $fill = 0;
+                                                                        if ($userRatings) {
+                                                                            foreach ($userRatings as $userrating) {
+                                                                                if ($userrating["product_id"] === $item["product_id"]) {
+                                                                                    $fill = $userrating["rating"];
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                        ?>
                                                                         <div class=" w-[15%] flex items-center px-4 mt-4">
-                                                                            <span class="text-center me-2 text-lg-end fw-bold" style="color: #AD1212;"><?php echo $item["rating"]; ?>.0</span>
+                                                                            <span class="text-center me-2 text-lg-end fw-bold" style="color: #AD1212;"><?php echo $fill; ?>.0</span>
 
                                                                             <span class=" ">
                                                                                 <?php
-                                                                                $fill = $item["rating"];
                                                                                 for ($x = 0; $x < 5; $x++) {
                                                                                     $starClass = ($x < $fill) ? "bi bi-star-fill" : "bi bi-star";
                                                                                 ?>
