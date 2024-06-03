@@ -69,7 +69,7 @@
                                             <div class="row product-onclick-view justify-content-center align-content-center " style="position: absolute;" id="hover-view">
                                                 <div style="width: 100%;">
                                                     <div class="col-12">
-                                                        
+
                                                     </div>
                                                 </div>
 
@@ -92,19 +92,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-3 text-center col-10 offset-1 h-[160px] border shadow-sm">
-                                            <p class="text-lg "><?php echo $product["title"]; ?></p>
-                                            <p class="text-2xl fw-semibold">Rs.<?php echo $product["price"]; ?>.00</p>
-                                            <div class="d-flex align-items-center justify-content-center" >
-                                                <span class="col-2 text-center text-lg-end fw-bold" style="color: #AD1212;"><?php echo $product["rating"]; ?>.0</span>
+                                        <div class="p-3 text-center col-10 offset-1 h-[190px] border shadow-sm">
+                                            <p class="sm:text-md lg:text-xl"><?php echo $product["title"]; ?></p>
+                                            <p class="lg:text-2xl sm:text-md fw-semibold">Rs.<?php echo $product["price"]; ?>.00</p>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <span class="col-2 text-center lg:text-lg-end sm:text-sm-end fw-bold" style="color: #AD1212;"><?php echo $product["rating"]; ?>.0</span>
 
-                                                <span class="col-6">
+                                                <span class="col-lg-6 col-8">
                                                     <?php
                                                     $fill = $product["rating"];
                                                     for ($x = 0; $x < 5; $x++) {
                                                         $starClass = ($x < $fill) ? "bi bi-star-fill" : "bi bi-star";
                                                     ?>
-                                                        <i class="<?php echo $starClass; ?> p-1" style="color: #AD1212;"></i>
+                                                        <i class="<?php echo $starClass; ?> p-lg-1 lg:text-lg sm:text-xs" style="color: #AD1212;"></i>
                                                     <?php
                                                     }
                                                     ?>
