@@ -145,7 +145,7 @@ class ProductsTemplete
 
                             <!-- filter area sm -->
                             <div class="col-12 text-end p-3 d-block d-lg-none " data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                <i class="bi bi-funnel-fill text-[#AD1212] "></i><span class="text-[#AD1212] ps-2">Filter</span>
+                                <i class="bi bi-funnel-fill text-[#AD1212] "></i><span class="text-[#AD1212] ps-2"></span>
 
                                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                                     <div class="offcanvas-header">
@@ -294,14 +294,14 @@ class DisplayProductsTemplete
         if (!empty($products)) {
 ?>
             <!-- products -->
-            <div class="col-9 ">
+            <div class="col-lg-9 col-12 ">
                 <div class="row">
                     <div class=" col-12" id="products-area">
                         <div class="row">
                             <?php
                             while ($product = $products->fetch_assoc()) {
                             ?>
-                                <div class="col-6 col-lg-3 mb-5">
+                                <div class="col-12 col-lg-3 mb-5">
                                     <div class="row">
                                         <div class="col-10 offset-1  card">
 
@@ -336,18 +336,18 @@ class DisplayProductsTemplete
                                             </div>
                                         </div>
                                         <div class="p-3 text-center col-10 offset-1 h-[180px] border shadow-sm justify-center">
-                                            <p class="text-md "><?php echo $product["title"]; ?></p>
-                                            <p class="text-lg mt-2 fw-semibold">Rs.<?php echo $product["price"]; ?>.00</p>
+                                            <p class="sm:text-sm lg:text-lg"><?php echo $product["title"]; ?></p>
+                                            <p class="lg:text-lg sm:text-xs mt-2 fw-semibold">Rs.<?php echo $product["price"]; ?>.00</p>
                                             <div class=" mt-2">
-                                                <span class="col-2 text-center text-lg-end fw-bold" style="color: #AD1212;"><?php echo $product["rating"]; ?>.0</span>
+                                                <span class="col-lg-2 col-1 text-center lg:text-lg-end sm:text-sm-end  fw-bold" style="color: #AD1212;"><?php echo $product["rating"]; ?>.0</span>
 
-                                                <span class="col-6">
+                                                <span class="col-lg-6 col-11">
                                                     <?php
                                                     $fill = $product["rating"];
                                                     for ($x = 0; $x < 5; $x++) {
                                                         $starClass = ($x < $fill) ? "bi bi-star-fill" : "bi bi-star";
                                                     ?>
-                                                        <i class="<?php echo $starClass; ?> p-1" style="color: #AD1212;"></i>
+                                                        <i class="<?php echo $starClass; ?> p-lg-1 p-0 lg:text-lg sm:text-xs" style="color: #AD1212;"></i>
                                                     <?php
                                                     }
                                                     ?>
