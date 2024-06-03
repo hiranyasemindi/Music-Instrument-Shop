@@ -96,12 +96,12 @@
                     <div class="col-10 offset-1 mt-5">
                         <div class="row mt-5">
                             <div class="col-lg-7 col-12 ">
-                                <img src="assets/img/acoustic-guitar-drums-keys-black-background.jpg" alt="" width="700px" height="700px">
+                                <img src="assets/img/acoustic-guitar-drums-keys-black-background.jpg" alt="" width="860px" height="700px">
                             </div>
                             <div class="col-lg-5 py-3 col-12 items-center justify-center mt-3 mt-lg-0">
                                 <h2 class="text-3xl font-bold">Best Edition</h2>
                                 <div class="bg-[#AD1212] my-3 h-1 w-[80%] ml-[2%] rounded"></div>
-                                <p class="text-lg py-4 text-[#999b9e]">Discover the pinnacle of craftsmanship and precision with our selection of best editions at Sonority Music Shop.
+                                <p style="text-align: justify;" class="sm:text-lg lg:text-xl py-4 text-[#999b9e]">Discover the pinnacle of craftsmanship and precision with our selection of best editions at Sonority Music Shop.
                                     We curate only the finest instruments, meticulously crafted by renowned artisans and revered brands,
                                     ensuring unparalleled quality and performance for musicians of all levels. From exquisite limited editions
                                     to timeless classics, each instrument in our collection represents the epitome of excellence in design, tone,
