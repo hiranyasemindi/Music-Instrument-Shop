@@ -255,7 +255,7 @@ class CheckoutTemplete
                                                     <?php
                                                     $pa = htmlspecialchars(json_encode($productArray));
                                                     ?>
-                                                    <button type="submit" id="payhere-payment" onclick="confirmOrder('<?php echo $title; ?>', <?php echo $total; ?>, '<?php echo $pa; ?>');" class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold">Confirm Order</button>
+                                                    <button type="submit" id="payhere-payment" onclick="confirmOrder('<?php echo $title; ?>', <?php echo $total; ?>, '<?php echo $pa; ?>');" class="rounded px-5 py-[12px] mt-4 text-white font-bold" style="background-color: #AD1212 ;">Confirm Order</button>
 
                                                 </div>
                                             </div>
