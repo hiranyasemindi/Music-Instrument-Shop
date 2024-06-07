@@ -8,7 +8,6 @@
     <link rel="icon" href="logo//logoo.png">
     <link rel="stylesheet" href="assets/plugin/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
@@ -69,7 +68,7 @@
                                 <p class="text-[#AD1212] text-center font-semibold text-2xl"> Organization Vision & Mission</p>
                             </div>
                             <div class="flex mt-2 items-center justify-center col-10 offset-1 offset-lg-0 col-lg-12 ">
-                                <img src="assets/img/image 24.png" alt=""  height="200px" width="1550rem" >
+                                <img src="assets/img/image 24.png" alt="" height="200px" width="1550rem">
                             </div>
 
                             <p class="text-center mt-5 font-semibold text-xl">Vision</p>
