@@ -3,6 +3,23 @@ class ProductsTemplete
 {
     public static function generate($products, $categories, $brands, $models, $colors)
     {
+
+        $categoriesArray = [];
+        while ($category = $categories->fetch_assoc()) {
+            $categoriesArray[] = $category;
+        }
+        $brandsArray = [];
+        while ($brand = $brands->fetch_assoc()) {
+            $brandsArray[] = $brand;
+        }
+        $modelsArray = [];
+        while ($model = $models->fetch_assoc()) {
+            $modelsArray[] = $model;
+        }
+        $colorsArray = [];
+        while ($color = $colors->fetch_assoc()) {
+            $colorsArray[] = $color;
+        }
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -15,6 +32,7 @@ class ProductsTemplete
             <link rel="stylesheet" href="assets/plugin/bootstrap/css/bootstrap.css">
             <link rel="stylesheet" href="assets/css/style.css">
             <script src="https://cdn.tailwindcss.com"></script>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         </head>
 
@@ -35,10 +53,10 @@ class ProductsTemplete
                                             <p class="ps-4 pt-4 text-lg">Category</p>
                                             <div class="w-[90%] ml-[5%] mt-2">
                                                 <div class="row">
-                                                    <select class="h-[40%]  border focus:outline-none p-3 mt-1" id="category">
+                                                    <select onchange="loadModelsandBrands();" class="h-[40%]  border focus:outline-none p-3 mt-1" id="category">
                                                         <option value="0">Select Category</option>
                                                         <?php
-                                                        while ($category = $categories->fetch_assoc()) {
+                                                        foreach ($categoriesArray as $category) {
                                                         ?>
                                                             <option value="<?php echo $category["id"]; ?>" <?php if (isset($_GET["id"])) {
                                                                                                                 if ($category["id"] == $_GET["id"]) {
@@ -51,13 +69,14 @@ class ProductsTemplete
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <p class="ps-4 pt-4 text-lg">Brand</p>
                                             <div class="w-[90%] ml-[5%] mt-2">
                                                 <div class="row">
                                                     <select class="h-[40%]  border focus:outline-none p-3 " id="brand">
                                                         <option value="0">Select Brand</option>
                                                         <?php
-                                                        while ($brand = $brands->fetch_assoc()) {
+                                                        foreach ($brandsArray as $brand) {
                                                         ?>
                                                             <option value="<?php echo $brand["id"]; ?>"><?php echo $brand["brand_name"]; ?></option>
                                                         <?php
@@ -66,13 +85,14 @@ class ProductsTemplete
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <p class="ps-4 pt-4 text-lg">Model</p>
                                             <div class="w-[90%] ml-[5%] mt-2">
                                                 <div class="row">
                                                     <select class="h-[40%]  border focus:outline-none p-3 " id="model">
                                                         <option value="0">Select Model</option>
                                                         <?php
-                                                        while ($model = $models->fetch_assoc()) {
+                                                        foreach ($modelsArray as $model) {
                                                         ?>
                                                             <option value="<?php echo $model["id"]; ?>"><?php echo $model["model_name"]; ?></option>
                                                         <?php
@@ -92,7 +112,7 @@ class ProductsTemplete
                                             <div class="w-[90%] ml-[5%] mt-3">
                                                 <div class="row">
                                                     <?php
-                                                    while ($color = $colors->fetch_assoc()) {
+                                                    foreach ($colorsArray as $color) {
                                                     ?>
                                                         <div data-code="<?php echo $color["id"]; ?>" class="w-[32%] color-option border-[#AD1212] flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
                                                             <div class="w-[15px] rounded-1  h-[15px] bg-[<?php echo $color["code"]; ?>]"></div>
@@ -106,6 +126,7 @@ class ProductsTemplete
                                                 </div>
                                             </div>
                                             <p class="ps-4 pt-4 text-lg">Rating</p>
+
                                             <div class="w-[90%] ml-[5%] mt-3">
                                                 <div class="row">
                                                     <?php
@@ -144,117 +165,131 @@ class ProductsTemplete
                             <!-- filter area lg -->
 
                             <!-- filter area sm -->
-                            <div class="col-12 text-end p-3 d-block d-lg-none " data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                <i class="bi bi-funnel-fill text-[#AD1212] "></i><span class="text-[#AD1212] ps-2"></span>
+                            <div class="col-12 p-3 d-block d-lg-none ">
+                                <!-- drawer init and toggle -->
+                                <div class="text-end me-3">
+                                    <button type="button" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">
+                                        <i class="bi bi-funnel-fill text-[#AD1212] "></i><span class="text-[#AD1212] ps-2">Filter</span>
+                                    </button>
 
-                                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                                    <div class="offcanvas-header">
-                                        <h5 class="offcanvas-title text-2xl p-3 fw-semibold" id="offcanvasRightLabel">Filter Products</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                    </div>
-                                    <div class="offcanvas-body">
-                                        <div class="w-[90%] ml-[5%]">
-                                            <div class="row">
-                                                <p class=" pt-4 text-start text-lg">Category</p>
-                                                <div class="w-[90%] ml-[5%] mt-3">
-                                                    <div class="row">
-                                                        <select id="category" class="h-[40%]  border focus:outline-none p-3 mt-1">
-                                                            <option value="0">Select Category</option>
-                                                            <?php
-                                                            while ($category = $categories->fetch_assoc()) {
-                                                            ?>
-                                                                <option value="<?php echo $category["id"]; ?>"><?php echo $category["name"]; ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <p class="pt-4 text-start text-lg">Brand</p>
-                                                <div class="w-[90%] ml-[5%] mt-3">
-                                                    <div class="row">
-                                                        <select id="brand" class="h-[40%]  border focus:outline-none p-3 ">
-                                                            <option value="0">Select Brand</option>
-                                                            <?php
-                                                            while ($brand = $brands->fetch_assoc()) {
-                                                            ?>
-                                                                <option value="<?php echo $brand["id"]; ?>"><?php echo $brand["brand_name"]; ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <p class="pt-4 text-start text-lg">Model</p>
-                                                <div class="w-[90%] ml-[5%] mt-3">
-                                                    <div class="row">
-                                                        <select id="model" class="h-[40%]  border focus:outline-none p-3 ">
-                                                            <option value="0">Select Model</option>
-                                                            <?php
-                                                            while ($model = $models->fetch_assoc()) {
-                                                            ?>
-                                                                <option value="<?php echo $model["id"]; ?>"><?php echo $model["model_name"]; ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <p class="pt-4 text-start text-lg">Price</p>
-                                                <div class="w-[90%]  ml-[5%]">
-                                                    <div class="row">
-                                                        <input type="text" id="minPrice" class="me-[2%] border h-[50px] w-[49%] p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Min">
-                                                        <input type="text" id="maxPrice" class="border h-[50px] w-[49%]  p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Max">
-                                                    </div>
-                                                </div>
-                                                <p class="pt-4 text-start text-lg">Color Family</p>
-                                                <div class="w-[90%] ml-[5%] mt-3">
-                                                    <div class="row">
+                                </div>
+
+                                <!-- drawer component -->
+                                <div id="drawer-right-example" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
+                                    <h5 id="drawer-right-label" class="inline-flex items-start mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"><svg class="w-4 h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                        </svg>Filter</h5>
+                                    <button type="button" data-drawer-hide="drawer-right-example" aria-controls="drawer-right-example" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close menu</span>
+                                    </button>
+                                    <div class="w-[90%] ml-[5%]">
+                                        <div class="row">
+                                            <p class=" pt-4 text-start text-lg">Category</p>
+                                            <div class="w-[90%] ml-[5%] mt-3">
+                                                <div class="row">
+                                                    <select class="h-[40%]  border focus:outline-none p-3 mt-1" id="category">
+                                                        <option value="0">Select Category</option>
                                                         <?php
-                                                        while ($color = $colors->fetch_assoc()) {
+                                                        foreach ($categoriesArray as $category) {
                                                         ?>
-                                                            <div data-code="<?php echo $color["id"]; ?>]" class=" color-option w-[32%] flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
-                                                                <div class="w-[15px] rounded-1  h-[15px] bg-[<?php echo $color["code"]; ?>]"></div>
-                                                                <div class="ms-1 w-[50%]">
-                                                                    <?php echo $color["color"]; ?>
-                                                                </div>
-                                                            </div>
+                                                            <option value="<?php echo $category["id"]; ?>" <?php if (isset($_GET["id"])) {
+                                                                                                                if ($category["id"] == $_GET["id"]) {
+                                                                                                                    echo "selected";
+                                                                                                                }
+                                                                                                            } ?>><?php echo $category["name"]; ?></option>
                                                         <?php
                                                         }
                                                         ?>
-                                                    </div>
+                                                    </select>
                                                 </div>
-                                                <p class="pt-4 text-start text-lg">Rating</p>
-                                                <div class="w-[90%] ml-[5%] mt-3">
-                                                    <div class="row">
+                                            </div>
+                                            <p class="pt-4 text-start text-lg">Brand</p>
+                                            <div class="w-[90%] ml-[5%] mt-3">
+                                                <div class="row">
+                                                    <select class="h-[40%]  border focus:outline-none p-3 " id="brand">
+                                                        <option value="0">Select Brand</option>
                                                         <?php
-                                                        for ($i = 0; $i < 4; $i++) {
+                                                        foreach ($brandsArray as $brand) {
                                                         ?>
-                                                            <div data-code="<?php echo $i; ?>" class="w-[24%] border-[#AD1212] rating-option flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
-                                                                <i class="bi bi-star-fill text-yellow-500 font-semibold hover:cursor-pointer "></i>
-
-                                                                <div class="ms-2">
-                                                                    <?php echo $i; ?>
-                                                                </div>
-                                                            </div>
+                                                            <option value="<?php echo $brand["id"]; ?>"><?php echo $brand["brand_name"]; ?></option>
                                                         <?php
                                                         }
                                                         ?>
-                                                    </div>
+                                                    </select>
                                                 </div>
+                                            </div>
+                                            <p class="pt-4 text-start text-lg">Model</p>
+                                            <div class="w-[90%] ml-[5%] mt-3">
+                                                <div class="row">
+                                                    <select class="h-[40%]  border focus:outline-none p-3 " id="model">
+                                                        <option value="0">Select Model</option>
+                                                        <?php
+                                                        foreach ($modelsArray as $model) {
+                                                        ?>
+                                                            <option value="<?php echo $model["id"]; ?>"><?php echo $model["model_name"]; ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <p class="pt-4 text-start text-lg">Price</p>
+                                            <div class="w-[90%]  ml-[5%]">
+                                                <div class="row">
+                                                    <input type="text" id="minPrice" class="me-[2%] border h-[50px] w-[49%] p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Min">
+                                                    <input type="text" id="maxPrice" class="border h-[50px] w-[49%]  p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Max">
+                                                </div>
+                                            </div>
+                                            <p class="pt-4 text-start text-lg">Color Family</p>
+                                            <div class="w-[90%] ml-[5%] mt-3">
+                                                <div class="row">
+                                                    <?php
+                                                    foreach ($colorsArray as $color) {
+                                                    ?>
+                                                        <div data-code="<?php echo $color["id"]; ?>" class="w-[32%] color-option border-[#AD1212] flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
+                                                            <div class="w-[15px] rounded-1  h-[15px] bg-[<?php echo $color["code"]; ?>]"></div>
+                                                            <div class="ms-1 w-[50%]">
+                                                                <?php echo $color["color"]; ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <p class="pt-4 text-start text-lg">Rating</p>
+                                            <div class="w-[90%] ml-[5%] mt-3">
+                                                <div class="row">
+                                                    <?php
+                                                    for ($i = 0; $i < 4; $i++) {
+                                                    ?>
+                                                        <div data-code="<?php echo $i; ?>" class="w-[24%] border-[#AD1212] rating-option flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
+                                                            <i class="bi bi-star-fill text-yellow-500 font-semibold hover:cursor-pointer "></i>
 
-                                                <p class="pt-4 text-start text-lg">Sort Products</p>
-                                                <select id="sort" class="w-[90%] ml-[5%]  border h-[40%]  focus:outline-none p-3 mt-3" id="">
-                                                    <option value="0">Select Sort Option</option>
-                                                    <option value="1">Price Law to High</option>
-                                                    <option value="2">Price Law to High</option>
-                                                    <option value="3">Price Law to High</option>
-                                                    <option value="4">Price Law to High</option>
-                                                </select>
-                                                <div>
-                                                    <button onclick="clearSearch();" class="border  w-[48%]  me-[3%] rounded px-5 py-[12px] mt-4 text-[#AD1212] font-bold" style="border-color:#AD1212 ;">Clear</button>
-                                                    <button onclick="filter();" class="bg-[#AD1212] w-[45%]  rounded px-5 py-[12px] mt-4 text-white font-bold">Apply</button>
+                                                            <div class="ms-2">
+                                                                <?php echo $i; ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
+                                            </div>
+
+                                            <p class="pt-4 text-start text-lg">Sort Products</p>
+                                            <select id="sort" class="w-[90%] ml-[5%]  border h-[40%]  focus:outline-none p-3 mt-3" id="">
+                                                <option value="0">Select Sort Option</option>
+                                                <option value="1">Price Law to High</option>
+                                                <option value="2">Price Law to High</option>
+                                                <option value="3">Price Law to High</option>
+                                                <option value="4">Price Law to High</option>
+                                            </select>
+                                            <div>
+                                                <button onclick="clearSearch();" class="border  w-[48%]  me-[3%] rounded px-5 py-[12px] mt-4 text-[#AD1212] font-bold" style="border-color:#AD1212 ;">Clear</button>
+                                                <button onclick="filter();" class="bg-[#AD1212] w-[45%]  rounded px-5 py-[12px] mt-4 text-white font-bold">Apply</button>
                                             </div>
                                         </div>
                                     </div>
@@ -278,6 +313,7 @@ class ProductsTemplete
             <script src="assets/js/script.js"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="assets/plugin/bootstrap/js/bootstrap.bundle.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         </body>
 
         </html>
