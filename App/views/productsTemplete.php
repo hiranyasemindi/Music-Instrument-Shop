@@ -8,14 +8,7 @@ class ProductsTemplete
         while ($category = $categories->fetch_assoc()) {
             $categoriesArray[] = $category;
         }
-        $brandsArray = [];
-        while ($brand = $brands->fetch_assoc()) {
-            $brandsArray[] = $brand;
-        }
-        $modelsArray = [];
-        while ($model = $models->fetch_assoc()) {
-            $modelsArray[] = $model;
-        }
+
         $colorsArray = [];
         while ($color = $colors->fetch_assoc()) {
             $colorsArray[] = $color;
@@ -45,9 +38,9 @@ class ProductsTemplete
                         <div class="row">
 
                             <!-- filter area lg -->
-                            <div class="col-lg-3 d-none d-lg-block border ">
+                            <div class="col-lg-3 d-none d-lg-block  ">
                                 <div class="row">
-                                    <div class="w-[90%] ml-[5%]">
+                                    <div class="w-[90%] ml-[5%] border">
                                         <div class="row">
                                             <p class="text-2xl p-3 fw-semibold">Filter Products</p>
                                             <p class="ps-4 pt-4 text-lg">Category</p>
@@ -69,37 +62,10 @@ class ProductsTemplete
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <p class="ps-4 pt-4 text-lg">Brand</p>
-                                            <div class="w-[90%] ml-[5%] mt-2">
-                                                <div class="row">
-                                                    <select class="h-[40%]  border focus:outline-none p-3 " id="brand">
-                                                        <option value="0">Select Brand</option>
-                                                        <?php
-                                                        foreach ($brandsArray as $brand) {
-                                                        ?>
-                                                            <option value="<?php echo $brand["id"]; ?>"><?php echo $brand["brand_name"]; ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <p class="ps-4 pt-4 text-lg">Model</p>
-                                            <div class="w-[90%] ml-[5%] mt-2">
-                                                <div class="row">
-                                                    <select class="h-[40%]  border focus:outline-none p-3 " id="model">
-                                                        <option value="0">Select Model</option>
-                                                        <?php
-                                                        foreach ($modelsArray as $model) {
-                                                        ?>
-                                                            <option value="<?php echo $model["id"]; ?>"><?php echo $model["model_name"]; ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                            <div id="brandmodelview">
+                                                <?php
+                                                BrandModelsTemplete::generate($brands, $models, 1);
+                                                ?>
                                             </div>
                                             <p class="ps-4 pt-4 text-lg">Price</p>
                                             <div class="w-[90%]  ml-[5%]">
@@ -187,10 +153,11 @@ class ProductsTemplete
                                     </button>
                                     <div class="w-[90%] ml-[5%]">
                                         <div class="row">
-                                            <p class=" pt-4 text-start text-lg">Category</p>
-                                            <div class="w-[90%] ml-[5%] mt-3">
+                                            <p class="text-2xl p-3 fw-semibold">Filter Products</p>
+                                            <p class="ps-4 pt-4 text-lg">Category</p>
+                                            <div class="w-[90%] ml-[5%] mt-2">
                                                 <div class="row">
-                                                    <select class="h-[40%]  border focus:outline-none p-3 mt-1" id="category">
+                                                    <select onchange="loadModelsandBrands();" class="h-[40%]  border focus:outline-none p-3 mt-1" id="category">
                                                         <option value="0">Select Category</option>
                                                         <?php
                                                         foreach ($categoriesArray as $category) {
@@ -206,44 +173,21 @@ class ProductsTemplete
                                                     </select>
                                                 </div>
                                             </div>
-                                            <p class="pt-4 text-start text-lg">Brand</p>
-                                            <div class="w-[90%] ml-[5%] mt-3">
+                                            <div class="col-lg-9 col-12 " id="brandmodelview">
                                                 <div class="row">
-                                                    <select class="h-[40%]  border focus:outline-none p-3 " id="brand">
-                                                        <option value="0">Select Brand</option>
-                                                        <?php
-                                                        foreach ($brandsArray as $brand) {
-                                                        ?>
-                                                            <option value="<?php echo $brand["id"]; ?>"><?php echo $brand["brand_name"]; ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
+                                                    <?php
+                                                    BrandModelsTemplete::generate($brands, $models, 1);
+                                                    ?>
                                                 </div>
                                             </div>
-                                            <p class="pt-4 text-start text-lg">Model</p>
-                                            <div class="w-[90%] ml-[5%] mt-3">
-                                                <div class="row">
-                                                    <select class="h-[40%]  border focus:outline-none p-3 " id="model">
-                                                        <option value="0">Select Model</option>
-                                                        <?php
-                                                        foreach ($modelsArray as $model) {
-                                                        ?>
-                                                            <option value="<?php echo $model["id"]; ?>"><?php echo $model["model_name"]; ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <p class="pt-4 text-start text-lg">Price</p>
+                                            <p class="ps-4 pt-4 text-lg">Price</p>
                                             <div class="w-[90%]  ml-[5%]">
                                                 <div class="row">
                                                     <input type="text" id="minPrice" class="me-[2%] border h-[50px] w-[49%] p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Min">
                                                     <input type="text" id="maxPrice" class="border h-[50px] w-[49%]  p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Max">
                                                 </div>
                                             </div>
-                                            <p class="pt-4 text-start text-lg">Color Family</p>
+                                            <p class="ps-4 pt-4 text-lg">Color Family</p>
                                             <div class="w-[90%] ml-[5%] mt-3">
                                                 <div class="row">
                                                     <?php
@@ -260,17 +204,18 @@ class ProductsTemplete
                                                     ?>
                                                 </div>
                                             </div>
-                                            <p class="pt-4 text-start text-lg">Rating</p>
+                                            <p class="ps-4 pt-4 text-lg">Rating</p>
+
                                             <div class="w-[90%] ml-[5%] mt-3">
                                                 <div class="row">
                                                     <?php
-                                                    for ($i = 0; $i < 4; $i++) {
+                                                    for ($x = 1; $x < 6; $x++) {
                                                     ?>
-                                                        <div data-code="<?php echo $i; ?>" class="w-[24%] border-[#AD1212] rating-option flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
+                                                        <div data-code="<?php echo $x; ?>" class="rating-option border-[#AD1212] w-[24%] flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
                                                             <i class="bi bi-star-fill text-yellow-500 font-semibold hover:cursor-pointer "></i>
 
                                                             <div class="ms-2">
-                                                                <?php echo $i; ?>
+                                                                <?php echo $x; ?>
                                                             </div>
                                                         </div>
                                                     <?php
@@ -279,16 +224,16 @@ class ProductsTemplete
                                                 </div>
                                             </div>
 
-                                            <p class="pt-4 text-start text-lg">Sort Products</p>
-                                            <select id="sort" class="w-[90%] ml-[5%]  border h-[40%]  focus:outline-none p-3 mt-3" id="">
+                                            <p class="ps-4 pt-4 text-lg">Sort Products</p>
+                                            <select id="sort" class="w-[90%] ml-[5%]  border h-[40%]  focus:outline-none p-3 mt-3">
                                                 <option value="0">Select Sort Option</option>
                                                 <option value="1">Price Law to High</option>
-                                                <option value="2">Price Law to High</option>
-                                                <option value="3">Price Law to High</option>
-                                                <option value="4">Price Law to High</option>
+                                                <option value="2">Price High to Law</option>
+                                                <option value="3">Quantity Law to High</option>
+                                                <option value="4">Quantity High to Law</option>
                                             </select>
-                                            <div>
-                                                <button onclick="clearSearch();" class="border  w-[48%]  me-[3%] rounded px-5 py-[12px] mt-4 text-[#AD1212] font-bold" style="border-color:#AD1212 ;">Clear</button>
+                                            <div class="mb-3">
+                                                <button onclick="clearSearch();" class="border  w-[45%] ms-[2%] me-[3%] rounded px-5 py-[12px] mt-4 text-[#AD1212] font-bold" style="border-color:#AD1212 ;">Clear</button>
                                                 <button onclick="filter();" class="bg-[#AD1212] w-[45%]  rounded px-5 py-[12px] mt-4 text-white font-bold">Apply</button>
                                             </div>
                                         </div>
@@ -296,10 +241,12 @@ class ProductsTemplete
                                 </div>
                             </div>
                             <!-- filter area sm -->
+                            <div class="col-9" id="products-area">
+                                <?php
+                                DisplayProductsTemplete::generate($products);
+                                ?>
+                            </div>
 
-                            <?php
-                            DisplayProductsTemplete::generate($products);
-                            ?>
 
                         </div>
                     </div>
@@ -330,80 +277,156 @@ class DisplayProductsTemplete
         if (!empty($products)) {
 ?>
             <!-- products -->
-            <div class="col-lg-9 col-12 ">
+
+            <div class=" col-12">
                 <div class="row">
-                    <div class=" col-12" id="products-area">
-                        <div class="row">
-                            <?php
-                            while ($product = $products->fetch_assoc()) {
-                            ?>
-                                <div class="col-12 col-lg-3 mb-5">
-                                    <div class="row">
-                                        <div class="col-10 offset-1  card">
+                    <?php
+                    while ($product = $products->fetch_assoc()) {
+                    ?>
+                        <div class="col-12 col-lg-3 mb-5">
+                            <div class="row">
+                                <div class="col-10 offset-1  card">
 
-                                            <div class="flex items-center justify-center">
-                                                <img src="<?php echo $product["image_path"]; ?>" alt="product_img" width="200px" height="200px">
-                                            </div>
+                                    <div class="flex items-center justify-center">
+                                        <img src="<?php echo $product["image_path"]; ?>" alt="product_img" width="200px" height="200px">
+                                    </div>
 
-                                            <div class="row product-onclick-view justify-content-center align-content-center " style="position: absolute;" id="hover-view">
-                                                <div style="width: 100%;">
-                                                    <div class="col-12">
+                                    <div class="row product-onclick-view justify-content-center align-content-center " style="position: absolute;" id="hover-view">
+                                        <div style="width: 100%;">
+                                            <div class="col-12">
 
-                                                    </div>
-                                                </div>
-
-                                                <div style="width: 100%;" class="mt-3 text-center  align-items-center">
-                                                    <div class="product-dot col-12 ">
-                                                        <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-                                                            <div onclick="window.location.href = 'singleProductView?id=<?php echo $product['id']; ?>'" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
-                                                                <i class="bi bi-eye fs-5"></i>
-                                                            </div>
-                                                            <div class="col-1"></div>
-                                                            <div onclick="addToWishlist(<?php echo $product['id']; ?>);" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
-                                                                <i class="bi bi-heart fs-5 mt-1"></i>
-                                                            </div>
-                                                            <div class="col-1"></div>
-                                                            <div onclick="addToCart(<?php echo $product['id']; ?>);" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
-                                                                <i class="bi bi-bag fs-5"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-                                        <div class="p-3 text-center col-10 offset-1 h-[180px] border shadow-sm justify-center">
-                                            <p class="sm:text-sm lg:text-lg"><?php echo $product["title"]; ?></p>
-                                            <p class="lg:text-lg sm:text-xs mt-2 fw-semibold">Rs.<?php echo $product["price"]; ?>.00</p>
-                                            <div class=" mt-2">
-                                                <span class="col-lg-2 col-1 text-center lg:text-lg-end sm:text-sm-end  fw-bold" style="color: #AD1212;"><?php echo $product["rating"]; ?>.0</span>
 
-                                                <span class="col-lg-6 col-11">
-                                                    <?php
-                                                    $fill = $product["rating"];
-                                                    for ($x = 0; $x < 5; $x++) {
-                                                        $starClass = ($x < $fill) ? "bi bi-star-fill" : "bi bi-star";
-                                                    ?>
-                                                        <i class="<?php echo $starClass; ?> p-lg-1 p-0 lg:text-lg sm:text-xs" style="color: #AD1212;"></i>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </span>
+                                        <div style="width: 100%;" class="mt-3 text-center  align-items-center">
+                                            <div class="product-dot col-12 ">
+                                                <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                                                    <div onclick="window.location.href = 'singleProductView?id=<?php echo $product['id']; ?>'" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
+                                                        <i class="bi bi-eye fs-5"></i>
+                                                    </div>
+                                                    <div class="col-1"></div>
+                                                    <div onclick="addToWishlist(<?php echo $product['id']; ?>);" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
+                                                        <i class="bi bi-heart fs-5 mt-1"></i>
+                                                    </div>
+                                                    <div class="col-1"></div>
+                                                    <div onclick="addToCart(<?php echo $product['id']; ?>);" class="col-2 d-flex justify-content-center align-items-center" style="color: #AD1212; border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: #fcb3b3;">
+                                                        <i class="bi bi-bag fs-5"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            <?php
-                            }
-                            ?>
+                                <div class="p-3 text-center col-10 offset-1 h-[180px] border shadow-sm justify-center">
+                                    <p class="sm:text-sm lg:text-lg"><?php echo $product["title"]; ?></p>
+                                    <p class="lg:text-lg sm:text-xs mt-2 fw-semibold">Rs.<?php echo $product["price"]; ?>.00</p>
+                                    <div class=" mt-2">
+                                        <span class="col-lg-2 col-1 text-center lg:text-lg-end sm:text-sm-end  fw-bold" style="color: #AD1212;"><?php echo $product["rating"]; ?>.0</span>
+
+                                        <span class="col-lg-6 col-11">
+                                            <?php
+                                            $fill = $product["rating"];
+                                            for ($x = 0; $x < 5; $x++) {
+                                                $starClass = ($x < $fill) ? "bi bi-star-fill" : "bi bi-star";
+                                            ?>
+                                                <i class="<?php echo $starClass; ?> p-lg-1 p-0 lg:text-lg sm:text-xs" style="color: #AD1212;"></i>
+                                            <?php
+                                            }
+                                            ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
+
             <!-- products -->
         <?php
         } else {
             include "empty.php";
             EmptyDesign::generate("Products not Available");
+        }
+        ?>
+
+<?php
+    }
+}
+?>
+
+
+
+<?php
+class BrandModelsTemplete
+{
+    public static function generate($brands, $models, $status)
+    {
+
+        $brandsArray = [];
+        while ($brand = $brands->fetch_assoc()) {
+            $brandsArray[] = $brand;
+        }
+
+?>
+        <p class="ps-4 pt-4 text-lg">Brand</p>
+        <div class="w-[90%] ml-[5%] mt-2">
+            <div class="row">
+                <select class="h-[40%]  border focus:outline-none p-3 " id="brand">
+                    <option value="0">Select Brand</option>
+                    <?php
+                    foreach ($brandsArray as $brand) {
+                    ?>
+                        <option value="<?php echo $brand["brand_id"]; ?>"><?php echo $brand["brand_name"]; ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <?php
+        if ($status == 1) {
+        ?>
+            <p class="ps-4 pt-4 text-lg">Model</p>
+            <div class="w-[90%] ml-[5%] mt-2">
+                <div class="row">
+                    <select class="h-[40%]  border focus:outline-none p-3 " id="model">
+                        <option value="0">Select Model</option>
+                        <?php
+                        $modelsArray = [];
+                        while ($model = $models->fetch_assoc()) {
+                            $modelsArray[] = $model;
+                        }
+                        foreach ($modelsArray as $model) {
+                        ?>
+                            <option value="<?php echo $model["model_id"]; ?>"><?php echo $model["model_name"]; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+        <?php
+        } else {
+        ?>
+            <p class="ps-4 pt-4 text-lg">Model</p>
+            <div class="w-[90%] ml-[5%] mt-2">
+                <div class="row">
+                    <select class="h-[40%]  border focus:outline-none p-3 " id="model">
+                        <option value="0">Select Model</option>
+                        <?php
+                        foreach ($brandsArray as $model) {
+                        ?>
+                            <option value="<?php echo $model["model_id"]; ?>"><?php echo $model["model_name"]; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+        <?php
         }
         ?>
 
