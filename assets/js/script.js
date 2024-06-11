@@ -1184,9 +1184,9 @@ function ActivateOrDeactivateUser(id, email) {
 function ActivateOrDeactivateProduct(status_id, product_id) {
   fetch(
     "api/adminProductActivateDeactivateProcess.php?status_id=" +
-      status_id +
-      "&product_id=" +
-      product_id,
+    status_id +
+    "&product_id=" +
+    product_id,
     {
       method: "GET",
     }
@@ -1878,3 +1878,16 @@ function updateModel(id) {
     });
 }
 
+function loadModelsandBrands() {
+  var categoryID = $("#category").val();
+  fetch("products.php?category_id=" + categoryID, {
+    method: "GET"
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById("brandmodelview").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("error : " + error)
+    })
+}
