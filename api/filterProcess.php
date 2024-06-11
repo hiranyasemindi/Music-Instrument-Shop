@@ -130,17 +130,17 @@ class Process
 
         if ($color_id) {
             $products = $this->getProductsByColorId($color_id);
-            $ids = "";
+            $ids = "0";
             if ($products) {
                 while ($product = $products->fetch_assoc()) {
                     $ids .= $product["product_id"] . ",";
                 }
                 $ids = rtrim($ids, ",");
-                if ($status == 0) {
-                    $query .= "WHERE `id` IN (" . $ids . ")";
-                } else {
-                    $query .= " AND `id`IN (" . $ids . ")";
-                }
+            }
+            if ($status == 0) {
+                $query .= "WHERE `id` IN (" . $ids . ")";
+            } else {
+                $query .= " AND `id`IN (" . $ids . ")";
             }
         }
 
