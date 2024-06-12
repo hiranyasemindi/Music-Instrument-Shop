@@ -1,17 +1,34 @@
 <?php
 require_once "../libs/connection.php";
+// include "../products.php";
 include "../App/views/productsTemplete.php";
 include "../empty.php";
 
-class Process
+class FilterProcess
 {
 
     public function handleRequest()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $this->handlePOSTRequest();
+        } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $this->handleGETRequest();
         } else {
             echo "error";
+        }
+    }
+
+    private function handleGETRequest()
+    {
+        // echo "hi";
+        if (isset($_GET["text"])) {
+            $query = "SELECT * FROM `product` WHERE `title` LIKE '%" . $_GET["text"] . "%'";
+            $filteredProducts = $this->searchProducts($query);
+            if ($filteredProducts) {
+                DisplayProductsTemplete::generate($filteredProducts->num_rows, $query);
+            } else {
+                EmptyDesign::generate("Products not Available");
+            }
         }
     }
 
@@ -171,7 +188,8 @@ class Process
 
         $filteredProducts = $this->searchProducts($query);
         if ($filteredProducts) {
-            DisplayProductsTemplete::generate($filteredProducts);
+            echo "filter";
+            DisplayProductsTemplete::generate($filteredProducts->num_rows, $query);
         } else {
             EmptyDesign::generate("Products not Available");
         }
@@ -213,5 +231,5 @@ class Process
     }
 }
 
-$process = new Process();
+$process = new FilterProcess();
 $process->handleRequest();
