@@ -152,6 +152,14 @@
                     <div class="col-lg-10 offset-lg-1 col-12 offset-0">
                         <div class="row">
                             <p class="text-center mt-5 pt-5 font-semibold text-3xl">History of Us</p>
+
+                            <div class="col-12 px-5 p-3 my-3 flex content-center ">
+                                <div class="row ">
+                                    <img class="w-[50%] rounded" src="assets/img/history.jpeg" alt="history_img" height="60px">
+                                    <img class="w-[50%] rounded" src="assets/img/hist.jpeg" alt="history_img" height="60px">
+                                </div>
+                            </div>
+
                             <p style="text-align: justify;" class="text-lg px-5 mt-3 text-[#999b9e]">"Established in 2001, Sonority Music Shop has been a cornerstone of the music community, proudly serving musicians
                                 and enthusiasts alike for 23 years. Our journey began with a simple yet powerful vision: to create
                                 a haven where musicians could find exceptional instruments, expert guidance, and a supportive community to nurture
