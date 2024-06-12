@@ -205,7 +205,7 @@ class SingleProductTemplete
                                                 if ($product) {
                                                 ?>
                                                     <button id="editProductBtn" class="bg-[#AD1212] w-[40%] text-white p-[14px] rounded " onclick="editProduct();">Edit Product</button>
-                                                    <button onclick="updateProduct(<?php echo $product['id']; ?>);" id="updateProductBtn" class="bg-[#AD1212] w-[40%] d-none text-white p-[14px] rounded ">Update Product</button>
+                                                    <button onclick="updateProduct(<?php echo $_GET['id']; ?>);" id="updateProductBtn" class="bg-[#AD1212] w-[40%] d-none text-white p-[14px] rounded ">Update Product</button>
                                                 <?php
                                                 } else {
                                                 ?>
