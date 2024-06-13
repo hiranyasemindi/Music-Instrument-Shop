@@ -27,29 +27,34 @@ class Process
             $product_id = $_GET["id"];
             $result = $this->getProductById($product_id);
             if ($result) {
-                $email = $_SESSION["user"]["email"];
-                if ($_GET["function"] == "wishlist") {
-                    $product = $this->getProductFromWishlist($product_id, $email);
-                    if ($product) {
-                        $this->responseObj->msg = "Already added this product to the wishlist.";
-                        $this->sendResponse();
+                if (isset($_SESSION["user"]["email"])) {
+                    $email = $_SESSION["user"]["email"];
+                    if ($_GET["function"] == "wishlist") {
+                        $product = $this->getProductFromWishlist($product_id, $email);
+                        if ($product) {
+                            $this->responseObj->msg = "Already added this product to the wishlist.";
+                            $this->sendResponse();
+                        } else {
+                            $this->addToWishlist($email, $product_id);
+                            $this->responseObj->msg = "Successfuly added to the wishlist.";
+                            $this->sendResponse();
+                        }
+                    } else if ($_GET["function"] == "cart") {
+                        $product = $this->getProductFromCart($product_id, $email);
+                        if ($product) {
+                            $this->responseObj->msg = "Already added this product to the cart.";
+                            $this->sendResponse();
+                        } else {
+                            $this->addToCart($email, $product_id);
+                            $this->responseObj->msg = "Successfuly added to the cart.";
+                            $this->sendResponse();
+                        }
                     } else {
-                        $this->addToWishlist($email, $product_id);
-                        $this->responseObj->msg = "Successfuly added to the wishlist.";
-                        $this->sendResponse();
-                    }
-                } else if ($_GET["function"] == "cart") {
-                    $product = $this->getProductFromCart($product_id, $email);
-                    if ($product) {
-                        $this->responseObj->msg = "Already added this product to the cart.";
-                        $this->sendResponse();
-                    } else {
-                        $this->addToCart($email, $product_id);
-                        $this->responseObj->msg = "Successfuly added to the cart.";
-                        $this->sendResponse();
+                        $this->responseObj->error = "Something went wrong.";
+                        $this->sendResponse(400);
                     }
                 } else {
-                    $this->responseObj->error = "Something went wrong.";
+                    $this->responseObj->error = "Please Login First.";
                     $this->sendResponse(400);
                 }
             } else {
