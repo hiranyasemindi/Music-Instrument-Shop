@@ -474,7 +474,7 @@ function addToWishlist(id) {
     .then((data) => {
       var response = JSON.parse(data);
       response.msg ? alert(response.msg) : alert(response.error);
-      window.location.reload();
+      response.msg ? window.location.reload() : "";
     })
     .catch((error) => {
       console.log("Error: " + error);
@@ -1885,9 +1885,41 @@ function loadModelsandBrands() {
   })
     .then((response) => response.text())
     .then((data) => {
-      document.getElementById("brandmodelview").innerHTML = data;
+      $("#brandmodelview").html(data);
     })
     .catch((error) => {
       console.log("error : " + error)
+    })
+}
+
+function loadBrands() {
+  var brandID = $("#brand").val();
+  fetch("products.php?brand_id=" + brandID, {
+    method: "GET"
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      $("#modelArea").html(data);
+    })
+    .catch((error) => {
+      console.log("error : " + error)
+    })
+}
+
+function serchProductsByText() {
+  var text = $("#searchInput").val();
+  fetch("api/filterProcess.php?text=" + text, {
+    method: "GET"
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      if (data.trim() === "error") {
+        window.location = "404";
+      } else {
+        $("#products-area").html(data);
+      }
+    })
+    .catch((eroor) => {
+      console.log("Error: " + eroor)
     })
 }
