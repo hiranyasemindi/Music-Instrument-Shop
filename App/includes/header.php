@@ -98,7 +98,7 @@
                 </div>
                 <div class="col-lg-8 d-none d-lg-flex align-items-center justify-content-center">
 
-                    <input id="searchInput" type="text" placeholder="What you want to search.." class="border col-8 h-[40%] p-3 focus:outline-none">
+                    <input onkeyup="serchProductsByText()" id="searchInput" type="text" placeholder="What you want to search.." class="border col-8 h-[40%] p-3 focus:outline-none">
                 </div>
                 <div class="col-lg-2 col-6 flex justify-center items-center">
                     <a href="wishlist" class="text-decoration-none text-dark"><i class="bi bi-heart font-semibold mx-2 px-2  text-[24px]"></i></a>
