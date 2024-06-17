@@ -1,7 +1,8 @@
 <?php
+static $brandsArray = [];
 class ProductsTemplete
 {
-    public static function generate($products, $categories, $brands, $models, $colors)
+    public static function generate($rows, $query, $categories, $brands, $models, $colors)
     {
 
         $categoriesArray = [];
@@ -241,13 +242,16 @@ class ProductsTemplete
                                 </div>
                             </div>
                             <!-- filter area sm -->
+
                             <div class="col-9" id="products-area">
+
                                 <?php
-                                DisplayProductsTemplete::generate($products);
+
+
+                                DisplayProductsTemplete::generate($rows, $query);
                                 ?>
+
                             </div>
-
-
                         </div>
                     </div>
 
@@ -272,16 +276,35 @@ class ProductsTemplete
 <?php
 class DisplayProductsTemplete
 {
-    public static function generate($products)
+    public static function executeQuery($query, $limit, $offset)
     {
-        if (!empty($products)) {
+        $result = Database::search($query . " LIMIT " . $limit . " OFFSET " . $offset . "");
+        return $result->num_rows > 0 ? $result : null;
+    }
+
+    public static function generate($rows, $query)
+    {
+        if (isset($_GET["page"])) {
+            $pageno = $_GET["page"];
+        } else {
+            $pageno = 1;
+        }
+
+        $productsCount = $rows;
+        $resultsPerPage = 8;
+        $numberOfPages = ceil($productsCount / $resultsPerPage);
+
+        $offset = ($pageno - 1) * $resultsPerPage;
+        $limitedProducts = self::executeQuery($query, $resultsPerPage, $offset);
+        if (!empty($limitedProducts)) {
+
 ?>
             <!-- products -->
 
             <div class=" col-12">
                 <div class="row">
                     <?php
-                    while ($product = $products->fetch_assoc()) {
+                    while ($product = $limitedProducts->fetch_assoc()) {
                     ?>
                         <div class="col-12 col-lg-3 mb-5">
                             <div class="row">
@@ -345,6 +368,53 @@ class DisplayProductsTemplete
             </div>
 
             <!-- products -->
+
+
+
+            <!-- pagination -->
+            <div class="text-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="inline-flex -space-x-px text-base h-10">
+                        <li>
+                            <a href="<?php if ($pageno <= 1) {
+                                            echo "#";
+                                        } else {
+                                            echo "?page=" . ($pageno - 1);
+                                        } ?>" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                        </li>
+                        <?php
+                        // echo $numberOfPages;
+                        for ($p = 0; $p < $numberOfPages; $p++) {
+                            # code...
+                            if ($pageno == $p + 1) {
+                        ?>
+                                <li>
+                                    <a href="<?php echo "?page=" . $p + 1 ?>" aria-current="page" class="flex items-center justify-center px-4 h-10 text-[#AD1212] border border-gray-300 bg-red-50 hover:bg-red-100 hover:text-red-700 dark:border-gray-700 dark:bg-gray-700 dark:text-[#AD1212]"><?php echo $p + 1; ?></a>
+                                </li>
+                            <?php
+                            } else {
+                            ?>
+
+                                <li>
+                                    <a href="<?php echo "?page=" . $p + 1 ?>" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $p + 1; ?></a>
+                                </li>
+                        <?php
+                            }
+                        }
+                        ?>
+
+                        <li>
+                            <?php
+                            ?>
+                            <a href="<?php if ($pageno >= $numberOfPages) {
+                                            echo "#";
+                                        } else {
+                                            echo "?page=" . ($pageno + 1);
+                                        } ?>" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         <?php
         } else {
             include "empty.php";
@@ -362,22 +432,23 @@ class DisplayProductsTemplete
 <?php
 class BrandModelsTemplete
 {
+    private static $brandsArray;
+
     public static function generate($brands, $models, $status)
     {
 
-        $brandsArray = [];
         while ($brand = $brands->fetch_assoc()) {
-            $brandsArray[] = $brand;
+            self::$brandsArray[] = $brand;
         }
 
 ?>
         <p class="ps-4 pt-4 text-lg">Brand</p>
         <div class="w-[90%] ml-[5%] mt-2">
             <div class="row">
-                <select class="h-[40%]  border focus:outline-none p-3 " id="brand">
+                <select onchange="loadBrands();" class="h-[40%]  border focus:outline-none p-3 " id="brand">
                     <option value="0">Select Brand</option>
                     <?php
-                    foreach ($brandsArray as $brand) {
+                    foreach (self::$brandsArray as $brand) {
                     ?>
                         <option value="<?php echo $brand["brand_id"]; ?>"><?php echo $brand["brand_name"]; ?></option>
                     <?php
@@ -386,7 +457,19 @@ class BrandModelsTemplete
                 </select>
             </div>
         </div>
+
+        <div id="modelArea">
+            <?php
+            BrandModelsTemplete::generateModels($models, $status);
+            ?>
+        </div>
+
+
         <?php
+    }
+
+    public static function generateModels($models, $status)
+    {
         if ($status == 1) {
         ?>
             <p class="ps-4 pt-4 text-lg">Model</p>
@@ -417,7 +500,7 @@ class BrandModelsTemplete
                     <select class="h-[40%]  border focus:outline-none p-3 " id="model">
                         <option value="0">Select Model</option>
                         <?php
-                        foreach ($brandsArray as $model) {
+                        foreach (self::$brandsArray as $model) {
                         ?>
                             <option value="<?php echo $model["model_id"]; ?>"><?php echo $model["model_name"]; ?></option>
                         <?php
@@ -426,11 +509,8 @@ class BrandModelsTemplete
                     </select>
                 </div>
             </div>
-        <?php
-        }
-        ?>
-
 <?php
+        }
     }
 }
 ?>
