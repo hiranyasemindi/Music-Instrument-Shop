@@ -69,7 +69,7 @@ class Process
             $this->updateVerificationCode($otp, $email);
             $body = "<h1>Sonority Admin Forgot Password Verification Code</h1>
             <h4>" . $otp . "</h4>";
-            $result = $this->sendEmail($email, $body);
+            $result = $this->sendEmail($email, $otp);
             if ($result == "Success") {
                 $this->responseObj->msg = "openModel";
                 $this->sendReponse();
