@@ -188,7 +188,6 @@ class FilterProcess
 
         $filteredProducts = $this->searchProducts($query);
         if ($filteredProducts) {
-            echo "filter";
             DisplayProductsTemplete::generate($filteredProducts->num_rows, $query);
         } else {
             EmptyDesign::generate("Products not Available");

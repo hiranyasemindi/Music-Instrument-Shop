@@ -2,9 +2,9 @@
 require_once "libs/connection.php";
 session_start();
 
-$process = new Process();
+$process = new ProductProcess();
 $process->products();
-class Process
+class ProductProcess
 {
 
     public function products()
@@ -18,12 +18,16 @@ class Process
                 $modelsAndBrands = $this->getBrandsAndModelsByCategory($_GET["category_id"]);
                 include "App/views/productsTemplete.php";
                 BrandModelsTemplete::generate($modelsAndBrands, $modelsAndBrands, 0);
+            } else if (isset($_GET["brand_id"])) {
+                $models = $this->getModelsByBrands($_GET["brand_id"]);
+                include "App/views/productsTemplete.php";
+                BrandModelsTemplete::generateModels($models, 1);
             } else {
                 $brands = $this->getBrands();
                 $models = $this->getModels();
-
                 include "App/views/productsTemplete.php";
-                ProductsTemplete::generate($products, $categories, $brands, $models, $colors,);
+                $query = "SELECT * FROM `product` WHERE `status_id`='1'";
+                ProductsTemplete::generate($products->num_rows, $query, $categories, $brands, $models, $colors,);
             }
         } else {
             echo "products not available";
@@ -68,13 +72,22 @@ class Process
         return $result->num_rows > 0 ? $result : null;
     }
 
+    public function getProductsLimit($limit, $offset)
+    {
+        $result = $this->search("SELECT * FROM `product` WHERE `status_id`='1' LIMIT " . $limit . " OFFSET " . $offset . "");
+        return $result->num_rows > 0 ? $result : null;
+    }
+
+    private function getModelsByBrands($bid)
+    {
+        $result = $this->search("SELECT `brand_id`,`model_id`,`model_name` FROM `brand_has_model` INNER JOIN `model` ON `model`.`id`=`brand_has_model`.`model_id` WHERE `brand_id`=" . $bid . "");
+        return $result->num_rows > 0 ? $result : null;
+    }
+
+
+
     private function search($q)
     {
         return Database::search($q);
-    }
-
-    private function iud($q)
-    {
-        Database::iud($q);
     }
 }

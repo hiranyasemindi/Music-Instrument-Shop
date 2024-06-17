@@ -36,7 +36,8 @@ class Process
         $colors = $this->getColors();
         if ($products) {
             include "App/views/productsTemplete.php";
-            ProductsTemplete::generate($products, $categories, $brands, $models, $colors,);
+            $query = "SELECT * FROM `product` WHERE `category_id`='" . $id . "'";
+            ProductsTemplete::generate($products->num_rows, $query, $categories, $brands, $models, $colors,);
         } else {
             EmptyDesign::generate("Products not Available.");
         }
@@ -76,5 +77,4 @@ class Process
     {
         return Database::search($q);
     }
-
 }
