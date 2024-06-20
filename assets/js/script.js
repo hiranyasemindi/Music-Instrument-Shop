@@ -680,29 +680,31 @@ function buyNow(product_id, condition, df, availableQty) {
   var qty = $("#requiredQty").val();
   if (qty == "") {
     alert("Please Insert the Qty");
+  } else {
+    var array = [];
+    var product = {
+      id: product_id,
+      title: $("#title").text(),
+      price: parseInt($("#price").text()) * parseInt(qty),
+      quantity: qty,
+      delivery_fee: df,
+      condition: condition,
+      image: $("#product-image").attr("src"),
+      availableQty: availableQty,
+    };
+    array.push(product);
+    console.log(array);
+    var productArrayJSON = JSON.stringify(array);
+
+    var encodedProductArray = encodeURIComponent(productArrayJSON);
+
+    window.location =
+      "checkout?email=" +
+      encodeURIComponent($("#spumail").text()) +
+      "&array=" +
+      encodedProductArray;
   }
-  var array = [];
-  var product = {
-    id: product_id,
-    title: $("#title").text(),
-    price: parseInt($("#price").text()) * parseInt(qty),
-    quantity: qty,
-    delivery_fee: df,
-    condition: condition,
-    image: $("#product-image").attr("src"),
-    availableQty: availableQty,
-  };
-  array.push(product);
-  console.log(array);
-  var productArrayJSON = JSON.stringify(array);
 
-  var encodedProductArray = encodeURIComponent(productArrayJSON);
-
-  window.location =
-    "checkout?email=" +
-    encodeURIComponent($("#spumail").text()) +
-    "&array=" +
-    encodedProductArray;
 }
 
 function confirmOrder(title, total, parray) {
