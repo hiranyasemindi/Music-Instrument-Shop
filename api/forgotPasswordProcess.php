@@ -67,9 +67,7 @@ class Process
         if ($user) {
             $otp = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
             $this->updateVerificationCode($otp, $email);
-            $body = "<h1>Sonority Forgot Password Verification Code</h1>
-            <h4>" . $otp . "</h4>";
-            $result = $this->sendEmail($email, $body);
+            $result = $this->sendEmail($email, $otp);
             if ($result == "Success") {
                 $this->responseObj->msg = "openModel";
                 $this->sendReponse();
@@ -93,9 +91,9 @@ class Process
         return Database::search($q);
     }
 
-    private function sendEmail($email, $body)
+    private function sendEmail($email, $otp)
     {
-        return Email::sendEmail($email, $body);
+        return Email::sendEmail($email, $otp);
     }
 
     private function resetPassword($decoded)

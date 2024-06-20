@@ -79,9 +79,9 @@
                                     <?php
                                     if ($address) {
                                         $df = $address["district_name"] == "Colombo" ? $product['delivery_fee_colombo'] : $product['delivery_fee_other'];
-                                        
+
                                     ?>
-                                        <button type="submit" id="payhere-payment" onclick="buyNow(<?php echo $product['id']; ?>,'<?php echo addslashes($product['condition']); ?>', <?php echo $df; ?>, <?php echo $product['qty']; ?>);" class="bg-[#AD1212] hover:cursor-pointer mt-4 rounded px-2 py-3 w-[34%] text-white font-bold">Buy Now</button>
+                                        <button type="submit" id="payhere-payment" onclick="buyNow(<?php echo $product['id']; ?>,'<?php echo addslashes($product['condition']); ?>', <?php echo $df; ?>, <?php echo $product['qty']; ?>);" class="bg-[#AD1212] hover:cursor-pointer mt-4 rounded px-2 py-3 w-[34%] text-white font-bold" style="background-color: #AD1212;">Buy Now</button>
                                     <?php
                                     } else {
                                     ?>
@@ -147,7 +147,7 @@
                                                     <p id="title" class="text-center text-xl" style="color: #FFFFFF; "><?php echo $item["title"]; ?></p>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-center mt-2 mb-2" style="height: 100%;">
-                                                    <p class="text-center fw-bold text-2xl"  style="color: #fcb3b3;">Rs. <span id="price"><?php echo $item["price"]; ?></span>.00</p>
+                                                    <p class="text-center fw-bold text-2xl" style="color: #fcb3b3;">Rs. <span id="price"><?php echo $item["price"]; ?></span>.00</p>
                                                 </div>
 
                                                 <div class="d-flex align-items-center justify-content-center mt-2 mb-1" style="height: 100%;">

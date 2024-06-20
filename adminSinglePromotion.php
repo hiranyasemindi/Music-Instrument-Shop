@@ -128,7 +128,7 @@ class SinglePromotionTemplete
                                         <div class="row">
                                             <div class="col-lg-4 col-12  justify-center mb-5">
                                                 <img src="<?php echo $promotion ? $promotion["image"] : "assets/img/upload.png"; ?>" id="viePromoImg" alt="prmo_img" width="400px" height="400px">
-                                                <div class="bg-[#555657] text-center py-[13px] hover:cursor-pointer">
+                                                <div class="bg-[#555657] text-center py-[13px] hover:cursor-pointer w-[400px]">
                                                     <label onclick="changeImage();" class="text-white" for="promoImage"><i class="bi bi-upload me-3"></i>Upload Image</label>
                                                     <input <?php echo $promotion ? "disabled" : ""; ?> type="file" class="d-none" id="promoImage" accept="image/*" />
                                                 </div>

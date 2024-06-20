@@ -173,18 +173,31 @@
         <?php
         }
 
-        public static function emptyCart()
+        public static function emptyCart($text)
         {
         ?>
             <div class="flex items-center justify-center">
                 <img src="assets/img/undraw_empty_cart_co35.svg" alt="emptyCart_img" width="500px" height="500px">
             </div>
             <div class="flex items-center justify-center mt-4">
-                <span class="fw-semibold text-3xl">Your Cart is Empty</span>
+                <span class="fw-semibold text-3xl"><?php echo $text; ?></span>
             </div>
-            <div class="flex items-center justify-center mt-4">
-                <button onclick="window.location.href = 'index'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Shopping</button>
-            </div>
+            <?php
+            if ($text == "Your Cart is Empty") {
+            ?>
+                <div class="flex items-center justify-center mt-4">
+                    <button onclick="window.location.href = 'index'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Shopping</button>
+                </div>
+            <?php
+            } else {
+            ?>
+                <div class="flex items-center justify-center mt-4">
+                    <button onclick="window.location.href = 'profile'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Profile</button>
+                </div>
+            <?php
+            }
+            ?>
+
     <?php
         }
     }
