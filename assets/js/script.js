@@ -1316,6 +1316,7 @@ function editProduct() {
   $("#qt").removeAttr("disabled");
   $("#dfc").removeAttr("disabled");
   $("#dfo").removeAttr("disabled");
+  $("#con").removeAttr("disabled");
   $("#editProductBtn").toggleClass("d-none");
   $("#updateProductBtn").toggleClass("d-none");
   alert("Now you can edit the product.");
@@ -1340,6 +1341,7 @@ function updateProduct(id) {
   form.append("qty", $("#qt").val());
   form.append("dfeecolombo", $("#dfc").val());
   form.append("dfeeout", $("#dfo").val());
+  form.append("con", $("#con").val());
   form.append("id", id);
   form.append("function", "update");
   if (fileInput.files.size == 0) {
@@ -1415,6 +1417,8 @@ function addProduct() {
     form.append("pr", $("#pr").val());
     form.append("dfeecolombo", $("#dfc").val());
     form.append("dfeeout", $("#dfo").val());
+    form.append("con", $("#con").val());
+    form.append("col", $("#col").val());
     form.append("function", "add");
     if (fileInput.files.size == 0) {
       alert("Please select an image.");
@@ -1519,7 +1523,6 @@ function changeEmail() {
         var response = JSON.parse(data);
         alert(data);
         if ((response.msg = "Reset Success.")) {
-          alert(response.msg);
           adminModel.addClass("hidden");
           $("#vcode").val("");
           $("#oldEmail").val("");
@@ -1799,6 +1802,20 @@ function singleModel(id) {
     });
 }
 
+function singleColor(id) {
+  fetch("adminColors.php?id=" + id)
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      // document.getElementById("categories_area").classList.add("d-none");
+      document.getElementById("colors_area").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
 function addMod() {
   fetch("adminModels.php?name=add")
     .then((response) => response.text())
@@ -1813,11 +1830,33 @@ function addMod() {
     });
 }
 
+function addCol() {
+  fetch("adminColors.php?name=add")
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      // document.getElementById("categories_area").classList.add("d-none");
+      document.getElementById("colors_area").innerHTML = data;
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
 function editModel() {
   $("#m_name").removeAttr("disabled");
   $("#editMoBtn").toggleClass("d-none");
   $("#updateMoBtn").toggleClass("d-none");
   alert("Now you can edit the model");
+}
+
+function editColor() {
+  $("#c_name").removeAttr("disabled");
+  $("#c_code").removeAttr("disabled");
+  $("#editCoBtn").toggleClass("d-none");
+  $("#updateCoBtn").toggleClass("d-none");
+  alert("Now you can edit the color");
 }
 
 function addModel() {
@@ -1852,6 +1891,41 @@ function addModel() {
   }
 }
 
+function addColor() {
+  var AlertBox = $("#c_alertBox");
+  var Alert = $("#c_alert");
+  if ($("#c_name").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Color Name.");
+  } else if ($("#c_code").val() == "") {
+    AlertBox.removeClass("d-none");
+    Alert.text("Please Enter the Color Code.");
+  } else {
+    var form = new FormData();
+    form.append("name", $("#c_name").val());
+    form.append("code", $("#c_code").val());
+    form.append("function", "add");
+
+    fetch("api/add&updateColor.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        if (response.done == "Color Added.") {
+          alert("Succesfully Added the Color.");
+          window.location = "adminColors";
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  }
+}
+
 function updateModel(id) {
   var form = new FormData();
   form.append("name", $("#m_name").val());
@@ -1869,6 +1943,32 @@ function updateModel(id) {
       if (response.done == "Model Updated.") {
         alert("Succesfully Updated the Model.");
         window.location = "adminModels";
+      } else {
+        alert(response.error);
+      }
+    })
+    .catch((error) => {
+      console.log("error: " + error);
+    });
+}
+
+function updateColor(id) {
+  var form = new FormData();
+  form.append("name", $("#c_name").val());
+  form.append("code", $("#c_code").val());
+  form.append("id", id);
+  form.append("function", "update");
+
+  fetch("api/add&updateColor.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      if (response.done == "Color Updated.") {
+        alert("Succesfully Updated the Color.");
+        window.location = "adminColors";
       } else {
         alert(response.error);
       }
