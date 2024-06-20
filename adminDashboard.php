@@ -69,6 +69,7 @@ class Process
 }
 ?>
 
+
 <?php
 class DashboardTemplete
 {
@@ -87,20 +88,10 @@ class DashboardTemplete
             <link rel="stylesheet" href="assets/css/style.css">
             <script src="https://cdn.tailwindcss.com"></script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-            <link rel="stylesheet" type="text/css" href="https://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
-            <link rel="stylesheet" type="text/css" href="https://www.prepbootstrap.com/Content/shieldui-lite/dist/css/light/all.min.css" />
         </head>
 
         <body class="bg-[#f2f2f2]">
-            <style>
-                .table td,
-                .table th {
-                    padding-top: 20px;
-                    padding-bottom: 20px;
-                    /* Adjust as needed */
-                }
-            </style>
-            <div class="container-fluid vh-100">
+            <div class="container-fluid ">
                 <div class="row">
                     <!-- Left area  -->
                     <?php
@@ -108,7 +99,7 @@ class DashboardTemplete
                     ?>
                     <!-- Left area  -->
 
-                    <div class=" lg:w-[82%] h-[5rem] bg-white ">
+                    <div class="bg-white h-[5rem] w-[82%] ">
 
                         <!-- header -->
                         <?php
@@ -167,28 +158,15 @@ class DashboardTemplete
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 mt-4 w-[92%] ml-[4%]">
-                                <div class="row">
-
-                                    <div class="col-md-6 w-[49%] bg-white mr-[2%]">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h3 class="fw-semibold p-3 text-xl">Earnings</h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div id="chart1"></div>
-                                            </div>
-                                        </div>
+                            <div class="col-12 mt-5 w-[92%] ml-[4%] ">
+                                <div class="row h-[30rem] ">
+                                    <div class="col-md-6 w-[49%]  mr-[2%] h-[28rem]">
+                                        <h3 class="fw-semibold  ps-[5rem] pb-3 pt-4 mb-[-1rem] bg-white text-xl">Earnings</h3>
+                                        <div class="h-full " id="curve_chart"></div>
                                     </div>
-                                    <div class="col-md-6 w-[49%] bg-white">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h3 class="fw-semibold p-3 text-xl">Order Sumary</h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div id="chart2"></div>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-6 w-[49%]  h-[28rem]">
+                                        <h3 class="fw-semibold  ps-[5rem] pb-3 pt-4 mb-[-1rem] bg-white text-xl">Order Sumary</h3>
+                                        <div class="h-full" id="piechart"></div>
                                     </div>
                                 </div>
                             </div>
@@ -201,69 +179,80 @@ class DashboardTemplete
             </div>
 
             <script src="assets/js/script.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-            <script type="text/javascript" src="https://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-            <script type="text/javascript" src="https://www.prepbootstrap.com/Content/shieldui-lite/dist/js/shieldui-lite-all.min.js"></script>
-            <script type="text/javascript">
-                jQuery(function($) {
-                    var data1 = [12, 3, 4, 2, 12, 3, 4, 17, 22, 34, 54, 67];
-                    // var data2 = [3, 9, 12, 14, 22, 32, 45, 12, 67, 45, 55, 7];
-                    // var data3 = [23, 19, 11, 134, 242, 352, 435, 22, 637, 445, 555, 57];
-                    // var data4 = [13, 19, 112, 114, 212, 332, 435, 132, 67, 45, 55, 7];
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-                    $("#chart1").shieldChart({
-                        exportOptions: {
-                            image: false,
-                            print: false
-                        },
-                        axisY: {
-                            title: {
-                                text: "Break-Down for selected quarter"
-                            }
-                        },
-                        dataSeries: [{
-                            seriesType: "line",
-                            data: data1
-                        }]
-                    });
+            <script>
+                google.charts.load('current', {
+                    'packages': ['corechart']
                 });
-            </script>
-            <script type="text/javascript">
-                jQuery(function($) {
-                    var data1 = [4, 2];
+                google.charts.setOnLoadCallback(drawChart);
 
-                    $(function() {
-                        $("#chart2").shieldChart({
-                            exportOptions: {
-                                image: false,
-                                print: false
-                            },
-                            axisY: {
-                                title: {
-                                    text: "Break-Down for selected quarter"
+                function drawChart() {
+
+                    fetch("api/chartData", {
+                            method: "GET"
+                        })
+                        .then((response) => response.text())
+                        .then((data) => {
+                            const object = JSON.parse(data);
+                            const pending = object.pendingCount;
+                            const completed = object.completedCount;
+
+                            var data = google.visualization.arrayToDataTable([
+                                ['Task', 'Hours per Day'],
+                                ['Pending', Number(pending)],
+                                ['Completed', Number(completed)],
+                            ]);
+
+                            var options = {
+                                // title: 'Summary'
+                            };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                            chart.draw(data, options);
+
+                            //chart 2
+                            var data2 = google.visualization.arrayToDataTable([
+                                ['Year', 'Sales'],
+                                ['Jan', Number(object.earnings[1])],
+                                ['Feb', Number(object.earnings[2])],
+                                ['Mar', Number(object.earnings[3])],
+                                ['Apr', Number(object.earnings[4])],
+                                ['May', Number(object.earnings[5])],
+                                ['Jun', Number(object.earnings[6])],
+                                ['Jul', Number(object.earnings[7])],
+                                ['Aug', Number(object.earnings[8])],
+                                ['Sep', Number(object.earnings[9])],
+                                ['Oct', Number(object.earnings[10])],
+                                ['Nov', Number(object.earnings[11])],
+                                ['Dec', Number(object.earnings[12])],
+                            ]);
+
+                            var options2 = {
+                                // title: 'Company Performance',
+                                curveType: 'function',
+                                legend: {
+                                    position: 'bottom'
                                 }
-                            },
-                            dataSeries: [{
-                                seriesType: "pie",
-                                enablePointSelection: true,
-                                data: data1
-                            }]
-                        });
+                            };
 
+                            var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
+                            chart2.draw(data2, options2);
+                        })
+                        .catch((error) => {
+                            console.log("Error : " + error);
+                        })
 
-                    });
-
-                });
+                }
             </script>
 
         </body>
 
         </html>
 <?php
-
-
     }
 }
 ?>
