@@ -36,12 +36,13 @@ class Process
         $image = $_FILES["img"];
         $admin = $this->getAdminByEmail($email);
         if ($admin) {
+            unlink("../" . $admin["profile_img"]);
             $allowed_image_extentions = array("image/jpg", "image/jpeg", "image/png", "image/svg+xml");
             $file_extension = $image["type"];
             if (in_array($file_extension, $allowed_image_extentions)) {
                 $new_file_extention = $this->getImageExtension($file_extension);
                 $file_name = $this->getFileName($new_file_extention);
-                if (move_uploaded_file($image["tmp_name"], "../".$file_name)) {
+                if (move_uploaded_file($image["tmp_name"], "../" . $file_name)) {
                     $this->updateImage($file_name, $email);
                     $this->responseObj->msg = "Successfully Updated";
                     $this->sendResponse();
