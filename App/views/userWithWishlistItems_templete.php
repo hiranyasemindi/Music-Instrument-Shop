@@ -127,18 +127,30 @@
         <?php
         }
 
-        public static function emptyWishlist()
+        public static function emptyWishlist($text)
         {
         ?>
             <div class="flex items-center justify-center">
                 <img src="assets/img/undraw_no_data_re_kwbl.svg" alt="emptyWishlist_img" width="500px" height="500px">
             </div>
             <div class="flex items-center justify-center mt-4">
-                <span class="fw-semibold text-3xl">Your Wishlist is Empty</span>
+                <span class="fw-semibold text-3xl"><?php echo $text; ?></span>
             </div>
-            <div class="flex items-center justify-center mt-4">
-                <button onclick="window.location.href = 'index'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Shopping</button>
-            </div>
+            <?php
+            if ($text == "Please update your profile.") {
+            ?>
+                <div class="flex items-center justify-center mt-4">
+                    <button onclick="window.location.href = 'profile'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Profile</button>
+                </div>
+            <?php
+            } else {
+            ?>
+                <div class="flex items-center justify-center mt-4">
+                    <button onclick="window.location.href = 'index'" class="bg-[#AD1212] rounded px-5 py-[12px] mt-1 my-5 text-white font-bold">Go to Shopping</button>
+                </div>
+            <?php
+            }
+            ?>
     <?php
         }
     }

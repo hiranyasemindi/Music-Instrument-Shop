@@ -23,11 +23,16 @@ class Process
             $cartItems = $this->getProductsFromCart($email);
             $address = $this->getUserAddress($email);
             if ($cartItems) {
-                include "App/views/userWithCartItems_templete.php";
-                cartTemplete::generate($cartItems, $address["district_name"]);
+                if ($address) {
+                    include "App/views/userWithCartItems_templete.php";
+                    cartTemplete::generate($cartItems, $address["district_name"]);
+                } else {
+                    include "App/views/userWithCartItems_templete.php";
+                    cartTemplete::emptyCart("Please update your profile.");
+                }
             } else {
                 include "App/views/userWithCartItems_templete.php";
-                cartTemplete::emptyCart();
+                cartTemplete::emptyCart("Your Cart is Empty");
             }
         } else {
             include "404.php";

@@ -25,11 +25,16 @@ class Process
             $wishlistItems = $this->getProductsFromWishlist($email);
             $address = $this->getUserAddress($email);
             if ($wishlistItems) {
-                include "App/views/userWithWishlistItems_templete.php";
-                wishListTemplete::generate($wishlistItems,$address["district_name"]);
+                if ($address) {
+                    include "App/views/userWithWishlistItems_templete.php";
+                    wishListTemplete::generate($wishlistItems, $address["district_name"]);
+                } else {
+                    include "App/views/userWithWishlistItems_templete.php";
+                    wishListTemplete::emptyWishlist("Please update your profile.");
+                }
             } else {
                 include "App/views/userWithWishlistItems_templete.php";
-                wishListTemplete::emptyWishlist();
+                wishListTemplete::emptyWishlist("Your wishlist is empty.");
             }
         } else {
             include "App/views/404.php";
