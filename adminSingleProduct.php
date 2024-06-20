@@ -16,17 +16,19 @@ class Process
                 $categories = $this->getCategories();
                 $brands = $this->getBrands();
                 $models = $this->getModels();
+                $colors = $this->getColors();
+                $conditions = $this->getConditions();
                 $product = null;
                 if (isset($_GET["id"])) {
                     $id = $_GET["id"];
                     $product = $this->getProductById($id);
                     if ($product) {
-                        SingleProductTemplete::generate($product, $categories, $brands, $models);
+                        SingleProductTemplete::generate($product, $categories, $brands, $models, $colors, $conditions);
                     } else {
                         include "404.php";
                     }
                 } else {
-                    SingleProductTemplete::generate($product, $categories, $brands, $models);
+                    SingleProductTemplete::generate($product, $categories, $brands, $models, $colors, $conditions);
                 }
             } else {
                 include "404.php";
@@ -38,7 +40,8 @@ class Process
 
     private function getProductById($id)
     {
-        $result = $this->search("SELECT * FROM `product` INNER JOIN `brand_has_model` ON `brand_has_model`.`id`=`product`.`brand_has_model_id` WHERE `product`.`id`='" . $id . "'");
+        $result = $this->search("SELECT * FROM `product` INNER JOIN `brand_has_model` ON `brand_has_model`.`id`=`product`.`brand_has_model_id`
+        INNER JOIN `product_has_color` ON `product_has_color`.`product_id`=`product`.`id` WHERE `product`.`id`='" . $id . "'");
         return $result->num_rows > 0 ? $result->fetch_assoc() : null;
     }
 
@@ -51,6 +54,18 @@ class Process
     private function getCategories()
     {
         $result =  $this->search("SELECT * FROM `category`");
+        return $result->num_rows > 0 ? $result : null;
+    }
+
+    private function getConditions()
+    {
+        $result =  $this->search("SELECT * FROM `condition`");
+        return $result->num_rows > 0 ? $result : null;
+    }
+
+    private function getColors()
+    {
+        $result =  $this->search("SELECT * FROM `color`");
         return $result->num_rows > 0 ? $result : null;
     }
 
@@ -81,7 +96,7 @@ class Process
 <?php
 class SingleProductTemplete
 {
-    public static function generate($product, $categories, $brands, $models)
+    public static function generate($product, $categories, $brands, $models, $colors, $conditions)
     {
 ?>
 
@@ -161,7 +176,7 @@ class SingleProductTemplete
                                                 while ($category = $categories->fetch_assoc()) {
                                                 ?>
                                                     <option <?php if ($product) {
-                                                                echo $category["id"] == $product["category_id"] ? "selected" : "";
+                                                                echo $category["id"] == $product["condition_id"] ? "selected" : "";
                                                             } ?> value="<?php echo $category["id"]; ?>"><?php echo $category["name"]; ?></option>
                                                 <?php
                                                 }
@@ -197,6 +212,30 @@ class SingleProductTemplete
 
                                             <input id="pr" <?php echo $product ? "disabled" : ""; ?> class="border w-[49%] me-[1%] h-[40%] p-3  focus:outline-none" type="number" placeholder="Price" value="<?php echo $product ? $product["price"] : ""; ?>">
                                             <input id="qt" <?php echo $product ? "disabled" : ""; ?> class="border w-[49%] ms-[1%] h-[40%] p-3  focus:outline-none " type="number" placeholder="Quantity" value="<?php echo $product ? $product["qty"] : ""; ?>">
+                                            <select id="con" <?php echo $product ? "disabled" : ""; ?> class="lg:w-[49%] me-[1%] mt-4 border h-[40%] p-3  focus:outline-none ">
+                                                <option value="0">Select Condition</option>
+                                                <?php
+                                                while ($condition = $conditions->fetch_assoc()) {
+                                                ?>
+                                                    <option <?php if ($product) {
+                                                                echo $condition["id"] == $product["condition_id"] ? "selected" : "";
+                                                            }  ?> value="<?php echo $condition["id"]; ?>"><?php echo $condition["condition"]; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <select id="col" <?php echo $product ? "disabled" : ""; ?> class="lg:w-[49%] ms-[1%] mt-4 border h-[40%] p-3  focus:outline-none ">
+                                                <option value="0">Select Color</option>
+                                                <?php
+                                                while ($color = $colors->fetch_assoc()) {
+                                                ?>
+                                                    <option <?php if ($product) {
+                                                                echo $color["id"] == $product["color_id"] ? "selected" : "";
+                                                            }  ?> value="<?php echo $color["id"]; ?>"><?php echo $color["color"]; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
                                             <span class="w-[49%] mb-2 mt-4 me-[1%] font-medium">Delivery Fee Colombo :</span><span class="w-[49%] font-medium mb-2 mt-4 ms-[1%]">Delivery Fee out of Colombo :</span>
                                             <input id="dfc" <?php echo $product ? "disabled" : ""; ?> class="border w-[49%] me-[1%] h-[40%] p-3  focus:outline-none " type="number" placeholder="Delivery Fee Colombo" value="<?php echo $product ? $product["delivery_fee_colombo"] : ""; ?>">
                                             <input id="dfo" <?php echo $product ? "disabled" : ""; ?> class="border w-[49%] ms-[1%] h-[40%] p-3  focus:outline-none " type="number" placeholder="Delivery Fee Out of Colombo" value="<?php echo $product ? $product["delivery_fee_other"] : ""; ?>">

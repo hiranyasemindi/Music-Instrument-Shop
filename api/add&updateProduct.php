@@ -22,7 +22,7 @@ class Process
 
     private function handlePOSTRequest()
     {
-        if (isset($_POST["description"]) && isset($_POST["function"]) && isset($_POST["title"]) && isset($_POST["qty"]) && isset($_POST["dfeecolombo"]) && isset($_POST["dfeeout"])) {
+        if (isset($_POST["description"]) && isset($_POST["function"]) && isset($_POST["title"]) && isset($_POST["qty"]) && isset($_POST["dfeecolombo"]) && isset($_POST["dfeeout"]) && isset($_POST["con"])) {
             if ($_POST["function"] == "add") {
                 $this->addProdut();
             } else if ($_POST["function"] == "update") {
@@ -46,6 +46,8 @@ class Process
             $qty = $_POST["qty"];
             $dfeecolombo = $_POST["dfeecolombo"];
             $dfeeout = $_POST["dfeeout"];
+            $con = $_POST["con"];
+            $col = $_POST["col"];
             $date = new DateTime();
             $tz = new DateTimeZone("Asia/Colombo");
             $date->setTimezone($tz);
@@ -58,9 +60,10 @@ class Process
                 $this->addBrandHasModel($brand_id, $model_id);
                 $brand_has_model_id = Database::$connection->insert_id;
             }
-            $this->insertProduct($cat_id, $brand_has_model_id, $title, $qty, $dfeeout, $dfeecolombo, $description, $price, $today);
+            $this->insertProduct($cat_id, $brand_has_model_id, $title, $qty, $dfeeout, $dfeecolombo, $description, $price, $today, $con, $col);
             $id = Database::$connection->insert_id;
             $this->updateProductImage($id);
+            $this->addProductColor($id, $col);
             $this->responseObj->done = "Product Added.";
             $this->sendResponse();
         } else {
@@ -76,12 +79,13 @@ class Process
         $qty = $_POST["qty"];
         $dfeecolombo = $_POST["dfeecolombo"];
         $dfeeout = $_POST["dfeeout"];
+        $con = $_POST["con"];
         $id = $_POST["id"];
         if (isset($_FILES['img'])) {
             if ($_FILES['img']['error'] === UPLOAD_ERR_OK) {
                 $product = $this->getProductById($id);
                 if ($product) {
-                    $this->updateProductDetails($title, $description, $qty, $dfeecolombo, $dfeeout, $id);
+                    $this->updateProductDetails($title, $description, $qty, $dfeecolombo, $dfeeout, $id, $con);
                     $this->updateProductImage($id);
                     $this->responseObj->done = "Product Updated.";
                     $this->sendResponse();
@@ -96,7 +100,7 @@ class Process
         } else {
             $product = $this->getProductById($id);
             if ($product) {
-                $this->updateProductDetails($title, $description, $qty, $dfeecolombo, $dfeeout, $id);
+                $this->updateProductDetails($title, $description, $qty, $dfeecolombo, $dfeeout, $id, $con);
                 $this->responseObj->done = "Product Updated.";
                 $this->sendResponse();
             } else {
@@ -152,15 +156,20 @@ class Process
         }
     }
 
+    private function addProductColor($pid, $cid)
+    {
+        $this->iud("INSERT INTO `product_has_color` (`product_id`, `color_id`) VALUES ('" . $pid . "', '" . $cid . "')");
+    }
+
     private function updateImage($file_name, $id)
     {
         return $this->iud("UPDATE `product` SET `image_path`='" . $file_name . "'  WHERE `id`='" . $id . "'");
     }
 
-    private function updateProductDetails($title, $description, $qty, $dfeecolombo, $dfeeout, $id)
+    private function updateProductDetails($title, $description, $qty, $dfeecolombo, $dfeeout, $id, $con)
     {
         return $this->iud("UPDATE `product` SET `title`='" . $title . "', `description`='" . $description . "',`qty`='" . $qty . "', 
-        `delivery_fee_colombo`='" . $dfeecolombo . "' , `delivery_fee_other`='" . $dfeeout . "' WHERE `id`='" . $id . "'");
+        `delivery_fee_colombo`='" . $dfeecolombo . "' , `delivery_fee_other`='" . $dfeeout . "', `condition_id`='" . $con . "' WHERE `id`='" . $id . "'");
     }
 
     private function getBrandHasModelId($brand_id, $model_id)
@@ -175,10 +184,10 @@ class Process
         ");
     }
 
-    private function insertProduct($cat_id, $brand_has_model_id, $title, $qty, $dfeeout, $dfeecolombo, $description, $price, $today)
+    private function insertProduct($cat_id, $brand_has_model_id, $title, $qty, $dfeeout, $dfeecolombo, $description, $price, $today, $con, $col)
     {
         $this->iud("INSERT INTO `product` (`title`, `description`, `category_id`, `price`, `delivery_fee_colombo`, `delivery_fee_other`, `qty`,`status_id`, `added_date`, `condition_id`, `rating`, `brand_has_model_id`) 
-        VALUES ('" . $title . "', '" . $description . "', '" . $cat_id . "', '" . $price . "', '" . $dfeecolombo . "', '" . $dfeeout . "', '" . $qty . "', 1, '" . $today . "', '1', '0', '" . $brand_has_model_id . "');
+        VALUES ('" . $title . "', '" . $description . "', '" . $cat_id . "', '" . $price . "', '" . $dfeecolombo . "', '" . $dfeeout . "','" . $qty . "', 1, '" . $today . "', '" . $con . "', '0', '" . $brand_has_model_id . "');
         ");
     }
 

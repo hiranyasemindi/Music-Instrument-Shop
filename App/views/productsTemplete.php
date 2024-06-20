@@ -243,7 +243,7 @@ class ProductsTemplete
                             </div>
                             <!-- filter area sm -->
 
-                            <div class="col-9" id="products-area">
+                            <div class="col-12 col-lg-9" id="products-area">
 
                                 <?php
 
