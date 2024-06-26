@@ -291,7 +291,7 @@ class DisplayProductsTemplete
         }
 
         $productsCount = $rows;
-        $resultsPerPage = 8;
+        $resultsPerPage = 1;
         $numberOfPages = ceil($productsCount / $resultsPerPage);
 
         $offset = ($pageno - 1) * $resultsPerPage;
@@ -368,8 +368,6 @@ class DisplayProductsTemplete
             </div>
 
             <!-- products -->
-
-
 
             <!-- pagination -->
             <div class="text-center">

@@ -48,6 +48,7 @@ class Process
         $reservation_id = uniqid();
         if ($product) {
             $this->insertReservation($product_id, $pickup, $user_email, $today, $reservation_id);
+            $this->responseObj->id = $reservation_id;
             $this->responseObj->msg = "Reservation Added Successfully.";
             $this->sendResponse();
         } else {

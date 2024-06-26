@@ -158,7 +158,6 @@ function logIn() {
         var res = JSON.parse(data);
         if (res.msg == "SignIn Success.") {
           loginAlertBox.addClass("d-none");
-          // alert(res.done);
           window.location = "index";
         } else {
           loginAlertBox.removeClass("d-none");
@@ -2057,10 +2056,26 @@ function addReservation() {
       .then((data) => {
         var response = JSON.parse(data);
         response.msg ? alert(response.msg) : alert(response.error);
+        alert("Your Reservation ID is " + response.id)
         window.location.reload();
       })
       .catch((eroor) => {
         console.log("Error: " + eroor)
       })
   }
+}
+
+function confirmReservation(id) {
+  fetch("api/confirmReservation.php?id=" + id, {
+    method: "GET"
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      var response = JSON.parse(data);
+      response.msg ? alert(response.msg) : alert(response.error);
+      window.location.reload();
+    })
+    .catch((eroor) => {
+      console.log("Error: " + eroor)
+    })
 }

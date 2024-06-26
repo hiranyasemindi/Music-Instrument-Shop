@@ -20,7 +20,6 @@ class FilterProcess
 
     private function handleGETRequest()
     {
-        // echo "hi";
         if (isset($_GET["text"])) {
             $query = "SELECT * FROM `product` WHERE `title` LIKE '%" . $_GET["text"] . "%'";
             $filteredProducts = $this->searchProducts($query);
@@ -79,6 +78,7 @@ class FilterProcess
 
                 if ($status == 0) {
                     $query .= "WHERE `brand_has_model_id` IN (" . $ids . ")";
+                    $status = 1;
                 } else {
                     $query .= " AND `brand_has_model_id`IN (" . $ids . ")";
                 }
@@ -97,6 +97,7 @@ class FilterProcess
 
                 if ($status == 0) {
                     $query .= "WHERE `brand_has_model_id` IN (" . $ids . ")";
+                    $status = 1;
                 } else {
                     $query .= " AND `brand_has_model_id`IN (" . $ids . ")";
                 }
@@ -115,6 +116,7 @@ class FilterProcess
 
                 if ($status == 0) {
                     $query .= "WHERE `brand_has_model_id` IN (" . $ids . ")";
+                    $status = 1;
                 } else {
                     $query .= " AND `brand_has_model_id`IN (" . $ids . ")";
                 }
@@ -124,6 +126,7 @@ class FilterProcess
         if (!empty($min) && empty($max)) {
             if ($status == 0) {
                 $query .= "WHERE `price`>='" . $min . "'";
+                $status = 1;
             } else {
                 $query .= " AND `price`>='" . $min . "'";
             }
@@ -132,6 +135,7 @@ class FilterProcess
         if (empty($min) && !empty($max)) {
             if ($status == 0) {
                 $query .= "WHERE `price`<='" . $max . "'";
+                $status = 1;
             } else {
                 $query .= " AND `price`<='" . $max . "'";
             }
@@ -140,6 +144,7 @@ class FilterProcess
         if (!empty($min) && !empty($max)) {
             if ($status == 0) {
                 $query .= "WHERE `price` BETWEEN '" . $min . "' AND '" . $max . "'";
+                $status = 1;
             } else {
                 $query .= " AND `price` BETWEEN '" . $min . "' AND '" . $max . "'";
             }
@@ -164,8 +169,9 @@ class FilterProcess
         if ($rating) {
             if ($status == 0) {
                 $query .= "WHERE `rating`= '" . $rating . "'";
+                $status = 1;
             } else {
-                $query .= "AND `rating`= '" . $rating . "'";
+                $query .= " AND `rating`= '" . $rating . "'";
             }
         }
 

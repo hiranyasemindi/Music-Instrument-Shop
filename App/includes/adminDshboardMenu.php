@@ -35,6 +35,9 @@
                  <div onclick="changeBgColor('adminColors');" id="adminColors" class="text-start  mt-2 p-[13px] rounded-1 hover:cursor-pointer item">
                      <i class="bi bi-palette mx-4 text-lg text-white"></i><span class="text-white">Colors</span>
                  </div>
+                 <div onclick="changeBgColor('adminReservations');" id="adminReservations" class="text-start  mt-2 p-[13px] rounded-1 hover:cursor-pointer item">
+                     <i class="bi bi-palette mx-4 text-lg text-white"></i><span class="text-white">Reservations</span>
+                 </div>
              </div>
          </div>
          <div class="col-10 offset-1 mt-3">

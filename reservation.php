@@ -26,7 +26,8 @@ class Process
             $date->setTimezone($tz);
             $today = $date->format("Y-m-d");
             $products = $this->getProducts();
-            Reservation::generate($name, $today, $products);
+            $reservations = $this->getReservations($email);;
+            Reservation::generate($name, $today, $products, $reservations);
         } else {
             include "App/views/404.php";
         }
@@ -46,7 +47,13 @@ class Process
     private function getProducts()
     {
         $result = $this->search("SELECT `id`,`title` FROM `product` WHERE `status_id`='1' ORDER BY `title` ASC");
-        return $result;
+        return $result->num_rows > 0 ? $result : null;
+    }
+
+    private function getReservations($email)
+    {
+        $result = $this->search("SELECT * FROM `reservation` INNER JOIN `product` ON `product`.`id`=`reservation`.`product_id` WHERE `user_email`='" . $email . "' ");
+        return $result->num_rows > 0 ? $result : null;
     }
 
     private function search($q)
@@ -59,7 +66,7 @@ class Process
 <?php
 class Reservation
 {
-    public static function generate($name, $date, $products)
+    public static function generate($name, $date, $products, $reservations)
     {
 ?>
         <!DOCTYPE html>
@@ -126,6 +133,70 @@ class Reservation
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-10 offset-1 mb-4 mt-[8rem]">
+                        <div class="row">
+                            <?php
+                            if ($reservations) {
+                                while ($reservation = $reservations->fetch_assoc()) {
+                            ?>
+                                    <table class="table-sm hover:cursor-pointer">
+                                        <thead class=" ">
+                                            <tr class="h-[20px]">
+                                                <th scope="col">Reservation ID</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Reservation Date</th>
+                                                <th scope="col">Pickup Date</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="">
+                                            <?php
+                                            while ($reservation = $reservations->fetch_assoc()) {
+                                            ?>
+                                                <tr class="border-[#AD1212] mt-3 ">
+                                                    <th scope="row">
+                                                        <?php echo $reservation['reservation_id']; ?>
+                                                    </th>
+                                                    <!-- <td><?php echo $reservation["user_email"]; ?></td> -->
+                                                    <td><?php echo $reservation["title"]; ?></td>
+                                                    <td><?php echo $reservation["reservation_date"]; ?></td>
+                                                    <td><?php echo $reservation["pickup_date"]; ?></td>
+
+                                                    <td>
+                                                        <?php
+                                                        $status = $reservation["reservation_status_status_id"];
+                                                        if ($status == 1) {
+                                                        ?>
+                                                            <div class="bg-[#F7CECE] text-center p-1 rounded hover:cursor-pointer">
+                                                                <span class="text-[#E63535]">Pending</span>
+                                                            </div>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <div class="bg-[#C9F0DD] text-center p-1 rounded hover:cursor-pointer">
+                                                                <span class="text-[#18BA6B]">Confirmed</span>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                <span class="fw-semibold">No Resevations Yet</span>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
 

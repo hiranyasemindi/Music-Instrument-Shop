@@ -27,7 +27,7 @@ class ProductProcess
                 $models = $this->getModels();
                 include "App/views/productsTemplete.php";
                 $query = "SELECT * FROM `product` WHERE `status_id`='1'";
-                ProductsTemplete::generate($products->num_rows, $query, $categories, $brands, $models, $colors,);
+                ProductsTemplete::generate($products->num_rows, $query, $categories, $brands, $models, $colors);
             }
         } else {
             echo "products not available";
