@@ -1698,7 +1698,9 @@ function updateCategory(id) {
 }
 
 function singleBrand(id) {
-  fetch("adminBrands.php?id=" + id)
+  fetch("adminBrands.php?id=" + id, {
+    method: "GET"
+  })
     .then((response) => response.text())
     .then((data) => {
       console.log(data);
@@ -1712,7 +1714,9 @@ function singleBrand(id) {
 }
 
 function addBr() {
-  fetch("adminBrands.php?name=add")
+  fetch("adminBrands.php?name=add", {
+    method: "GET"
+  })
     .then((response) => response.text())
     .then((data) => {
       console.log(data);
@@ -1791,7 +1795,9 @@ function updateBrand(id) {
 }
 
 function singleModel(id) {
-  fetch("adminModels.php?id=" + id)
+  fetch("adminModels.php?id=" + id, {
+    method: "GET"
+  })
     .then((response) => response.text())
     .then((data) => {
       console.log(data);
@@ -1805,7 +1811,9 @@ function singleModel(id) {
 }
 
 function singleColor(id) {
-  fetch("adminColors.php?id=" + id)
+  fetch("adminColors.php?id=" + id, {
+    method: "GET"
+  })
     .then((response) => response.text())
     .then((data) => {
       console.log(data);
@@ -1819,7 +1827,9 @@ function singleColor(id) {
 }
 
 function addMod() {
-  fetch("adminModels.php?name=add")
+  fetch("adminModels.php?name=add", {
+    method: "GET"
+  })
     .then((response) => response.text())
     .then((data) => {
       console.log(data);
@@ -1833,7 +1843,9 @@ function addMod() {
 }
 
 function addCol() {
-  fetch("adminColors.php?name=add")
+  fetch("adminColors.php?name=add", {
+    method: "GET"
+  })
     .then((response) => response.text())
     .then((data) => {
       console.log(data);
@@ -2024,4 +2036,31 @@ function serchProductsByText() {
     .catch((eroor) => {
       console.log("Error: " + eroor)
     })
+}
+
+function addReservation() {
+  var pickup = $("#pickup").val();
+  var product = $("#product").val();
+  var date = $("#date").val();
+  alert(pickup)
+  if (product == 0) {
+    alert("Please select a product.")
+  } else if (pickup == "") {
+    alert("Please pick a date.")
+  } else if (pickup < date) {
+    alert("Please pick a valid date")
+  } else {
+    fetch("api/addReservationProcess.php?pickup=" + pickup + "&product=" + product, {
+      method: "GET"
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        var response = JSON.parse(data);
+        response.msg ? alert(response.msg) : alert(response.error);
+        window.location.reload();
+      })
+      .catch((eroor) => {
+        console.log("Error: " + eroor)
+      })
+  }
 }
