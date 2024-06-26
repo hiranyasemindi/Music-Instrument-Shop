@@ -70,6 +70,7 @@
                                     </div>
                                     <p class="text-center pt-3 mt-3 mt-lg-0">Don't have an account? <span class="text-blue-500 hover:cursor-pointer" onclick="changeView();">Register</span></p>
                                     <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold" onclick="logIn();">Log In</button>
+                                    <button class="bg-[#ffff] border-red-800 text-[#ad1212] border  rounded px-5 py-[12px] mt-4  font-bold" onclick="window.location = 'adminLogin'">Admin Log In</button>
                                 </div>
                             </div>
                             <!-- signinbox -->

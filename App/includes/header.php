@@ -27,7 +27,9 @@
                     <a href="aboutUs" class="text-decoration-none">
                         <li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">About Us</li>
                     </a>
-
+                    <a href="reservation" class="text-decoration-none">
+                        <li class="text-white border-t border-[#1D2026] px-5 py-1 hover:border-[#AD1212] text-white">Reservation</li>
+                    </a>
                 </ul>
             </div>
 

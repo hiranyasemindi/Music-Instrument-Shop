@@ -69,6 +69,7 @@
                                         <span class="ms-2  ">Remember Me</span>
                                     </div>
                                     <button class="bg-[#AD1212] rounded px-5 py-[12px] mt-4 text-white font-bold" onclick="adminLogIn();">Log In</button>
+                                    <button class="bg-[#fff] rounded border border-[#AD1212] px-5 py-[12px] mt-4 text-[#AD1212] font-bold" onclick="window.location = 'register'">Back to User Log In</button>
                                 </div>
                             </div>
                             <!-- signinbox -->
@@ -134,4 +135,4 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
 
-</html> 
+</html>
