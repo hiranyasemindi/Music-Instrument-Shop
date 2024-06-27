@@ -51,12 +51,12 @@ class Process
             if (password_verify($password, $user["password"])) {
                 session_start();
                 $_SESSION['admin'] = $user;
-                if ($rememberMe == "true") {
-                    setcookie("email", $email, time() + (60 * 60 * 24 * 365));
-                    setcookie("password", $password, time() + (60 * 60 * 24 * 365));
+                if ($rememberMe === "true") {
+                    setcookie("email", $email, time() + (60 * 60 * 24 * 365), "/");
+                    setcookie("password", $password, time() + (60 * 60 * 24 * 365), "/");
                 } else {
-                    setcookie("email", "", -1);
-                    setcookie("password", "", -1);
+                    setcookie("email", "", time() - 3600, "/");
+                    setcookie("password", "", time() - 3600, "/");
                 }
                 $this->responseObj->msg = "SignIn Success.";
                 $this->sendResponse();
