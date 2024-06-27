@@ -74,6 +74,9 @@ class PromotionTemplete
                                 <img src="<?php echo $promotion["image"];  ?>" alt="promo_img" width="500px" height="500px">
                             </div>
                             <div class="col-lg-8 col-10 flex items-center justify-center offset-1 offset-lg-2 mt-5 mt-lg-4">
+                                <p class="fw-semibold"><?php echo $promotion["date"]; ?></p>
+                            </div>
+                            <div class="col-lg-8 col-10 flex items-center justify-center offset-1 offset-lg-2 mt-5 mt-lg-4">
                                 <p><?php echo $promotion["description"]; ?></p>
                             </div>
                         </div>

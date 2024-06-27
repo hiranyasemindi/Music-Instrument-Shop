@@ -23,6 +23,9 @@
                  <div onclick="changeBgColor('adminPromotions');" id="adminPromotions" class="text-start  mt-2 p-[13px] rounded-1 hover:cursor-pointer item">
                      <i class="bi bi-megaphone mx-4 text-lg text-white"></i><span class="text-white">Promotions</span>
                  </div>
+                 <div onclick="changeBgColor('adminReservations');" id="adminReservations" class="text-start  mt-2 p-[13px] rounded-1 hover:cursor-pointer item">
+                     <i class="bi bi-palette mx-4 text-lg text-white"></i><span class="text-white">Reservations</span>
+                 </div>
                  <div onclick="changeBgColor('adminCat');" id="adminCat" class="text-start  mt-2 p-[13px] rounded-1 hover:cursor-pointer item">
                      <i class="bi bi-tags mx-4 text-lg text-white"></i><span class="text-white">Categories</span>
                  </div>
@@ -34,9 +37,6 @@
                  </div>
                  <div onclick="changeBgColor('adminColors');" id="adminColors" class="text-start  mt-2 p-[13px] rounded-1 hover:cursor-pointer item">
                      <i class="bi bi-palette mx-4 text-lg text-white"></i><span class="text-white">Colors</span>
-                 </div>
-                 <div onclick="changeBgColor('adminReservations');" id="adminReservations" class="text-start  mt-2 p-[13px] rounded-1 hover:cursor-pointer item">
-                     <i class="bi bi-palette mx-4 text-lg text-white"></i><span class="text-white">Reservations</span>
                  </div>
              </div>
          </div>
