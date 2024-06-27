@@ -31,16 +31,16 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 -- Dumping data for table sonority_music_shop.admin: ~1 rows (approximately)
 INSERT INTO `admin` (`email`, `password`, `name`, `vcode`, `profile_img`) VALUES
-	('hiranyagunawasrdhane@gamail.com', '$2y$10$eczZGi322teDxuSLqeWSJeHbwZgqQ3Rh2rNfK/rUNqHniHetuM8P2', 'Hiranyas Semindi', '8571', 'assets/img/profile_images/Hiranyas Semindi_660cd9b351324.jpeg');
+	('hiranyagunawardhane@gmail.com', '$2y$10$QGIg/kZejle6w4ViMyz93uQM3QNVbRyfxuyNlhzY.mswNt84iBHlu', 'Hiranya Semindi', '8841', 'assets/img/profile_images/Hiranya Semindi_667c21624ddbf.png');
 
 -- Dumping structure for table sonority_music_shop.brand
 CREATE TABLE IF NOT EXISTS `brand` (
   `id` int NOT NULL AUTO_INCREMENT,
   `brand_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.brand: ~13 rows (approximately)
+-- Dumping data for table sonority_music_shop.brand: ~17 rows (approximately)
 INSERT INTO `brand` (`id`, `brand_name`) VALUES
 	(1, 'Guitar Center'),
 	(2, 'Sam Ash Music'),
@@ -56,7 +56,10 @@ INSERT INTO `brand` (`id`, `brand_name`) VALUES
 	(12, 'Roland'),
 	(13, 'Fender'),
 	(14, 'xxn'),
-	(15, 'undefined');
+	(16, 'Yamaha'),
+	(17, 'Casio'),
+	(18, 'Kawai'),
+	(19, 'Alesis');
 
 -- Dumping structure for table sonority_music_shop.brand_has_model
 CREATE TABLE IF NOT EXISTS `brand_has_model` (
@@ -68,9 +71,9 @@ CREATE TABLE IF NOT EXISTS `brand_has_model` (
   KEY `fk_brand_has_model_brand1_idx` (`brand_id`),
   CONSTRAINT `fk_brand_has_model_brand1` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`),
   CONSTRAINT `fk_brand_has_model_model1` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.brand_has_model: ~16 rows (approximately)
+-- Dumping data for table sonority_music_shop.brand_has_model: ~23 rows (approximately)
 INSERT INTO `brand_has_model` (`id`, `brand_id`, `model_id`) VALUES
 	(1, 1, 1),
 	(2, 1, 2),
@@ -87,7 +90,14 @@ INSERT INTO `brand_has_model` (`id`, `brand_id`, `model_id`) VALUES
 	(13, 10, 13),
 	(16, 11, 14),
 	(17, 12, 15),
-	(18, 13, 16);
+	(18, 13, 16),
+	(19, 16, 18),
+	(20, 17, 19),
+	(21, 18, 21),
+	(22, 12, 22),
+	(23, 16, 23),
+	(24, 12, 24),
+	(25, 19, 25);
 
 -- Dumping structure for table sonority_music_shop.cart
 CREATE TABLE IF NOT EXISTS `cart` (
@@ -100,14 +110,13 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `fk_cart_user1_idx` (`user_email`),
   CONSTRAINT `fk_cart_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   CONSTRAINT `fk_cart_user1` FOREIGN KEY (`user_email`) REFERENCES `user` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.cart: ~4 rows (approximately)
+-- Dumping data for table sonority_music_shop.cart: ~3 rows (approximately)
 INSERT INTO `cart` (`id`, `qty`, `product_id`, `user_email`) VALUES
 	(10, 1, 2, 'dharmaratnec@yahoo.com'),
-	(11, 1, 10, 'hiranyagunawardhane@gmail.com'),
 	(14, 1, 3, 'menaraa@gmail.com'),
-	(15, 1, 5, 'hiranyagunawardhane@gmail.com');
+	(19, 1, 3, 'semindigunawardhane@gmail.com');
 
 -- Dumping structure for table sonority_music_shop.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -150,14 +159,20 @@ CREATE TABLE IF NOT EXISTS `color` (
   `color` varchar(20) DEFAULT NULL,
   `code` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.color: ~4 rows (approximately)
+-- Dumping data for table sonority_music_shop.color: ~10 rows (approximately)
 INSERT INTO `color` (`id`, `color`, `code`) VALUES
 	(1, 'Red', '#c40000'),
 	(2, 'Blue', '#0087bd'),
 	(3, 'Black', '#0d0d0d'),
-	(4, 'Brown', '#402402');
+	(4, 'Brown', '#402402'),
+	(5, 'White', '#ffffff'),
+	(6, 'Dessert Sun Yellow', '#C98D26'),
+	(7, 'Whale Blue', '#053047'),
+	(8, 'High Voltage Blue', '#0A4086'),
+	(9, 'Sunburst', '#D9863B'),
+	(10, 'Polor White', '#D2D5D0');
 
 -- Dumping structure for table sonority_music_shop.condition
 CREATE TABLE IF NOT EXISTS `condition` (
@@ -225,17 +240,20 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   CONSTRAINT `fk_invoice_user1` FOREIGN KEY (`user_email`) REFERENCES `user` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.invoice: ~9 rows (approximately)
+-- Dumping data for table sonority_music_shop.invoice: ~12 rows (approximately)
 INSERT INTO `invoice` (`order_id`, `date_selled`, `user_email`, `total`, `deliver_status_id`) VALUES
-	('660956141c174', '2024-03-31 17:55:14', 'hiranyagunawardhane@gmail.com', '4450', 2),
+	('660956141c174', '2024-01-31 17:55:14', 'hiranyagunawardhane@gmail.com', '4450', 2),
 	('6609565d48585', '2024-03-31 17:56:19', 'hiranyagunawardhane@gmail.com', '45600', 2),
 	('660c10b8dc2cf', '2024-04-02 19:36:42', 'dharmaratnec@yahoo.com', '5400', 2),
 	('660cdadf2a3f9', '2024-04-03 09:58:35', 'hiranyagunawardhane@gmail.com', '26200', 1),
 	('660d1a5399569', '2024-04-03 14:29:28', 'menaraa@gmail.com', '4600', 1),
-	('660d1ee923300', '2024-04-03 14:48:52', 'menaraa@gmail.com', '40300', 1),
+	('660d1ee923300', '2024-04-03 14:48:52', 'menaraa@gmail.com', '40300', 2),
 	('6611ab96d66a2', '2024-04-07 01:38:18', 'hiranyagunawardhane@gmail.com', '20700', 2),
 	('664916cac6857', '2024-05-19 02:30:50', 'sahan@gmail.coom', '4600', 1),
-	('6649175ab9b8c', '2024-05-19 02:32:48', 'hiranyagunawardhane@gmail.com', '4600', 1);
+	('6649175ab9b8c', '2024-05-19 02:32:48', 'hiranyagunawardhane@gmail.com', '4600', 1),
+	('66710cf985027', '2024-06-18 09:59:10', 'hiranyagunawardhane@gmail.com', '5500', 1),
+	('667487e142407', '2024-06-21 01:20:26', 'semindigunawardhane@gmail.com', '28900', 1),
+	('667c280c7aaf1', '2024-06-26 20:09:53', 'hiranyagunawardhane@gmail.com', '2450', 1);
 
 -- Dumping structure for table sonority_music_shop.invoice_item
 CREATE TABLE IF NOT EXISTS `invoice_item` (
@@ -248,9 +266,9 @@ CREATE TABLE IF NOT EXISTS `invoice_item` (
   KEY `fk_invoice_item_invoice1_idx` (`invoice_order_id`),
   CONSTRAINT `fk_invoice_item_invoice1` FOREIGN KEY (`invoice_order_id`) REFERENCES `invoice` (`order_id`),
   CONSTRAINT `fk_invoice_item_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.invoice_item: ~10 rows (approximately)
+-- Dumping data for table sonority_music_shop.invoice_item: ~15 rows (approximately)
 INSERT INTO `invoice_item` (`id`, `qty`, `product_id`, `invoice_order_id`) VALUES
 	(38, 2, 4, '660956141c174'),
 	(39, 1, 3, '6609565d48585'),
@@ -263,16 +281,19 @@ INSERT INTO `invoice_item` (`id`, `qty`, `product_id`, `invoice_order_id`) VALUE
 	(46, 1, 10, '6611ab96d66a2'),
 	(47, 1, 10, '6611ab96d66a2'),
 	(48, 1, 1, '664916cac6857'),
-	(49, 1, 1, '6649175ab9b8c');
+	(49, 1, 1, '6649175ab9b8c'),
+	(50, 1, 5, '66710cf985027'),
+	(51, 1, 12, '667487e142407'),
+	(52, 1, 4, '667c280c7aaf1');
 
 -- Dumping structure for table sonority_music_shop.model
 CREATE TABLE IF NOT EXISTS `model` (
   `id` int NOT NULL AUTO_INCREMENT,
   `model_name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.model: ~16 rows (approximately)
+-- Dumping data for table sonority_music_shop.model: ~22 rows (approximately)
 INSERT INTO `model` (`id`, `model_name`) VALUES
 	(1, 'Fender Stratocaster'),
 	(2, 'Yamaha Pacifica'),
@@ -290,7 +311,14 @@ INSERT INTO `model` (`id`, `model_name`) VALUES
 	(14, 'xxn'),
 	(15, 'FP-30'),
 	(16, 'Player Jazz Bass'),
-	(17, 'xxcc');
+	(17, 'xxcc'),
+	(18, 'DGX-660'),
+	(19, 'Privia PX-770'),
+	(21, 'ES110'),
+	(22, 'FP-30'),
+	(23, 'DTX402K'),
+	(24, 'TD-1K'),
+	(25, 'Nitro Mesh');
 
 -- Dumping structure for table sonority_music_shop.product
 CREATE TABLE IF NOT EXISTS `product` (
@@ -317,17 +345,24 @@ CREATE TABLE IF NOT EXISTS `product` (
   CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   CONSTRAINT `fk_product_condition1` FOREIGN KEY (`condition_id`) REFERENCES `condition` (`id`),
   CONSTRAINT `fk_product_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.product: ~7 rows (approximately)
+-- Dumping data for table sonority_music_shop.product: ~14 rows (approximately)
 INSERT INTO `product` (`id`, `title`, `description`, `category_id`, `price`, `delivery_fee_colombo`, `delivery_fee_other`, `qty`, `image_path`, `status_id`, `added_date`, `condition_id`, `rating`, `brand_has_model_id`) VALUES
-	(1, 'Roland FP-30 Digital Piano, Black', 'Experience the ultimate in performance and portability with the Roland FP-30 Digital Piano in sleek Black. Boasting authentic piano feel and sound, along with modern features, the FP-30 is perfect for aspiring pianists and seasoned performers alike.', 2, 4000, 600, 1000, 17, 'assets/img/product_images/1_660cd5a0148a3.jpeg', 1, '2024-03-18 10:23:19', 1, 3, 17),
+	(1, 'Roland FP-30 Digital Piano, Black', 'Experience the ultimate in performance and portability with the Roland FP-30 Digital Piano in sleek Black. Boasting authentic piano feel and sound, along with modern features, the FP-30 is perfect for aspiring pianists and seasoned performers alike.', 2, 4000, 600, 1000, 17, 'assets/img/product_images/1_660cd5a0148a3.jpeg', 1, '2024-03-18 10:23:19', 2, 3, 17),
 	(2, 'Yamaha Pacifica 112V Electric Guitar, Black', 'Unlock your musical potential with the Yamaha Pacifica 112V Electric Guitar in sleek Black finish. Renowned for its exceptional playability, versatility, and value, the Pacifica 112V is a favorite among guitarists of all skill levels.', 1, 5000, 400, 500, 6, 'assets/img/product_images/2_660cca94a9243.jpeg', 1, '2024-03-18 10:26:13', 1, 4, 2),
-	(3, ' Ibanez RG550 Genesis Collection Electric Guitar, Desert Sun Yellow dc', 'Unleash your sonic potential with the Ibanez RG550 Genesis Collection Electric Guitar in striking Desert Sun Yellow finish. Part of the legendary RG Series, this instrument combines premium craftsmanship, cutting-edge design, and high-performance features to deliver an unparalleled playing experience.', 1, 40000, 300, 500, 2, 'assets/img/product_images/3_660ccb011da94.jpeg', 1, '2024-03-18 10:28:33', 1, 1, 3),
-	(4, 'PRS Custom 24 Electric Guitar, Whale Blue', 'Elevate your stage presence with the PRS Custom 24 Electric Guitar in mesmerizing Whale Blue finish. Crafted by the esteemed artisans at PRS (Paul Reed Smith), this instrument embodies a perfect balance of elegance, versatility, and sonic excellence.', 1, 2000, 450, 550, 1, 'assets/img/product_images/4_660ccb5b10681.jpeg', 1, '2024-03-18 10:29:57', 1, 5, 4),
-	(5, 'Pearl Export Series Drum Kit, High Voltage Blue', 'Take your drumming to the next level with the Pearl Export Series Drum Kit in striking High Voltage Blue. Offering exceptional sound and durability, this kit is a favorite among drummers worldwide.', 3, 5000, 500, 600, 4, 'assets/img/product_images/5_660cd62f61c88.png', 1, '2024-03-18 10:32:51', 1, 5, 5),
+	(3, ' Ibanez RG550 Genesis Collection Electric Guitar, Dessert Sun Yellow', 'Unleash your sonic potential with the Ibanez RG550 Genesis Collection Electric Guitar in striking Desert Sun Yellow finish. Part of the legendary RG Series, this instrument combines premium craftsmanship, cutting-edge design, and high-performance features to deliver an unparalleled playing experience.', 1, 40000, 300, 500, 2, 'assets/img/product_images/3_660ccb011da94.jpeg', 1, '2024-03-18 10:28:33', 1, 1, 3),
+	(4, 'PRS Custom 24 Electric Guitar, Whale Blue', 'Elevate your stage presence with the PRS Custom 24 Electric Guitar in mesmerizing Whale Blue finish. Crafted by the esteemed artisans at PRS (Paul Reed Smith), this instrument embodies a perfect balance of elegance, versatility, and sonic excellence.', 1, 2000, 450, 550, 0, 'assets/img/product_images/4_660ccb5b10681.jpeg', 1, '2024-03-18 10:29:57', 1, 5, 4),
+	(5, 'Pearl Export Series Drum Kit, High Voltage Blue', 'Take your drumming to the next level with the Pearl Export Series Drum Kit in striking High Voltage Blue. Offering exceptional sound and durability, this kit is a favorite among drummers worldwide.', 3, 5000, 500, 600, 3, 'assets/img/product_images/5_660cd62f61c88.png', 1, '2024-03-18 10:32:51', 1, 5, 5),
 	(9, 'Gibson Les Paul Standard 50s Electric Guitar, Heritage Cherry Sunburst', 'Immerse yourself in the rich heritage of rock and blues with the Gibson Les Paul Standard 50s Electric Guitar in Heritage Cherry Sunburst. Featuring classic design elements and premium construction, this guitar delivers timeless tone and style.', 1, 10000, 500, 800, 10, 'assets/img/product_images/9_660cd4cea3643.jpeg', 1, '2024-04-03 09:32:22', 1, 1, 16),
-	(10, 'Fender Player Jazz Bass Electric Bass Guitar, Polar White', 'Elevate your bass playing with the Fender Player Jazz Bass Electric Bass Guitar in eye-catching Polar White. With its smooth feel, versatile tone, and iconic design, this bass is perfect for any style of music.', 4, 20000, 700, 900, 9, 'assets/img/product_images/10_660cd6fb824ce.png', 1, '2024-04-03 09:41:39', 1, 1, 18);
+	(10, 'Fender Player Jazz Bass Electric Bass Guitar, Polar White', 'Elevate your bass playing with the Fender Player Jazz Bass Electric Bass Guitar in eye-catching Polar White. With its smooth feel, versatile tone, and iconic design, this bass is perfect for any style of music.', 4, 20000, 700, 900, 9, 'assets/img/product_images/10_660cd6fb824ce.png', 1, '2024-04-03 09:41:39', 1, 1, 18),
+	(11, 'Yamaha DGX-660 88-Key Weighted Digital Piano with Furniture Stand, White', 'Experience the ultimate versatility with the Yamaha DGX-660 88-Key Weighted Digital Piano. Its weighted keys provide a realistic piano feel, while its multitude of features cater to beginners and advanced players alike. Includes a stylish furniture stand in White.', 2, 35000, 1000, 1200, 5, 'assets/img/product_images/11_6669ab22c8ee9.jpeg', 1, '2024-06-12 19:35:22', 1, 0, 19),
+	(12, 'Casio Privia PX-770 Digital Piano - Black', 'Unleash your musical creativity with the Casio Privia PX-770 Digital Piano. With its authentic piano sound and feel, sleek design, and range of features, this piano is perfect for both beginners and experienced players. Available in Black.', 2, 28000, 900, 1100, 4, 'assets/img/product_images/12_6669b9dc15679.jpeg', 1, '2024-06-12 19:40:50', 1, 4, 20),
+	(13, 'Kawai ES110 Portable Digital Piano - Black', 'Take your music anywhere with the Kawai ES110 Portable Digital Piano. Featuring authentic piano sound and feel, built-in lesson functions, and lightweight design, this piano is perfect for practice, performance, and travel. Available in Black.', 2, 32000, 990, 1150, 5, 'assets/img/product_images/13_6669c2ed55092.jpeg', 1, '2024-06-12 21:16:53', 1, 0, 21),
+	(14, 'Roland FP-30 Digital Piano White', 'Discover expressive performance with the Roland FP-30 Digital Piano. Featuring Rolands renowned Super NATURAL Piano sound engine, built-in Bluetooth connectivity, and compact design, this piano is perfect for musicians on the go. Available in White.', 2, 45000, 990, 1100, 5, 'assets/img/product_images/14_6669c6ac8dc88.jpeg', 1, '2024-06-12 21:32:52', 1, 0, 22),
+	(15, 'Yamaha DTX402K Electronic Drum Kit Black', 'Experience the next level of drumming with the Yamaha DTX402K Electronic Drum Kit. It offers an authentic drumming experience with a variety of sounds and customizable features, perfect for both beginners and experienced drummers.', 3, 45000, 1200, 1500, 5, 'assets/img/product_images/15_6669c77dbdcf2.jpeg', 1, '2024-06-12 21:36:21', 1, 0, 23),
+	(16, 'Roland TD-1K Electronic Drum Kit Black', 'The Roland TD-1K Electronic Drum Kit is a compact and affordable drum set that delivers great sound and playability. It features a variety of drum sounds and training functions, making it ideal for practice and performance.', 3, 52000, 1300, 1600, 8, 'assets/img/product_images/16_6669c96054f1c.jpeg', 1, '2024-06-12 21:38:33', 1, 0, 24),
+	(17, 'Alesis Nitro Mesh Electronic Drum Kit Black', 'The Alesis Nitro Mesh Electronic Drum Kit features mesh drum heads for a realistic drumming experience. It includes all the accessories you need to start playing right out of the box.', 3, 39000, 1100, 1400, 10, 'assets/img/product_images/17_6669c9c4e789e.jpeg', 1, '2024-06-12 21:43:31', 1, 0, 25);
 
 -- Dumping structure for table sonority_music_shop.product_has_color
 CREATE TABLE IF NOT EXISTS `product_has_color` (
@@ -339,9 +374,24 @@ CREATE TABLE IF NOT EXISTS `product_has_color` (
   KEY `fk_product_has_color_product1_idx` (`product_id`),
   CONSTRAINT `fk_product_has_color_color1` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`),
   CONSTRAINT `fk_product_has_color_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.product_has_color: ~0 rows (approximately)
+-- Dumping data for table sonority_music_shop.product_has_color: ~14 rows (approximately)
+INSERT INTO `product_has_color` (`id`, `product_id`, `color_id`) VALUES
+	(4, 1, 3),
+	(5, 2, 3),
+	(6, 3, 6),
+	(7, 4, 7),
+	(8, 5, 8),
+	(9, 9, 9),
+	(10, 10, 10),
+	(11, 11, 5),
+	(12, 12, 3),
+	(13, 13, 3),
+	(14, 14, 5),
+	(15, 15, 3),
+	(16, 16, 3),
+	(17, 17, 3);
 
 -- Dumping structure for table sonority_music_shop.promotions
 CREATE TABLE IF NOT EXISTS `promotions` (
@@ -386,15 +436,53 @@ CREATE TABLE IF NOT EXISTS `ratings` (
   KEY `fk_user_has_product_user1_idx` (`user_email`),
   CONSTRAINT `fk_user_has_product_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   CONSTRAINT `fk_user_has_product_user1` FOREIGN KEY (`user_email`) REFERENCES `user` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.ratings: ~6 rows (approximately)
+-- Dumping data for table sonority_music_shop.ratings: ~7 rows (approximately)
 INSERT INTO `ratings` (`id`, `user_email`, `product_id`, `rating`) VALUES
 	(1, 'hiranyagunawardhane@gmail.com', 10, 1),
 	(2, 'hiranyagunawardhane@gmail.com', 5, 5),
 	(3, 'sahan@gmail.coom', 1, 2),
 	(4, 'hiranyagunawardhane@gmail.com', 1, 4),
-	(5, 'hiranyagunawardhane@gmail.com', 4, 5);
+	(5, 'hiranyagunawardhane@gmail.com', 4, 5),
+	(7, 'semindigunawardhane@gmail.com', 12, 4);
+
+-- Dumping structure for table sonority_music_shop.reservation
+CREATE TABLE IF NOT EXISTS `reservation` (
+  `reservation_id` varchar(50) NOT NULL DEFAULT '',
+  `reservation_date` datetime DEFAULT NULL,
+  `pickup_date` date DEFAULT NULL,
+  `product_id` int NOT NULL,
+  `user_email` varchar(100) NOT NULL,
+  `reservation_status_status_id` int NOT NULL,
+  PRIMARY KEY (`reservation_id`),
+  KEY `fk_reservation_product1_idx` (`product_id`),
+  KEY `fk_reservation_user1_idx` (`user_email`),
+  KEY `fk_reservation_reservation_status1_idx` (`reservation_status_status_id`),
+  CONSTRAINT `fk_reservation_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  CONSTRAINT `fk_reservation_reservation_status1` FOREIGN KEY (`reservation_status_status_id`) REFERENCES `reservation_status` (`status_id`),
+  CONSTRAINT `fk_reservation_user1` FOREIGN KEY (`user_email`) REFERENCES `user` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- Dumping data for table sonority_music_shop.reservation: ~5 rows (approximately)
+INSERT INTO `reservation` (`reservation_id`, `reservation_date`, `pickup_date`, `product_id`, `user_email`, `reservation_status_status_id`) VALUES
+	('667c51e6bf243', '2024-06-26 23:07:42', '2024-06-28', 13, 'hiranyagunawardhane@gmail.com', 2),
+	('667c5231addd2', '2024-06-26 23:08:57', '2024-06-27', 3, 'hiranyagunawardhane@gmail.com', 2),
+	('667c52f9a6c55', '2024-06-26 23:12:17', '2024-06-28', 12, 'hiranyagunawardhane@gmail.com', 2),
+	('667c56bf65ad2', '2024-06-26 23:28:23', '2024-06-28', 17, 'hiranyagunawardhane@gmail.com', 1),
+	('667c5edd36cfd', '2024-06-27 00:03:01', '2024-06-29', 12, 'hiranyagunawardhane@gmail.com', 1);
+
+-- Dumping structure for table sonority_music_shop.reservation_status
+CREATE TABLE IF NOT EXISTS `reservation_status` (
+  `status_id` int NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- Dumping data for table sonority_music_shop.reservation_status: ~2 rows (approximately)
+INSERT INTO `reservation_status` (`status_id`, `status`) VALUES
+	(1, 'Pending'),
+	(2, 'Confirmed');
 
 -- Dumping structure for table sonority_music_shop.reviews
 CREATE TABLE IF NOT EXISTS `reviews` (
@@ -451,11 +539,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`fname`, `lname`, `email`, `password`, `gender_id`, `status_id`, `joined_date`, `verification_code`, `mobile`, `profile_img`) VALUES
 	('df', 'df', 'dfd@gmail.com', '$2y$10$UxvrdtBllpBK1DrrsLF2T.NULb9cDPzZ1SHp7HEZg5WWVzF6M.4nK', 2, 2, '2024-03-14 00:39:05', '1658', '0783316784', 'assets/img/profile_images/H.S.A_65f70c9010d34.png'),
 	('Chamila', 'Dharmarathne', 'dharmaratnec@yahoo.com', '$2y$10$hvc94Trvlgl0t5GYxuCspuuFSNA/78gaRyGetxylLBwxPykibpzza', 2, 1, '2024-04-02 19:32:22', NULL, '0714454095', 'assets/img/profile_images/Chamila_660c107c451f7.jpeg'),
-	('xc', 'Semindi', 'hiranyagunawardhane@gmail.com', '$2y$10$IemEDn3KVvUJvzKLBFqOE.aaCtNIPlB7LPGCa3e8TlxxP2oGeCyBy', 2, 1, '2024-03-02 23:24:32', '9261', '0751122299', 'assets/img/profile_images/xc_6609a1ac69cbd.jpeg'),
+	('xc', 'Semindi', 'hiranyagunawardhane@gmail.com', '$2y$10$IemEDn3KVvUJvzKLBFqOE.aaCtNIPlB7LPGCa3e8TlxxP2oGeCyBy', 2, 1, '2024-03-02 23:24:32', '7932', '0751122299', 'assets/img/profile_images/xc_6609a1ac69cbd.jpeg'),
 	('Hiranya', 'Semindi', 'menara@gmail.com', '$2y$10$sm1f6pIHNuJ3HR7ZgUPbFO4SeNs/KTXi5cHcw9rD01HEnm/pEqbmW', 2, 2, '2024-03-14 00:27:36', NULL, '0751122994', 'assets/img/profile_images/H.S.A_65f70c9010d34.png'),
 	('Menara', 'Perera', 'menaraa@gmail.com', '$2y$10$zJZeXqubWHu5h8Jcxeiq8OT5rPQ8ysZt0NgAoe.X85jS7Se4lIxym', 2, 1, '2024-04-03 14:21:02', NULL, '0783346798', 'assets/img/profile_images/Menara_660d21002d47d.png'),
 	('H.S.A', 'Gunawardhane', 'rashmi@gmail.com', '$2y$10$hvB.VIFp11LpYPUU6Iw0buorJphfHZzDqlLLKtge.ipdoEoYSDPdO', 2, 1, '2024-03-03 10:43:31', NULL, '0751442990', 'assets/img/profile_images/H.S.A_65f70c9010d34.png'),
 	('Sahan', 'Perera', 'sahan@gmail.coom', '$2y$10$idK0OrAHTNDTo.FsmFqEeeSG.J73TG4ZEGn6khDgrKGHTiyosFQ.W', 1, 1, '2024-03-18 15:59:48', NULL, '0783346798', 'assets/img/profile_images/Sahan_660d20d56ce2e.png'),
+	('Semindi', 'Gunawardhane', 'semindigunawardhane@gmail.com', '$2y$10$3j4yV13N8/t/SyEHm17D5.z88NMppxGm5oOEJ.ebEIIa4OjVceoGK', 2, 1, '2024-06-21 00:54:42', '5233', '0716578905', NULL),
 	('Tarin', 'Ransana', 'tarin@gmail.com', '$2y$10$AitNaKA/pc4mIFNpmS/s.OlvANWUT7R30JT7zPKeN.u08xvZunwAO', 1, 1, '2024-03-02 00:12:35', '4677', '0751122990', 'assets/img/profile_images/Tarin_660d20b0df899.png'),
 	('Tilakna', 'Lewwandi', 'tilakna@gmail.com', '$2y$10$XG7kuK1uaXcDzH0zhALF3.X7AxdPU3uQayXljGUfaIkYdjTPoFl2i', 2, 1, '2024-03-18 15:58:55', '4426', '0712277227', 'assets/img/profile_images/Tilakna_660d202b55ca7.png'),
 	('Virul', 'Nirmala', 'virulnirmala@gmail.com', '$2y$10$EOCfglkasaqn/ZqXrIN9Len0btLxR0N4oNvoDjMfM38jiJCb9O0ZW', 1, 1, '2024-03-18 15:55:43', '1878', '0721152990', 'assets/img/profile_images/Virul_660d1feb57578.png');
@@ -473,15 +562,16 @@ CREATE TABLE IF NOT EXISTS `user_has_address` (
   KEY `fk_user_has_address_city1_idx` (`city_id`),
   CONSTRAINT `fk_user_has_address_city1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`),
   CONSTRAINT `fk_user_has_address_user1` FOREIGN KEY (`user_email`) REFERENCES `user` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.user_has_address: ~2 rows (approximately)
+-- Dumping data for table sonority_music_shop.user_has_address: ~3 rows (approximately)
 INSERT INTO `user_has_address` (`id`, `line1`, `line2`, `postal_code`, `user_email`, `city_id`) VALUES
 	(1, '222/C, ', 'Aloka Uyana Road', '10300', 'hiranyagunawardhane@gmail.com', 2),
 	(2, '222/C, ', 'Aloka Uyana Road', '10300', 'menara@gmail.com', 1),
 	(3, '11', '11', '1200', 'dharmaratnec@yahoo.com', 2),
 	(4, '112/2, Aloka Pedesa', 'Sandunpura', '1200', 'menaraa@gmail.com', 1),
-	(5, '222/C, Aloka Uyana, Kesbewa', '', '10300', 'sahan@gmail.coom', 1);
+	(5, '222/C, Aloka Uyana, Kesbewa', '', '10300', 'sahan@gmail.coom', 1),
+	(6, '112/2, Aloka Pedesa', 'Sandunpura', '10200', 'semindigunawardhane@gmail.com', 2);
 
 -- Dumping structure for table sonority_music_shop.wishlist
 CREATE TABLE IF NOT EXISTS `wishlist` (
@@ -493,16 +583,16 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   KEY `fk_wishlist_user1_idx` (`user_email`),
   CONSTRAINT `fk_wishlist_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   CONSTRAINT `fk_wishlist_user1` FOREIGN KEY (`user_email`) REFERENCES `user` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sonority_music_shop.wishlist: ~7 rows (approximately)
+-- Dumping data for table sonority_music_shop.wishlist: ~6 rows (approximately)
 INSERT INTO `wishlist` (`id`, `product_id`, `user_email`) VALUES
 	(10, 2, 'dharmaratnec@yahoo.com'),
-	(11, 10, 'hiranyagunawardhane@gmail.com'),
 	(12, 1, 'menaraa@gmail.com'),
 	(13, 3, 'menaraa@gmail.com'),
 	(14, 5, 'menaraa@gmail.com'),
-	(15, 2, 'hiranyagunawardhane@gmail.com');
+	(25, 1, 'semindigunawardhane@gmail.com'),
+	(26, 3, 'semindigunawardhane@gmail.com');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
