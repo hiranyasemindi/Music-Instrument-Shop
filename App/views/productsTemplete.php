@@ -2,7 +2,7 @@
 static $brandsArray = [];
 class ProductsTemplete
 {
-    public static function generate($rows, $query, $categories, $brands, $models, $colors)
+    public static function generate($query, $categories, $brands, $models, $colors)
     {
 
         $categoriesArray = [];
@@ -41,22 +41,31 @@ class ProductsTemplete
                             <!-- filter area lg -->
                             <div class="col-lg-3 d-none d-lg-block  ">
                                 <div class="row">
-                                    <div class="w-[90%] ml-[5%] border">
+                                    <form method="GET" action="" class="w-[90%] ml-[5%] border">
                                         <div class="row">
                                             <p class="text-2xl p-3 fw-semibold">Filter Products</p>
                                             <p class="ps-4 pt-4 text-lg">Category</p>
                                             <div class="w-[90%] ml-[5%] mt-2">
                                                 <div class="row">
-                                                    <select onchange="loadModelsandBrands();" class="h-[40%]  border focus:outline-none p-3 mt-1" id="category">
+                                                    <select name="category" onchange="loadModelsandBrands();" class="h-[40%]  border focus:outline-none p-3 mt-1" id="category">
                                                         <option value="0">Select Category</option>
                                                         <?php
                                                         foreach ($categoriesArray as $category) {
                                                         ?>
-                                                            <option value="<?php echo $category["id"]; ?>" <?php if (isset($_GET["id"])) {
+                                                            <option value="<?php echo $category["id"]; ?>" <?php
+                                                                                                            if (isset($_GET["id"])) {
                                                                                                                 if ($category["id"] == $_GET["id"]) {
                                                                                                                     echo "selected";
                                                                                                                 }
-                                                                                                            } ?>><?php echo $category["name"]; ?></option>
+                                                                                                            } else if (isset($_GET["category"])) {
+                                                                                                                if ($category["id"] == $_GET["category"]) {
+                                                                                                                    echo "selected";
+                                                                                                                }
+                                                                                                            }
+                                                                                                            ?>>
+                                                                <?php echo $category["name"]; ?>
+                                                            </option>
+
                                                         <?php
                                                         }
                                                         ?>
@@ -71,8 +80,8 @@ class ProductsTemplete
                                             <p class="ps-4 pt-4 text-lg">Price</p>
                                             <div class="w-[90%]  ml-[5%]">
                                                 <div class="row">
-                                                    <input type="text" id="minPrice" class="me-[2%] border h-[50px] w-[49%] p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Min">
-                                                    <input type="text" id="maxPrice" class="border h-[50px] w-[49%]  p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Max">
+                                                    <input type="text" id="minPrice" name="minPrice" class="me-[2%] border h-[50px] w-[49%] p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Min">
+                                                    <input type="text" id="maxPrice" name="maxPrice" class="border h-[50px] w-[49%]  p-3 mt-3 focus:outline-none mt-3" id="" placeholder="Max">
                                                 </div>
                                             </div>
                                             <p class="ps-4 pt-4 text-lg">Color Family</p>
@@ -81,7 +90,7 @@ class ProductsTemplete
                                                     <?php
                                                     foreach ($colorsArray as $color) {
                                                     ?>
-                                                        <div data-code="<?php echo $color["id"]; ?>" class="w-[32%] color-option border-[#AD1212] flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
+                                                        <div data-code="<?php echo $color["id"]; ?>" class=" <?php echo (isset($_GET['color']) && $_GET['color'] == $color["id"]) ? 'border-[1px]' : '' ?> w-[32%] color-option border-[#AD1212] flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
                                                             <div class="w-[15px] rounded-1  h-[15px] bg-[<?php echo $color["code"]; ?>]"></div>
                                                             <div class="ms-1 w-[50%]">
                                                                 <?php echo $color["color"]; ?>
@@ -91,6 +100,7 @@ class ProductsTemplete
                                                     }
                                                     ?>
                                                 </div>
+                                                <input type="hidden" name="color" id="selectedColorId">
                                             </div>
                                             <p class="ps-4 pt-4 text-lg">Rating</p>
 
@@ -99,7 +109,7 @@ class ProductsTemplete
                                                     <?php
                                                     for ($x = 1; $x < 6; $x++) {
                                                     ?>
-                                                        <div data-code="<?php echo $x; ?>" class="rating-option border-[#AD1212] w-[24%] flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
+                                                        <div data-code="<?php echo $x; ?>" class="<?php echo (isset($_GET['rate']) && $_GET['rate'] == $x) ? 'border-[1px]' : '' ?> rating-option border-[#AD1212] w-[24%] flex items-center justify-center hover:cursor-pointer mr-[1%] p-1 mb-1 bg-[#e6e9eb] rounded text-center">
                                                             <i class="bi bi-star-fill text-yellow-500 font-semibold hover:cursor-pointer "></i>
 
                                                             <div class="ms-2">
@@ -110,22 +120,25 @@ class ProductsTemplete
                                                     }
                                                     ?>
                                                 </div>
+                                                <input type="hidden" name="rate" id="selectedRating">
                                             </div>
 
                                             <p class="ps-4 pt-4 text-lg">Sort Products</p>
-                                            <select id="sort" class="w-[90%] ml-[5%]  border h-[40%]  focus:outline-none p-3 mt-3">
-                                                <option value="0">Select Sort Option</option>
-                                                <option value="1">Price Law to High</option>
-                                                <option value="2">Price High to Law</option>
-                                                <option value="3">Quantity Law to High</option>
-                                                <option value="4">Quantity High to Law</option>
+                                            <select name="sort" id="sort" class="w-[90%] ml-[5%]  border h-[40%]  focus:outline-none p-3 mt-3">
+                                                <option value="0" <?php echo (isset($_GET['sort']) && $_GET['sort'] == '0') ? 'selected' : ''; ?>>Select Sort Option</option>
+                                                <option value="1" <?php echo (isset($_GET['sort']) && $_GET['sort'] == '1') ? 'selected' : ''; ?>>Price Law to High</option>
+                                                <option value="2" <?php echo (isset($_GET['sort']) && $_GET['sort'] == '2') ? 'selected' : ''; ?>>Price High to Law</option>
+                                                <option value="3" <?php echo (isset($_GET['sort']) && $_GET['sort'] == '3') ? 'selected' : ''; ?>>Quantity Law to High</option>
+                                                <option value="4" <?php echo (isset($_GET['sort']) && $_GET['sort'] == '4') ? 'selected' : ''; ?>>Quantity High to Law</option>
                                             </select>
                                             <div class="mb-3">
-                                                <button onclick="clearSearch();" class="border  w-[45%] ms-[2%] me-[3%] rounded px-5 py-[12px] mt-4 text-[#AD1212] font-bold" style="border-color:#AD1212 ;">Clear</button>
-                                                <button onclick="filter();" class="bg-[#AD1212] w-[45%]  rounded px-5 py-[12px] mt-4 text-white font-bold">Apply</button>
+                                                <button type="button" onclick="window.location.href='products'" class="border  w-[45%] ms-[2%] me-[3%] rounded px-5 py-[12px] mt-4 text-[#AD1212] font-bold" style="border-color:#AD1212 ;">Clear</button>
+                                                <!-- <a href="?rrtrt"> -->
+                                                <button type="submit" style="background-color: #AD1212;" class=" w-[45%]  rounded px-5 py-[12px] mt-4 text-white font-bold">Apply</button>
+                                                <!-- </a> -->
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
 
                                 </div>
                             </div>
@@ -248,7 +261,7 @@ class ProductsTemplete
                                 <?php
 
 
-                                DisplayProductsTemplete::generate($rows, $query);
+                                DisplayProductsTemplete::generate($query);
                                 ?>
 
                             </div>
@@ -282,16 +295,30 @@ class DisplayProductsTemplete
         return $result->num_rows > 0 ? $result : null;
     }
 
-    public static function generate($rows, $query)
+    public static function initialQuery($query)
+    {
+        // echo $query;
+        $result = Database::search($query);
+        return $result->num_rows > 0 ? $result : null;
+    }
+
+    public static function generate($query)
     {
         if (isset($_GET["page"])) {
             $pageno = $_GET["page"];
         } else {
             $pageno = 1;
         }
+        $r = self::initialQuery($query);
+        $productsCount = 0;
+        if ($r) {
+            $productsCount = $r->num_rows;
+        } else {
+            // echo "products not available";
+        }
 
-        $productsCount = $rows;
-        $resultsPerPage = 1;
+        // echo $productsCount;
+        $resultsPerPage = 8;
         $numberOfPages = ceil($productsCount / $resultsPerPage);
 
         $offset = ($pageno - 1) * $resultsPerPage;
@@ -374,27 +401,27 @@ class DisplayProductsTemplete
                 <nav aria-label="Page navigation example">
                     <ul class="inline-flex -space-x-px text-base h-10">
                         <li>
-                            <a href="<?php if ($pageno <= 1) {
+                            <a href="?<?php if ($pageno <= 1) {
                                             echo "#";
                                         } else {
-                                            echo "?page=" . ($pageno - 1);
+                                            echo http_build_query(array_merge($_GET, ['page' => $pageno - 1]));
                                         } ?>" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
                         </li>
                         <?php
                         // echo $numberOfPages;
                         for ($p = 0; $p < $numberOfPages; $p++) {
-                            # code...
+                            // echo $numberOfPages;
                             if ($pageno == $p + 1) {
                         ?>
                                 <li>
-                                    <a href="<?php echo "?page=" . $p + 1 ?>" aria-current="page" class="flex items-center justify-center px-4 h-10 text-[#AD1212] border border-gray-300 bg-red-50 hover:bg-red-100 hover:text-red-700 dark:border-gray-700 dark:bg-gray-700 dark:text-[#AD1212]"><?php echo $p + 1; ?></a>
+                                    <a href="?<?php echo http_build_query(array_merge($_GET, ['page' => $p + 1])); ?>" aria-current="page" class="flex items-center justify-center px-4 h-10 text-[#AD1212] border border-gray-300 bg-red-50 hover:bg-red-100 hover:text-red-700 dark:border-gray-700 dark:bg-gray-700 dark:text-[#AD1212]"><?php echo $p + 1; ?></a>
                                 </li>
                             <?php
                             } else {
                             ?>
 
                                 <li>
-                                    <a href="<?php echo "?page=" . $p + 1 ?>" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $p + 1; ?></a>
+                                    <a href="?<?php echo http_build_query(array_merge($_GET, ['page' => $p + 1])); ?>" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $p + 1; ?></a>
                                 </li>
                         <?php
                             }
@@ -404,10 +431,10 @@ class DisplayProductsTemplete
                         <li>
                             <?php
                             ?>
-                            <a href="<?php if ($pageno >= $numberOfPages) {
+                            <a href="?<?php if ($pageno >= $numberOfPages) {
                                             echo "#";
                                         } else {
-                                            echo "?page=" . ($pageno + 1);
+                                            echo http_build_query(array_merge($_GET, ['page' => $pageno + 1]));
                                         } ?>" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
                         </li>
                     </ul>
@@ -443,12 +470,18 @@ class BrandModelsTemplete
         <p class="ps-4 pt-4 text-lg">Brand</p>
         <div class="w-[90%] ml-[5%] mt-2">
             <div class="row">
-                <select onchange="loadBrands();" class="h-[40%]  border focus:outline-none p-3 " id="brand">
+                <select name="brand" onchange="loadBrands();" class="h-[40%]  border focus:outline-none p-3 " id="brand">
                     <option value="0">Select Brand</option>
                     <?php
                     foreach (self::$brandsArray as $brand) {
                     ?>
-                        <option value="<?php echo $brand["brand_id"]; ?>"><?php echo $brand["brand_name"]; ?></option>
+                        <option value="<?php echo $brand["brand_id"]; ?>" <?php
+                                                                            if (isset($_GET["brand"])) {
+                                                                                if ($brand["brand_id"] == $_GET["brand"]) {
+                                                                                    echo "selected";
+                                                                                }
+                                                                            }
+                                                                            ?>><?php echo $brand["brand_name"]; ?></option>
                     <?php
                     }
                     ?>
@@ -473,7 +506,7 @@ class BrandModelsTemplete
             <p class="ps-4 pt-4 text-lg">Model</p>
             <div class="w-[90%] ml-[5%] mt-2">
                 <div class="row">
-                    <select class="h-[40%]  border focus:outline-none p-3 " id="model">
+                    <select name="model" class="h-[40%]  border focus:outline-none p-3 " id="model">
                         <option value="0">Select Model</option>
                         <?php
                         $modelsArray = [];
@@ -482,7 +515,13 @@ class BrandModelsTemplete
                         }
                         foreach ($modelsArray as $model) {
                         ?>
-                            <option value="<?php echo $model["model_id"]; ?>"><?php echo $model["model_name"]; ?></option>
+                            <option value="<?php echo $model["model_id"]; ?>" <?php
+                                                                                if (isset($_GET["model"])) {
+                                                                                    if ($model["model_id"] == $_GET["model"]) {
+                                                                                        echo "selected";
+                                                                                    }
+                                                                                }
+                                                                                ?>><?php echo $model["model_name"]; ?></option>
                         <?php
                         }
                         ?>
@@ -495,12 +534,18 @@ class BrandModelsTemplete
             <p class="ps-4 pt-4 text-lg">Model</p>
             <div class="w-[90%] ml-[5%] mt-2">
                 <div class="row">
-                    <select class="h-[40%]  border focus:outline-none p-3 " id="model">
+                    <select name="model" class="h-[40%]  border focus:outline-none p-3 " id="model">
                         <option value="0">Select Model</option>
                         <?php
                         foreach (self::$brandsArray as $model) {
                         ?>
-                            <option value="<?php echo $model["model_id"]; ?>"><?php echo $model["model_name"]; ?></option>
+                            <option value="<?php echo $model["model_id"]; ?>" <?php
+                                                                                if (isset($_GET["model"])) {
+                                                                                    if ($model["model_id"] == $_GET["model"]) {
+                                                                                        echo "selected";
+                                                                                    }
+                                                                                }
+                                                                                ?>><?php echo $model["model_name"]; ?></option>
                         <?php
                         }
                         ?>

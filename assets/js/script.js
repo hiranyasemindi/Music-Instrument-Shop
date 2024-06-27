@@ -810,8 +810,10 @@ function saveInvoice(order_id, amount, productArray) {
     });
 }
 
-var selectedColorId;
-var selectedRating;
+var selectedColorId = 0;
+var selectedRating = 0;
+document.getElementById('selectedColorId').value = selectedColorId;
+document.getElementById('selectedRating').value = selectedRating;
 document.addEventListener("DOMContentLoaded", function () {
   const colorOptions = document.querySelectorAll(".color-option");
   const ratingOptions = document.querySelectorAll(".rating-option");
@@ -824,6 +826,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       option.classList.add("border-[1px]");
       selectedColorId = option.getAttribute("data-code");
+      document.getElementById('selectedColorId').value = selectedColorId;
     });
   });
   ratingOptions.forEach(function (option) {
@@ -833,6 +836,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       option.classList.add("border-[1px]");
       selectedRating = option.getAttribute("data-code");
+      document.getElementById('selectedRating').value = selectedRating;
     });
   });
   paymentOptions.forEach(function (option) {
@@ -846,56 +850,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function filter() {
-  var category = $("#category").val();
-  var brand = $("#brand").val();
-  var model = $("#model").val();
-  var min = $("#minPrice").val();
-  var max = $("#maxPrice").val();
-  var sort = $("#sort").val();
-  console.log(
-    JSON.stringify({
-      category: category,
-      brand: brand,
-      model: model,
-      min: parseInt(min),
-      max: parseInt(max),
-      color: selectedColorId,
-      rating: selectedRating,
-      sort: sort,
-    })
-  );
-  fetch("api/filterProcess.php", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      category: category,
-      brand: brand,
-      model: model,
-      min: parseInt(min),
-      max: parseInt(max),
-      color: selectedColorId ? selectedColorId : null,
-      rating: selectedRating ? selectedRating : null,
-      sort: sort,
-    }),
-  })
-    .then((response) => response.text())
-    .then((data) => {
-      console.log(data);
-      if (data.trim() === "error") {
-        window.location = "404";
-      } else {
-        $("#products-area").html(data);
-      }
-    })
-    .catch((error) => {
-      console.log("Error: " + error);
-    });
-}
-
-function clearSearch() {
-  window.location = "products";
-}
 
 function loadProductsByCategories(id) {
   fetch("api/productsByCategory.php?id=" + id, {
