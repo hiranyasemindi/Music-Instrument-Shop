@@ -22,7 +22,7 @@ class FilterProcess
             $query = "SELECT * FROM `product` WHERE `title` LIKE '%" . $_GET["text"] . "%'";
             $filteredProducts = $this->searchProducts($query);
             if ($filteredProducts) {
-                DisplayProductsTemplete::generate($filteredProducts->num_rows, $query);
+                DisplayProductsTemplete::generate($query);
             } else {
                 EmptyDesign::generate("Products not Available");
             }

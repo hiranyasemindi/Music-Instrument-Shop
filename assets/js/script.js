@@ -1995,7 +1995,6 @@ function addReservation() {
   var pickup = $("#pickup").val();
   var product = $("#product").val();
   var date = $("#date").val();
-  alert(pickup)
   if (product == 0) {
     alert("Please select a product.")
   } else if (pickup == "") {
