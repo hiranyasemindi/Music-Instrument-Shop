@@ -65,11 +65,8 @@ class Process
         $invoiceProductArray = array();
         $ItemId = 0;
         foreach ($productArray as $product) {
-            // echo "id ".$product["id"];
             $productData = $this->getProductById($product["id"]);
             if ($productData) {
-                // echo $product["id"];
-                // echo $productData["qty"];
                 $currentQty = $productData["qty"];
                 $newQty = (int)$currentQty - (int)$product["quantity"];
                 $this->updateQty($newQty, $product["id"]);

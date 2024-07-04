@@ -150,8 +150,8 @@ function logIn() {
       body: JSON.stringify({
         email: email,
         password: password,
-        rememberMe: rememberMe == true ? "true" : "false",
-      }),
+        rememberMe: rememberMe == true ? "true" : "false"
+      })
     })
       .then((response) => response.text())
       .then((data) => {
@@ -1106,6 +1106,7 @@ window.onload = function () {
   if (activeMenuItemId) {
     var activeMenuItem = document.getElementById(activeMenuItemId);
     if (activeMenuItem) {
+      console.log(activeMenuItem)
       activeMenuItem.classList.add("bg-[#AD1212]");
     }
   }

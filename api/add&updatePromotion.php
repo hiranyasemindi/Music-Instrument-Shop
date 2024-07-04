@@ -23,16 +23,11 @@ class Process
     private function handlePOSTRequest()
     {
         if (isset($_POST["description"]) && isset($_POST["function"])) {
-            // if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
-                if ($_POST["function"] == "add") {
-                    $this->addPromotion();
-                } else if ($_POST["function"] == "update") {
-                    $this->updatePromotion();
-                }
-            // } else {
-            //     $this->responseObj->error = "No file Uploaded or file Upload Error.";
-            //     $this->sendResponse(400);
-            // }
+            if ($_POST["function"] == "add") {
+                $this->addPromotion();
+            } else if ($_POST["function"] == "update") {
+                $this->updatePromotion();
+            }
         } else {
             $this->responseObj->error = "Requested parameters are empty.";
             $this->sendResponse(400);

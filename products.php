@@ -173,7 +173,6 @@ class ProductProcess
                             $query .= "";
                     }
                     include "App/views/productsTemplete.php";
-                    // echo $query;
                     ProductsTemplete::generate($query, $categories, $brands, $models, $colors);
                 }
             }
