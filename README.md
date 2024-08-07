@@ -38,4 +38,4 @@ Welcome to the Sonority E-commerce Web Application repository! This project is a
 ![Home Page](https://i.imghippo.com/files/6wB8I1723037063.jpg)
 
 ### Checkout Page
-![Checkout Page](https://i.imghippo.com/files/Rl4Ci1723036786.png)
+![Checkout Page](https://i.imghippo.com/files/j0LuN1723037345.png)
