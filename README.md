@@ -1,3 +1,5 @@
+# Sonority E-commerce Web Application
+
 Welcome to the Sonority E-commerce Web Application repository! This project is an online platform for a music instrument shop, Sonority, providing a seamless shopping experience for customers and an efficient management system for administrators.
 
 ## Table of Contents
@@ -30,3 +32,10 @@ Welcome to the Sonority E-commerce Web Application repository! This project is a
 - **Promotions:** Add and manage promotional content.
 - **Categories, Brands, Models, Colors:** Add and update categories and attributes for products.
 
+## Project Images
+
+### Home Page
+![Home Page](https://i.imghippo.com/files/6wB8I1723037063.jpg)
+
+### Checkout Page
+![Checkout Page](https://i.imghippo.com/files/Rl4Ci1723036786.png)
