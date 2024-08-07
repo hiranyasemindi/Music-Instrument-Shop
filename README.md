@@ -2,10 +2,6 @@
 
 Welcome to the Sonority E-commerce Web Application repository! This project is an online platform for a music instrument shop, Sonority, providing a seamless shopping experience for customers and an efficient management system for administrators.
 
-## Table of Contents
-- [Technologies Used](#technologies-used)
-- [Features](#features)
-
 ## Technologies Used
 - **Frontend:** HTML, CSS, JavaScript, Tailwind CSS, jQuery
 - **Backend:** PHP (Object-Oriented)
