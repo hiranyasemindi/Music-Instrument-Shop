@@ -14,12 +14,12 @@ class Email
         $mail->IsSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'hiranyagunawardhane@gmail.com';
-        $mail->Password = 'dchmdrjebuiykvqh';
+        $mail->Username = '**@gmail.com';
+        $mail->Password = '';
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
-        $mail->setFrom('hiranyagunawardhane@gmail.com', 'Reset Password');
-        $mail->addReplyTo('hiranyagunawardhane@gmail.com', 'Reset Password');
+        $mail->setFrom('**@gmail.com', 'Reset Password');
+        $mail->addReplyTo('**@gmail.com', 'Reset Password');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->Subject = 'Sonority Forgot Password Verification Code';
